@@ -1,10 +1,16 @@
 import React from "react";
+import Nav from "./components/Nav";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/home/Home";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">this is teh</h1>
-    </div>
+    <>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
   );
 }
 
