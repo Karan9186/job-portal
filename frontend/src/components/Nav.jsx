@@ -7,6 +7,7 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IoNotificationsOutline } from "react-icons/io5";
 const user = {
@@ -38,7 +39,7 @@ export default function Nav() {
       <div className="min-h-full">
         <Disclosure
           as="nav"
-          className="bg-slate-100 shadow-xl border border-rounded fixed w-[100%] z-50"
+          className="bg-white shadow-xl border border-rounded fixed w-[100%] z-50"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
@@ -72,7 +73,7 @@ export default function Nav() {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
                     type="button"
-                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative rounded-full p-1 bg-slate-200"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
@@ -112,10 +113,10 @@ export default function Nav() {
               </div>
               <div className="-mr-2 flex md:hidden">
                 {/* Mobile menu button */}
-                <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 bg-slate-200">
                   <span className="absolute -inset-0.5" />
+                  <HiMenuAlt3 size={"24px"} />
                   <span className="sr-only">Open main menu</span>
-                  
                 </DisclosureButton>
               </div>
             </div>
@@ -131,7 +132,7 @@ export default function Nav() {
                   aria-current={item.current ? "page" : undefined}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
+                      ? ""
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
@@ -159,11 +160,11 @@ export default function Nav() {
                 </div>
                 <button
                   type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative ml-auto flex-shrink-0 rounded-full p-1 bg-slate-200"
                 >
                   <span className="absolute -inset-1.5" />
+                  <IoNotificationsOutline size={"22px"} />
                   <span className="sr-only">View notifications</span>
-                 
                 </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
