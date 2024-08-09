@@ -9,15 +9,8 @@ import img7 from "/h7.jpg";
 function HeroSec() {
   return (
     <>
-      <div
-        className="relative overflow-hidden"
-        // style={{
-        //   background: "rgb(255, 106, 106)",
-        //   background:
-        //     "linear-gradient(90deg, rgba(255, 106, 106, 0.05654761904761907) 7%, rgba(255, 165, 168, 0.10136554621848737) 44%, rgba(255, 151, 152, 0.0761554621848739) 60%, rgba(255, 140, 140, 0.12657563025210083) 72%, rgba(142, 177, 235, 0.10696778711484589) 100%)",
-        // }}
-      >
-        <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
+      <div className="relative overflow-hidden ">
+        <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40 mt-6">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <span className="inline-flex items-center rounded-md bg-pink-100 px-0 py-[2px] text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10 mb-2">
