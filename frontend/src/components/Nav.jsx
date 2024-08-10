@@ -7,6 +7,7 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -17,16 +18,14 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
+  { name: "Home", link: "/", current: true },
+  { name: "Jobs", link: "/jobs", current: false },
+  { name: "Contact", link: "/contact", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Profile", link: "profile" },
+  { name: "Settings", link: "setting" },
+  { name: "Sign out", link: "#" },
 ];
 
 function classNames(...classes) {
@@ -34,6 +33,7 @@ function classNames(...classes) {
 }
 
 export default function Nav() {
+  const naviagate = useNavigate();
   return (
     <>
       <div className="min-h-full">
@@ -52,19 +52,13 @@ export default function Nav() {
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <button
                         key={item.name}
-                        href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                        className={classNames(
-                          item.current
-                            ? "hover:bg-gray-700 hover:text-white text-black "
-                            : " hover:bg-gray-700 hover:text-white text-black",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
+                        onClick={() => naviagate(`${item.link}`)}
+                        className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white text-black"
                       >
                         {item.name}
-                      </a>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -99,12 +93,12 @@ export default function Nav() {
                     >
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
-                          <a
-                            href={item.href}
+                          <button
                             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                            onClick={() => naviagate(`${item.link}`)}
                           >
                             {item.name}
-                          </a>
+                          </button>
                         </MenuItem>
                       ))}
                     </MenuItems>
