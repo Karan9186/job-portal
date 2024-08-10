@@ -55,7 +55,7 @@ export default function Nav() {
                       <button
                         key={item.name}
                         onClick={() => naviagate(`${item.link}`)}
-                        className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white text-black"
+                        className="rounded-md px-3 py-2 text-sm font-medium  text-black hover:text-red-600"
                       >
                         {item.name}
                       </button>
