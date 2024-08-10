@@ -20,13 +20,15 @@ function Error() {
             >
               Go back home
             </button>
-            <button className="text-sm font-semibold text-gray-900" onClick={()=>navigate("/contact")}>
+            <button
+              className="text-sm font-semibold text-gray-900"
+              onClick={() => navigate("/contact")}
+            >
               Contact support <span aria-hidden="true">&rarr;</span>
             </button>
           </div>
         </div>
       </main>
-      <h1>done</h1>
     </>
   );
 }
