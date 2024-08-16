@@ -1,55 +1,128 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { MdOutlineMail } from "react-icons/md";
+import { RxCross1 } from "react-icons/rx";
+import { MdOutlineLocalPhone } from "react-icons/md";
 function Profile() {
+  const [showContact, setShowContact] = useState(false);
+  const model = (
+    <>
+      <div
+        className="relative z-10"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
+          aria-hidden="true"
+        ></div>
+
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <button
+                type="button"
+                className="rounded bg-white px-3 py-2 text-sm font-bold text-gray-900 hover:bg-red-600 absolute hover:text-white"
+                onClick={() => setShowContact(false)}
+              >
+                <RxCross1 />
+              </button>
+              <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                    <h3
+                      className="text-base font-semibold leading-6 text-gray-900"
+                      id="modal-title"
+                    >
+                      Contact Information
+                    </h3>
+                    <div className="mt-4 flex flex-col gap-4">
+                      <div className="">
+                        <div className="font-semibold flex items-center gap-2">
+                          <MdOutlineMail size={"26px"} />
+                          <p>Email</p>
+                        </div>
+                        <p className="mx-9 text-[17px]">karan@gmail.com</p>
+                      </div>
+                      <div className="">
+                        <div className="font-semibold flex items-center gap-2">
+                          <MdOutlineLocalPhone size={"26px"} />
+                          <p>Phone</p>
+                        </div>
+                        <p className="mx-9 text-[17px]">1234567890</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
   return (
     <>
       <br /> <br /> <br />
-      <div class="">
-        <div class="container mx-auto py-8">
-          <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-            <div class="col-span-4 sm:col-span-3">
-              <div class="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
-                <div class="flex flex-col items-center">
+      <div className="">
+        <div className="container mx-auto py-8">
+          <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+            <div className="col-span-4 sm:col-span-3">
+              <div className="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
+                <div className="flex flex-col items-center">
                   <img
                     src="https://randomuser.me/api/portraits/men/94.jpg"
-                    class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
+                    className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                   ></img>
-                  <h1 class="text-xl font-semibold">karan parmar</h1>
-                  <p class="text-gray-700">Software Developer</p>
-                  <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                    <a
-                      href="#"
-                      class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                  <h1 className="text-xl font-semibold">karan parmar</h1>
+                  <p className="text-slate-900">Software Developer</p>
+                  <div className="flex gap-2 flex-wrap">
+                    <p className="text-gray-600">Dwarka, Gujarat, India</p>
+                    <button
+                      className="text-blue-900 font-semibold underline"
+                      onClick={() => setShowContact(true)}
                     >
+                      Contact info
+                    </button>
+                  </div>
+                  <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
                       edit
-                    </a>
-                    <a
-                      href="#"
-                      class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-                    >
+                    </button>
+                    <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">
                       Resume
-                    </a>
+                    </button>
                   </div>
                 </div>
-                <hr class="my-6 border-t border-gray-300" />
-                <div class="flex flex-col">
-                  <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">
+                <hr className="my-6 border-t border-gray-300" />
+                <div className="flex flex-col">
+                  <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">
                     Skills
                   </span>
-                  <ul>
-                    <li class="mb-2">JavaScript</li>
-                    <li class="mb-2">React</li>
-                    <li class="mb-2">Node.js</li>
-                    <li class="mb-2">HTML/CSS</li>
-                    <li class="mb-2">Tailwind Css</li>
+                  <ul className="flex items-center flex-wrap gap-1">
+                    <li className="bg-red-100 text-blue-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-slate-400">
+                      JavaScript
+                    </li>
+                    <li className="bg-red-100 text-blue-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-slate-400">
+                      React
+                    </li>
+                    <li className="bg-red-100 text-blue-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-slate-400">
+                      Node.js
+                    </li>
+                    <li className="bg-red-100 text-blue-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-slate-400">
+                      HTML/CSS
+                    </li>
+                    <li className="bg-red-100 text-blue-900 text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-slate-400">
+                      Tailwind Css
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="bg-white rounded-xl col-span-4 sm:col-span-9">
-              <div class="shadow rounded-lg p-6">
-                <h2 class="text-xl font-bold mb-4">About Me</h2>
-                <p class="text-gray-700">
+            <div className="bg-white rounded-xl col-span-4 sm:col-span-9">
+              <div className="shadow rounded-lg p-6">
+                <h2 className="text-xl font-bold mb-4">About Me</h2>
+                <p className="text-gray-700">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                   finibus est vitae tortor ullamcorper, ut vestibulum velit
                   convallis. Aenean posuere risus non velit egestas suscipit.
@@ -59,10 +132,12 @@ function Profile() {
                   luctus risus rhoncus id.
                 </p>
 
-                <h3 class="font-semibold text-center mt-3 -mb-2">Find me on</h3>
-                <div class="flex justify-center items-center gap-6 my-6">
+                <h3 className="font-semibold text-center mt-3 -mb-2">
+                  Find me on
+                </h3>
+                <div className="flex justify-center items-center gap-6 my-6">
                   <a
-                    class="text-gray-700 hover:text-orange-600"
+                    className="text-gray-700 hover:text-orange-600"
                     aria-label="Visit TrendyMinds LinkedIn"
                     href=""
                     target="_blank"
@@ -70,7 +145,7 @@ function Profile() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"
-                      class="h-6"
+                      className="h-6"
                     >
                       <path
                         fill="currentColor"
@@ -79,7 +154,7 @@ function Profile() {
                     </svg>
                   </a>
                   <a
-                    class="text-gray-700 hover:text-orange-600"
+                    className="text-gray-700 hover:text-orange-600"
                     aria-label="Visit TrendyMinds YouTube"
                     href=""
                     target="_blank"
@@ -87,7 +162,7 @@ function Profile() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
-                      class="h-6"
+                      className="h-6"
                     >
                       <path
                         fill="currentColor"
@@ -96,7 +171,7 @@ function Profile() {
                     </svg>
                   </a>
                   <a
-                    class="text-gray-700 hover:text-orange-600"
+                    className="text-gray-700 hover:text-orange-600"
                     aria-label="Visit TrendyMinds Facebook"
                     href=""
                     target="_blank"
@@ -104,7 +179,7 @@ function Profile() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 320 512"
-                      class="h-6"
+                      className="h-6"
                     >
                       <path
                         fill="currentColor"
@@ -113,7 +188,7 @@ function Profile() {
                     </svg>
                   </a>
                   <a
-                    class="text-gray-700 hover:text-orange-600"
+                    className="text-gray-700 hover:text-orange-600"
                     aria-label="Visit TrendyMinds Instagram"
                     href=""
                     target="_blank"
@@ -121,7 +196,7 @@ function Profile() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"
-                      class="h-6"
+                      className="h-6"
                     >
                       <path
                         fill="currentColor"
@@ -130,13 +205,13 @@ function Profile() {
                     </svg>
                   </a>
                   <a
-                    class="text-gray-700 hover:text-orange-600"
+                    className="text-gray-700 hover:text-orange-600"
                     aria-label="Visit TrendyMinds Twitter"
                     href=""
                     target="_blank"
                   >
                     <svg
-                      class="h-6"
+                      className="h-6"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
                     >
@@ -148,44 +223,50 @@ function Profile() {
                   </a>
                 </div>
 
-                <h2 class="text-xl font-bold mt-6 mb-4">Experience</h2>
-                <div class="mb-6">
-                  <div class="flex justify-between flex-wrap gap-2 w-full">
-                    <span class="text-gray-700 font-bold">Web Developer</span>
+                <h2 className="text-xl font-bold mt-6 mb-4">Experience</h2>
+                <div className="mb-6">
+                  <div className="flex justify-between flex-wrap gap-2 w-full">
+                    <span className="text-gray-700 font-bold">
+                      Web Developer
+                    </span>
                     <p>
-                      <span class="text-gray-700 mr-2">at ABC Company</span>
-                      <span class="text-gray-700">2017 - 2019</span>
+                      <span className="text-gray-700 mr-2">at ABC Company</span>
+                      <span className="text-gray-700">2017 - 2019</span>
                     </p>
                   </div>
-                  <p class="mt-2">
+                  <p className="mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     finibus est vitae tortor ullamcorper, ut vestibulum velit
                     convallis. Aenean posuere risus non velit egestas suscipit.
                   </p>
                 </div>
-                <div class="mb-6">
-                  <div class="flex justify-between flex-wrap gap-2 w-full">
-                    <span class="text-gray-700 font-bold">Web Developer</span>
+                <div className="mb-6">
+                  <div className="flex justify-between flex-wrap gap-2 w-full">
+                    <span className="text-gray-700 font-bold">
+                      Web Developer
+                    </span>
                     <p>
-                      <span class="text-gray-700 mr-2">at ABC Company</span>
-                      <span class="text-gray-700">2017 - 2019</span>
+                      <span className="text-gray-700 mr-2">at ABC Company</span>
+                      <span className="text-gray-700">2017 - 2019</span>
                     </p>
                   </div>
-                  <p class="mt-2">
+                  <p className="mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     finibus est vitae tortor ullamcorper, ut vestibulum velit
                     convallis. Aenean posuere risus non velit egestas suscipit.
                   </p>
                 </div>
-                <div class="mb-6">
-                  <div class="flex justify-between flex-wrap gap-2 w-full">
-                    <span class="text-gray-700 font-bold">Web Developer</span>
+                <div className="mb-6">
+                  <div className="flex justify-between flex-wrap gap-2 w-full">
+                    <span className="text-gray-700 font-bold">
+                      Web Developer
+                    </span>
                     <p>
-                      <span class="text-gray-700 mr-2">at ABC Company</span>
-                      <span class="text-gray-700">2017 - 2019</span>
+                      <span className="text-gray-700 mr-2">at ABC Company</span>
+                      <span className="text-gray-700">2017 - 2019</span>
                     </p>
                   </div>
-                  <p class="mt-2">
+                  <p className="mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     finibus est vitae tortor ullamcorper, ut vestibulum velit
                     convallis. Aenean posuere risus non velit egestas suscipit.
@@ -196,6 +277,8 @@ function Profile() {
           </div>
         </div>
       </div>
+      {/* model */}
+      {showContact ? model : ""}
     </>
   );
 }

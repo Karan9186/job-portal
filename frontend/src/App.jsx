@@ -6,6 +6,7 @@ import Jobs from "./components/jobs/Jobs";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
 import Profile from "./components/profile/Profile";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/*" element={<Error />} />
       </Routes>
+      <br />
+      <Footer />
     </>
   );
 }
