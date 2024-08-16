@@ -5,8 +5,7 @@ import Home from "./components/home/Home";
 import Jobs from "./components/jobs/Jobs";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
-import Profile from "./components/Profile";
-import Setting from "./components/Setting";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/setting" element={<Setting />} />
         <Route path="/*" element={<Error />} />
       </Routes>
     </>
