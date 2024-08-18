@@ -120,7 +120,7 @@ export default function Nav() {
                       </button>
                       <button
                         className="px-4 py-1 bg-red-500 font-semibold text-white hover:bg-red-700 rounded"
-                        onClick={() => naviagate("/signup")}
+                        onClick={() => naviagate("/register")}
                       >
                         SignUp
                       </button>
