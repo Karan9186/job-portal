@@ -7,10 +7,6 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import Profile from "./components/profile/Profile";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
-import Recruitersignup from "./components/Recruitersignup";
-import Recruiterlogin from "./components/Recruiterlogin";
 
 function App() {
   return (
@@ -21,10 +17,6 @@ function App() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/recruitersignup" element={<Recruitersignup />} />
-        <Route path="/recruiterlogin" element={<Recruiterlogin />} />
         <Route path="/*" element={<Error />} />
       </Routes>
       <br />
