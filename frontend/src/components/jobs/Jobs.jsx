@@ -1,12 +1,11 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIndianRupeeSign,faBriefcase,faLocationDot ,faChevronDown} from '@fortawesome/free-solid-svg-icons';
-
 // Example icon
+
+import JobsLeftRight from "../JobsLeftRight";
 
 function Jobs() {
   return (
     <>
+<<<<<<< HEAD
       <div className="">
         <div className="flex justify-center items-center ">
           <div className="flex gap-10 mt-32 ml-0">
@@ -158,6 +157,9 @@ function Jobs() {
      </div>
   </div>      
 </div>
+=======
+      <JobsLeftRight />
+>>>>>>> 938e1a80ba548abe656723eca77f3729a7e24fd2
     </>
   );
 }

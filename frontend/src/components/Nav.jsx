@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { useState } from "react";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -22,9 +23,9 @@ const navigation = [
   { name: "Jobs", link: "/jobs", current: false },
   { name: "Contact", link: "/contact", current: false },
 ];
+
 const userNavigation = [
   { name: "Your Profile", link: "profile" },
-  { name: "Settings", link: "setting" },
   { name: "Sign out", link: "#" },
 ];
 
@@ -33,6 +34,7 @@ function classNames(...classes) {
 }
 
 export default function Nav() {
+  const [login, setLogin] = useState(false);
   const naviagate = useNavigate();
   return (
     <>
@@ -64,46 +66,67 @@ export default function Nav() {
                 </div>
               </div>
               <div className="hidden md:block">
-                <div className="ml-4 flex items-center md:ml-6">
-                  <button
-                    type="button"
-                    className="relative rounded-full p-1 bg-slate-200"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">View notifications</span>
-                    <IoNotificationsOutline size={"24px"} />
-                  </button>
-
-                  {/* Profile dropdown */}
-                  <Menu as="div" className="relative ml-3">
-                    <div>
-                      <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                {login ? (
+                  <>
+                    <div className="ml-4 flex items-center md:ml-6">
+                      <button
+                        type="button"
+                        className="relative rounded-full p-1 bg-slate-200"
+                      >
                         <span className="absolute -inset-1.5" />
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          alt=""
-                          src={user.imageUrl}
-                          className="h-8 w-8 rounded-full"
-                        />
-                      </MenuButton>
+                        <span className="sr-only">View notifications</span>
+                        <IoNotificationsOutline size={"24px"} />
+                      </button>
+
+                      {/* Profile dropdown */}
+                      <Menu as="div" className="relative ml-3">
+                        <div>
+                          <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                              alt=""
+                              src={user.imageUrl}
+                              className="h-8 w-8 rounded-full"
+                            />
+                          </MenuButton>
+                        </div>
+                        <MenuItems
+                          transition
+                          className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                        >
+                          {userNavigation.map((item) => (
+                            <MenuItem key={item.name}>
+                              <button
+                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                                onClick={() => naviagate(`${item.link}`)}
+                              >
+                                {item.name}
+                              </button>
+                            </MenuItem>
+                          ))}
+                        </MenuItems>
+                      </Menu>
                     </div>
-                    <MenuItems
-                      transition
-                      className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                    >
-                      {userNavigation.map((item) => (
-                        <MenuItem key={item.name}>
-                          <button
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                            onClick={() => naviagate(`${item.link}`)}
-                          >
-                            {item.name}
-                          </button>
-                        </MenuItem>
-                      ))}
-                    </MenuItems>
-                  </Menu>
-                </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-5">
+                      <button
+                        className="px-4 py-1 font-semibold bg-red-100 border border-red-500 rounded hover:bg-red-200"
+                        onClick={() => naviagate("/login")}
+                      >
+                        Login
+                      </button>
+                      <button
+                        className="px-4 py-1 bg-red-500 font-semibold text-white hover:bg-red-700 rounded"
+                        onClick={() => naviagate("/register")}
+                      >
+                        SignUp
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
               <div className="-mr-2 flex md:hidden">
                 {/* Mobile menu button */}
