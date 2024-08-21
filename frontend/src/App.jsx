@@ -7,6 +7,7 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
 import Setting from "./components/Setting";
+import Footer from "./components/jobs/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/*" element={<Error />} />
       </Routes>
+      <Footer/>
     </>
   );
 }

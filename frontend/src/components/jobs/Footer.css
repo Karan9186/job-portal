@@ -1,0 +1,25 @@
+.slider-imgs img {
+    mix-blend-mode: multiply;
+  }
+  /* Footer.css */
+.slider-imgs {
+    display: flex;
+    overflow: hidden;
+    width: 100%; /* or set a specific width */
+  }
+  
+  .slider-imgs img {
+    flex-shrink: 0;
+    width: 20%; /* or set width relative to the number of images */
+    animation: scroll 5s linear infinite;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-100%);
+    }
+  }
+  

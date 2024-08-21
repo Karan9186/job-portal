@@ -150,11 +150,7 @@ function Jobs() {
         <p className="text-[12px] text-gray-500">5 Days Ago</p>
         <button className="text-indigo-500 text-sm font-medium">Save</button>
     </div>
-             </div>
-
-            
-              
-                   
+             </div>        
               </div>
             
 
