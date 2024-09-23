@@ -1,5 +1,6 @@
 import React from "react";
 import RecLogin from "./RecLogin";
+import RecRegi from "./RecRegi";
 
 function Recruiter() {
   return (
@@ -7,7 +8,6 @@ function Recruiter() {
       <br />
       <br />
       <br />
-
       <RecLogin />
     </div>
   );

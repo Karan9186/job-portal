@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useEffect } from "react";
+import store from "../store/store";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -23,10 +25,12 @@ const navigation = [
   { name: "Jobs", link: "/jobs", current: false },
   { name: "Contact", link: "/contact", current: false },
 ];
-
+const logOut = () => {
+  setLogin(!login);
+};
 const userNavigation = [
   { name: "Your Profile", link: "profile" },
-  { name: "Sign out", link: "#" },
+  { name: "Sign out", link: "logOut" },
 ];
 
 function classNames(...classes) {
@@ -35,6 +39,17 @@ function classNames(...classes) {
 
 export default function Nav() {
   const [login, setLogin] = useState(false);
+  const userInfo = useContext(store);
+  console.log("the useinfo " + userInfo[0]);
+  useEffect(() => {
+    console.log("inside");
+
+    if (userInfo[0] == "true") {
+      setLogin(!login);
+      console.log("the login state" + login);
+    }
+  }, [userInfo[0]]);
+
   const naviagate = useNavigate();
   return (
     <>
@@ -99,7 +114,13 @@ export default function Nav() {
                             <MenuItem key={item.name}>
                               <button
                                 className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                                onClick={() => naviagate(`${item.link}`)}
+                                onClick={() => {
+                                  if (item.name == "Sign out") {
+                                    setLogin(!login);
+                                  } else {
+                                    naviagate(`${item.link}`);
+                                  }
+                                }}
                               >
                                 {item.name}
                               </button>

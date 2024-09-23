@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CiSaveDown2 } from "react-icons/ci";
 import {
   faIndianRupeeSign,
   faBriefcase,
@@ -43,16 +44,21 @@ function JobsLeftRight() {
           </h4>
         </div>
 
-        <div className="mt-3">
-          <p className="text-sm text-gray-500 font-semibold">
-            Skills: java, Microservices, AWS DevOps, OOPS, Data Structures,
-            Fresher, Developer, Spring Boot
-          </p>
-        </div>
-
         <div className="mt-4 flex justify-between items-center">
           <p className="text-[12px] text-gray-500">5 Days Ago</p>
-          <button className="text-indigo-500 text-sm font-medium">Save</button>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-4 items-center">
+            <button className="bg-red-500 text-white font-semibold hover:bg-red-600 mt-3 py-2 px-4 rounded">
+              Apply Now
+            </button>
+            <button className="bg-slate-200 text-black font-semibold hover:bg-slate-300 mt-3 py-2 px-4 rounded">
+              See Details
+            </button>
+          </div>
+          <button className="text-indigo-500 text-sm font-medium">
+            <CiSaveDown2 size={30} />
+          </button>
         </div>
       </div>
     </>
