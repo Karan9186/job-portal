@@ -1,74 +1,106 @@
 // Example icon
 
+import { useState } from "react";
 import JobsLeftRight from "../JobsLeftRight";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faChevronDown,faBriefcase,faIndianRupeeSign,faLocationDot, faChevronUp} from "@fortawesome/free-solid-svg-icons"
 
 function Jobs() {
+
+  const [showtoggle, settoggle] = useState(false);
+  const [upset, setdown] = useState(false);
+  const handletoggle = () => {
+    settoggle(!showtoggle);
+    setdown(!upset);
+  }
+ 
   return (
     <>
-<<<<<<< HEAD
       <div className="">
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center mb-6">
           <div className="flex gap-10 mt-32 ml-0">
-
             {/* ----------left side box all category----------- */}
             <div className="h-auto w-[300px] bg-[#ffffff] flex flex-col rounded-xl  border-2 border-gray-200 ">
               <div className=" gap-x-[20px] p-5 ">
               <div className="border-b-2 border-gray-400 ">
                  <p className="mt-3 text-[20px] font-semibold mb-6">All Filter</p>
-              </div>
-              <div className="border-b-2 border-gray-400 flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">Work mode</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5"/>
-              </div>
+                </div>
+
+              <div className="flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6" >Work mode</p>  
+                  {upset?<FontAwesomeIcon icon={faChevronUp}
+                    className="mt-5   cursor-pointer"
+                    onClick={handletoggle} /> :
+                    <FontAwesomeIcon icon={faChevronDown}
+                    className="mt-5   cursor-pointer"
+                    onClick={handletoggle} />
+                    } 
+                </div>
+
+                <div className="mt-[-20px]">
+                {showtoggle &&
+                  <div>
+                    <ul className='text-[18px] flex flex-col gap-1'>
+                      <li className="flex gap-3 text-[17px] text-gray-700"><input type="checkbox"/>Work from office
+                        (12307)</li>
+                        <li  className="flex gap-3 text-[17px] text-gray-700"><input type="checkbox"/>Hybrid
+                        (831)</li>
+                        <li  className="flex gap-3 text-[17px] text-gray-700"><input type="checkbox"/>Remote
+                        (377)</li>
+                    </ul>
+                    </div>}
+                    </div>
+                <div className="w-full h-[1.5px] bg-slate-500 rounded-lg mt-5"></div>
+
                 <div className="border-b-2 border-gray-400  flex justify-between">
                     <p className="mt-3 text-[20px] font-semibold mb-6">Experience</p>
-                     <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
+                 
               </div>
               <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Department</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Salary</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Company type</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Role category</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Stipend</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Duration</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Education</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Posted by</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Industry</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
                 <div className="border-b-2 border-gray-400  flex justify-between">
                  <p className="mt-3 text-[20px] font-semibold mb-6">Top companies</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
+                  <FontAwesomeIcon icon={faChevronDown} className="mt-5  cursor-pointer" />
                 </div>
 
                 </div>
             </div>
 
-            
             
              {/* ----------right side box----------- */}    
             <div className="h-auto w-auto flex flex-col">
@@ -157,9 +189,9 @@ function Jobs() {
      </div>
   </div>      
 </div>
-=======
-      <JobsLeftRight />
->>>>>>> 938e1a80ba548abe656723eca77f3729a7e24fd2
+
+     
+
     </>
   );
 }

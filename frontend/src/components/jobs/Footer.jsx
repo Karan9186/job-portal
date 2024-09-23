@@ -40,7 +40,8 @@ const Footer = () => {
       {/* Twitter */}
       <div className="bg-blue-400 rounded-full p-2 text-white hover:bg-blue-500 transition duration-300">
         <FontAwesomeIcon icon={faTwitter} size="lg" />
-      </div>
+         </div>
+           
     </div>
                       
                   </div>
