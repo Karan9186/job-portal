@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 // Example icon
 
 import { useState } from "react";
 import JobsLeftRight from "../JobsLeftRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faChevronDown,faBriefcase,faIndianRupeeSign,faLocationDot, faChevronUp} from "@fortawesome/free-solid-svg-icons"
+=======
+import JobsLeftRight from "../JobsLeftRight.jsx";
+>>>>>>> 5aa9e34f455de7d65e14148a2e66512c8b26c37c
 
 function Jobs() {
 
@@ -16,6 +20,7 @@ function Jobs() {
  
   return (
     <>
+<<<<<<< HEAD
       <div className="">
         <div className="flex justify-center items-center mb-6">
           <div className="flex gap-10 mt-32 ml-0">
@@ -192,6 +197,9 @@ function Jobs() {
 
      
 
+=======
+      <JobsLeftRight />
+>>>>>>> 5aa9e34f455de7d65e14148a2e66512c8b26c37c
     </>
   );
 }
