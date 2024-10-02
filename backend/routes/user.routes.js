@@ -12,5 +12,4 @@ router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/logout").get(logOUt);
 router.route("/profile/update").post(iAuthentication, updateProfile);
-
 export default router;
