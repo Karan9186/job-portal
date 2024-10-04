@@ -25,14 +25,19 @@ function RecLogin() {
         body: JSON.stringify(user),
       });
       const data = await response.json();
-      console.log(user);
       console.log(data);
       if (data.success == false) {
         alert("faied to login");
       } else {
         userInfo[0] = "true";
-        navigate("/");
+        navigate("/recruiter/home");
       }
+      // console.log(user);
+      // if (user.email == "karan@gmail.com" && user.password == "123") {
+      //   navigate("/recruiter/home");
+      // } else {
+      //   alert("not login");
+      // }
     } catch (e) {
       console.log(e);
     }

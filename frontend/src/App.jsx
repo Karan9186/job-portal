@@ -5,6 +5,7 @@ import Home from "./components/home/Home";
 import Jobs from "./components/jobs/Jobs";
 import Error from "./components/Error";
 import Contact from "./components/Contact";
+import HomeReq from "./components/admin/home/Home";
 // <<<<<<< HEAD
 // =======
 
@@ -16,6 +17,7 @@ import Recruiter from "./components/register/Recruiter";
 import Jobseeker from "./components/register/Jobseeker";
 import RecRegi from "./components/register/RecRegi";
 import store from "./store/store";
+import AddCompnay from "./components/admin/components/AddCompnay";
 function App() {
   const [login, setLogin] = useState("false");
 
@@ -35,6 +37,9 @@ function App() {
           <Route path="/jobseeker" element={<Jobseeker />} />
           <Route path="/login" element={<Register />} />
           <Route path="/*" element={<Error />} />
+          {/* recruiter routes */}
+          <Route path="/recruiter/home" element={<HomeReq />} />
+          <Route path="/recruiter/add/company" element={<AddCompnay />} />
         </Routes>
 
         <br />
