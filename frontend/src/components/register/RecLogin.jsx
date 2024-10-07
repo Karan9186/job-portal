@@ -29,7 +29,9 @@ function RecLogin() {
       if (data.success == false) {
         alert("faied to login");
       } else {
-        userInfo[0] = "true";
+        userInfo[0] = "recuiter";
+        console.log("req done");
+
         navigate("/recruiter/home");
       }
       // console.log(user);

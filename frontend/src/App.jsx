@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
@@ -18,8 +18,11 @@ import Jobseeker from "./components/register/Jobseeker";
 import RecRegi from "./components/register/RecRegi";
 import store from "./store/store";
 import AddCompnay from "./components/admin/components/AddCompnay";
+import ShowAllJob from "./components/admin/components/ShowAllJob";
+import AddJob from "./components/admin/components/AddJob";
+
 function App() {
-  const [login, setLogin] = useState("false");
+  const [login, setLogin] = useState("");
 
   return (
     <>
@@ -40,6 +43,8 @@ function App() {
           {/* recruiter routes */}
           <Route path="/recruiter/home" element={<HomeReq />} />
           <Route path="/recruiter/add/company" element={<AddCompnay />} />
+          <Route path="/recruiter/show/job" element={<ShowAllJob />} />
+          <Route path="/recruiter/add/job" element={<AddJob />} />
         </Routes>
 
         <br />

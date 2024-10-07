@@ -1,16 +1,16 @@
-      import {
-        Disclosure,
-        DisclosureButton,
-        DisclosurePanel,
-        Menu,
-        MenuButton,
-        MenuItem,
-        MenuItems,
-      } from "@headlessui/react";
-      import { useNavigate } from "react-router-dom";
-      import { HiMenuAlt3 } from "react-icons/hi";
-      // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-      import { IoNotificationsOutline } from "react-icons/io5";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+import { HiMenuAlt3 } from "react-icons/hi";
+// import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import store from "../store/store";
@@ -44,7 +44,7 @@ export default function Nav() {
   useEffect(() => {
     console.log("inside");
 
-    if (userInfo[0] == "true") {
+    if (userInfo[0] == "recuiter") {
       setLogin(!login);
       console.log("the login state" + login);
     }

@@ -1,23 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import h1 from "../../../../public/h1.jpg";
-function HomeList() {
-  const navigate = useNavigate();
+function ShowAllJob() {
   return (
-    <div>
+    <>
       <br />
       <br />
       <br />
       <br />
       <br />
       <br />
-
-      <div className="relative  p-4  ">
-        <button
-          className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold"
-          onClick={() => navigate("/recruiter/add/company")}
-        >
-          Add Compnay
+      <div className="relative  p-4  min-h-screen">
+        <button className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold">
+          Add Job
         </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -29,10 +23,10 @@ function HomeList() {
                 compnay name
               </th>
               <th scope="col" className="px-6 py-3">
-                description
+                Role
               </th>
               <th scope="col" className="px-6 py-3">
-                location
+                Date
               </th>{" "}
               <th scope="col" className="px-6 py-3">
                 action
@@ -43,7 +37,7 @@ function HomeList() {
             <tr className="bg-white border-b ">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 <img
                   src={h1}
@@ -54,20 +48,19 @@ function HomeList() {
               <td className="px-6 py-4">google</td>
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
-              <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
-                  Update
+              <div className="flex items-center gap-4 w-[100px]">
+                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                  edit
                 </button>
-
-                <button className="bg-red-500 px-5 py-2 rounded text-white font-semibold">
-                  Delete
+                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
+                  applicant
                 </button>
-              </td>
+              </div>
             </tr>
             <tr className="bg-white border-b ">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 <img
                   src={h1}
@@ -78,20 +71,19 @@ function HomeList() {
               <td className="px-6 py-4">google</td>
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
-              <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
-                  Update
+              <div className="flex items-center gap-4 w-[100px]">
+                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                  edit
                 </button>
-
-                <button className="bg-red-500 px-5 py-2 rounded text-white font-semibold">
-                  Delete
+                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
+                  applicant
                 </button>
-              </td>
+              </div>
             </tr>
             <tr className="bg-white border-b ">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 <img
                   src={h1}
@@ -102,21 +94,20 @@ function HomeList() {
               <td className="px-6 py-4">google</td>
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
-              <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
-                  Update
+              <div className="flex items-center gap-4 w-[100px]">
+                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                  edit
                 </button>
-
-                <button className="bg-red-500 px-5 py-2 rounded text-white font-semibold">
-                  Delete
+                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
+                  applicant
                 </button>
-              </td>
+              </div>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }
 
-export default HomeList;
+export default ShowAllJob;
