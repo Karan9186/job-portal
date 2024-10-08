@@ -20,6 +20,7 @@ import store from "./store/store";
 import AddCompnay from "./components/admin/components/AddCompnay";
 import ShowAllJob from "./components/admin/components/ShowAllJob";
 import AddJob from "./components/admin/components/AddJob";
+import Applicant from "./components/admin/components/Applicant";
 
 function App() {
   const [login, setLogin] = useState("");
@@ -45,6 +46,7 @@ function App() {
           <Route path="/recruiter/add/company" element={<AddCompnay />} />
           <Route path="/recruiter/show/job" element={<ShowAllJob />} />
           <Route path="/recruiter/add/job" element={<AddJob />} />
+          <Route path="/recruiter/applicant/job" element={<Applicant />} />
         </Routes>
 
         <br />
