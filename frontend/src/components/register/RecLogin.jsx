@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import store from "../../store/store";
-
+import Cookies from "js-cookie";
 function RecLogin() {
   const navigate = useNavigate();
   const email = useRef("");
@@ -19,6 +19,7 @@ function RecLogin() {
       };
       const response = await fetch("http://localhost:3000/api/v1/user/login", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -29,9 +30,11 @@ function RecLogin() {
       if (data.success == false) {
         alert("faied to login");
       } else {
-        userInfo[0] = "recuiter";
-        console.log("req done");
+        userInfo[0] = data;
+        console.log("the userinfo is " + userInfo[0].message);
 
+        const token = Cookies.get("token");
+        console.log("the token is " + token);
         navigate("/recruiter/home");
       }
       // console.log(user);

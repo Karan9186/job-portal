@@ -7,6 +7,7 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -25,9 +26,7 @@ const navigation = [
   { name: "Jobs", link: "/jobs", current: false },
   { name: "Contact", link: "/contact", current: false },
 ];
-const logOut = () => {
-  setLogin(!login);
-};
+
 const userNavigation = [
   { name: "Your Profile", link: "profile" },
   { name: "Sign out", link: "logOut" },
@@ -38,18 +37,19 @@ function classNames(...classes) {
 }
 
 export default function Nav() {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState();
   const userInfo = useContext(store);
   console.log("the useinfo " + userInfo[0]);
-  useEffect(() => {
-    console.log("inside");
-
-    if (userInfo[0] == "recuiter") {
-      setLogin(!login);
-      console.log("the login state" + login);
-    }
-  }, [userInfo[0]]);
-
+  const token = Cookies.get("token");
+  useEffect(
+    () => {
+      console.log("the token inside nav bar is " + token);
+      setLogin(true);
+    },
+    token,
+    userInfo[0],
+    login
+  );
   const naviagate = useNavigate();
   return (
     <>
@@ -81,7 +81,7 @@ export default function Nav() {
                 </div>
               </div>
               <div className="hidden md:block">
-                {login ? (
+                {login == true && token ? (
                   <>
                     <div className="ml-4 flex items-center md:ml-6">
                       <button
@@ -116,7 +116,14 @@ export default function Nav() {
                                 className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                                 onClick={() => {
                                   if (item.name == "Sign out") {
-                                    setLogin(!login);
+                                    console.log("called logout");
+                                    Cookies.remove("token");
+                                    console.log(
+                                      "after logout token =" +
+                                        Cookies.get("token")
+                                    );
+                                    naviagate("/login");
+                                    setLogin(false);
                                   } else {
                                     naviagate(`${item.link}`);
                                   }
