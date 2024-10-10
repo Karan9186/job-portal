@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function LatestOpening() {
+  const navigate = useNavigate();
   let latestJobDesign = (
     <>
       <div className="bg-card p-4 bg-slate-100 rounded-lg shadow-xl shadow-[#8300ff1a]  border border-slate-200 ">
@@ -29,7 +31,10 @@ function LatestOpening() {
           <button className="bg-red-500 text-white font-semibold hover:bg-red-600 mt-3 py-2 px-4 rounded">
             Apply Now
           </button>
-          <button className="bg-slate-300 text-black font-semibold hover:bg-slate-400 mt-3 py-2 px-4 rounded">
+          <button
+            className="bg-slate-300 text-black font-semibold hover:bg-slate-400 mt-3 py-2 px-4 rounded"
+            onClick={() => navigate("/jobinfo/1")}
+          >
             Show details
           </button>
         </div>
