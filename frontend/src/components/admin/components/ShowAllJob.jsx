@@ -1,6 +1,8 @@
 import React from "react";
 import h1 from "../../../../public/h1.jpg";
+import { useNavigate } from "react-router-dom";
 function ShowAllJob() {
+  const navigate = useNavigate();
   return (
     <>
       <br />
@@ -49,7 +51,10 @@ function ShowAllJob() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <div className="flex items-center gap-4 w-[100px]">
-                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                <button
+                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
+                  onClick={() => navigate("/recruiter/job/update/1")}
+                >
                   edit
                 </button>
                 <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
@@ -72,7 +77,10 @@ function ShowAllJob() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <div className="flex items-center gap-4 w-[100px]">
-                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                <button
+                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
+                  onClick={() => navigate("/recruiter/job/update/1")}
+                >
                   edit
                 </button>
                 <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
@@ -95,7 +103,10 @@ function ShowAllJob() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <div className="flex items-center gap-4 w-[100px]">
-                <button className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold">
+                <button
+                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
+                  onClick={() => navigate("/recruiter/job/update/1")}
+                >
                   edit
                 </button>
                 <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">

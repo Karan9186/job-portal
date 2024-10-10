@@ -24,8 +24,13 @@ function LatestOpening() {
               45LPA
             </span>
           </div>
+        </div>
+        <div className="flex items-center justify-between">
           <button className="bg-red-500 text-white font-semibold hover:bg-red-600 mt-3 py-2 px-4 rounded">
             Apply Now
+          </button>
+          <button className="bg-slate-300 text-black font-semibold hover:bg-slate-400 mt-3 py-2 px-4 rounded">
+            Show details
           </button>
         </div>
       </div>
@@ -33,13 +38,13 @@ function LatestOpening() {
   );
   return (
     <>
-      <div className="flex items-center ">
+      <div className="">
         <div className="px-3 ">
           <h1 className="font-bold text-[30px] capitalize text-slate-700">
             <span className="text-red-500 ">Latest and top</span> job Opening
           </h1>
           <div className=" mt-6 py-5 px-5 " style={{ scrollbarWidth: "none" }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
               {latestJobDesign}
               {latestJobDesign}
               {latestJobDesign}

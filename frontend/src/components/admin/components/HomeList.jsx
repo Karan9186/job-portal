@@ -41,10 +41,7 @@ function HomeList() {
           </thead>
           <tbody>
             <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
-              >
+              <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
                 <img
                   src={h1}
                   alt="company"
@@ -55,7 +52,10 @@ function HomeList() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
+                <button
+                  className="bg-blue-700 px-5 py-2 rounded text-white font-semibold"
+                  onClick={() => navigate("/recruiter/company/update/:id")}
+                >
                   Update
                 </button>
 
@@ -65,10 +65,7 @@ function HomeList() {
               </td>
             </tr>
             <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
-              >
+              <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
                 <img
                   src={h1}
                   alt="company"
@@ -79,7 +76,10 @@ function HomeList() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
+                <button
+                  className="bg-blue-700 px-5 py-2 rounded text-white font-semibold"
+                  onClick={() => navigate("/recruiter/company/update/:id")}
+                >
                   Update
                 </button>
 
@@ -89,10 +89,7 @@ function HomeList() {
               </td>
             </tr>
             <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900  "
-              >
+              <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
                 <img
                   src={h1}
                   alt="company"
@@ -103,7 +100,10 @@ function HomeList() {
               <td className="px-6 py-4">hiring</td>
               <td className="px-6 py-4">gujarat</td>
               <td className="flex items-center justify-around mt-5">
-                <button className="bg-blue-700 px-5 py-2 rounded text-white font-semibold">
+                <button
+                  className="bg-blue-700 px-5 py-2 rounded text-white font-semibold"
+                  onClick={() => navigate("/recruiter/company/update/:id")}
+                >
                   Update
                 </button>
 
