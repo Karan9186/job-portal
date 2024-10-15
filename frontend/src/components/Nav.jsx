@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useState,useEffect} from "react";
+import Cookies from "js-cookie";
+
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -36,6 +38,22 @@ function classNames(...classes) {
 export default function Nav() {
   const [login, setLogin] = useState(false);
   const naviagate = useNavigate();
+  const [success, setsucess] = useState(false);
+
+  const usertoken = Cookies.get("token");
+
+  const getusertoken = () => {
+    if (usertoken) {
+      setsucess(!success);
+    }
+    else {
+      console.log("token not get from user");
+    }
+  }
+  useEffect(() => {
+    getusertoken();
+  }, []);
+
   return (
     <>
       <div className="min-h-full">
@@ -66,7 +84,7 @@ export default function Nav() {
                 </div>
               </div>
               <div className="hidden md:block">
-                {login ? (
+                {login || success ? (
                   <>
                     <div className="ml-4 flex items-center md:ml-6">
                       <button
