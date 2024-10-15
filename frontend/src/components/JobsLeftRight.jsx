@@ -12,7 +12,7 @@ function JobsLeftRight() {
     <>
       <div className="h-auto w-[auto] bg-white shadow-lg rounded-2xl border-1 border-gray-200 p-4 mb-6 shadow-blue-200">
         <h2 className="text-lg font-semibold text-gray-800">
-          Openings For Freshers(Java with Spring Boot and Microservices, AWS)
+          Openings For Freshers (Java with Spring Boot and Microservices, AWS)
         </h2>
         <h3 className="text-md font-semibold text-gray-500">
           First Quad Tech Solutions
@@ -57,85 +57,64 @@ function JobsLeftRight() {
       </div>
     </>
   );
+
   return (
     <>
       <div className="">
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center">
           <div className="flex gap-10 mt-32 ml-0">
-            {/* ----------left side box all category----------- */}
-            <div className="h-auto w-[300px] bg-[#ffffff] flex flex-col rounded-xl  border-1 border-red-200 shadow-2xl shadow-blue-200 ">
-              <div className=" gap-x-[20px] p-5 ">
-                <div className="border-b-2 border-gray-400 ">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    All Filter
-                  </p>
+            {/* ----------left side box all category (Render Once) ----------- */}
+            <div className="h-auto w-[300px] bg-[#ffffff] flex flex-col rounded-xl border-1 border-red-200 shadow-2xl shadow-blue-200">
+              <div className="gap-x-[20px] p-5">
+                <div className="border-b-2 border-gray-400">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">All Filter</p>
                 </div>
                 <div className="border-b-2 border-gray-400 flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Work mode
-                  </p>
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Work mode</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Experience
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Experience</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Department
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Department</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
+                <div className="border-b-2 border-gray-400 flex justify-between">
                   <p className="mt-3 text-[20px] font-semibold mb-6">Salary</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Company type
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Company type</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Role category
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Role category</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
+                <div className="border-b-2 border-gray-400 flex justify-between">
                   <p className="mt-3 text-[20px] font-semibold mb-6">Stipend</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Duration
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Duration</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Education
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Education</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Posted by
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Posted by</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Industry
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Industry</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Top companies
-                  </p>
+                <div className="border-b-2 border-gray-400 flex justify-between">
+                  <p className="mt-3 text-[20px] font-semibold mb-6">Top companies</p>
                   <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
                 </div>
               </div>
@@ -154,11 +133,7 @@ function JobsLeftRight() {
                   Sort by: Recommended
                 </p>
               </div>
-
-              {/* here */}
-              {jobsPanel}
-              {jobsPanel}
-              {jobsPanel}
+              {/* Jobs panel */}
               {jobsPanel}
             </div>
           </div>
