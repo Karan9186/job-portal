@@ -9,14 +9,27 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 
-// import JobsLeftRight from "../JobsLeftRight.jsx";
-
 function Jobs() {
-  const [showtoggle, settoggle] = useState(false);
-  const [upset, setdown] = useState(false);
-  const handletoggle = () => {
-    settoggle(!showtoggle);
-    setdown(!upset);
+  const [toggleState, setToggleState] = useState({
+    workMode: false,
+    experience: false,
+    department: false,
+    salary: false,
+    companyType: false,
+    roleCategory: false,
+    stipend: false,
+    duration: false,
+    education: false,
+    postedBy: false,
+    industry: false,
+    topCompanies: false,
+  });
+
+  const handleToggle = (section) => {
+    setToggleState((prevState) => ({
+      ...prevState,
+      [section]: !prevState[section],
+    }));
   };
 
   return (
@@ -37,319 +50,84 @@ function Jobs() {
                   <p className="mt-3 text-[20px] font-semibold mb-6">
                     Work mode
                   </p>
-                  {upset ? (
+                  {toggleState.workMode ? (
                     <FontAwesomeIcon
                       icon={faChevronUp}
-                      className="mt-5   cursor-pointer"
-                      onClick={handletoggle}
+                      className="mt-5 cursor-pointer"
+                      onClick={() => handleToggle("workMode")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faChevronDown}
-                      className="mt-5   cursor-pointer"
-                      onClick={handletoggle}
+                      className="mt-5 cursor-pointer"
+                      onClick={() => handleToggle("workMode")}
                     />
                   )}
                 </div>
 
-                <div className="mt-[-20px]">
-                  {showtoggle && (
-                    <div>
-                      <ul className="text-[18px] flex flex-col gap-1">
-                        <li className="flex gap-3 text-[17px] text-gray-700">
-                          <input type="checkbox" />
-                          Work from office (12307)
-                        </li>
-                        <li className="flex gap-3 text-[17px] text-gray-700">
-                          <input type="checkbox" />
-                          Hybrid (831)
-                        </li>
-                        <li className="flex gap-3 text-[17px] text-gray-700">
-                          <input type="checkbox" />
-                          Remote (377)
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
+                {toggleState.workMode && (
+                  <div className="mt-[-20px]">
+                    <ul className="text-[18px] flex flex-col gap-1">
+                      <li className="flex gap-3 text-[17px] text-gray-700">
+                        <input type="checkbox" />
+                        Work from office (12307)
+                      </li>
+                      <li className="flex gap-3 text-[17px] text-gray-700">
+                        <input type="checkbox" />
+                        Hybrid (831)
+                      </li>
+                      <li className="flex gap-3 text-[17px] text-gray-700">
+                        <input type="checkbox" />
+                        Remote (377)
+                      </li>
+                    </ul>
+                  </div>
+                )}
+
                 <div className="w-full h-[1.5px] bg-slate-500 rounded-lg mt-5"></div>
 
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Experience
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Department
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">Salary</p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Company type
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Role category
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">Stipend</p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Duration
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Education
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Posted by
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Industry
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Top companies
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="mt-5  cursor-pointer"
-                  />
-                </div>
+                {/* Repeat similar structure for other sections */}
+                {[
+                  { label: "Experience", key: "experience" },
+                  { label: "Department", key: "department" },
+                  { label: "Salary", key: "salary" },
+                  { label: "Company type", key: "companyType" },
+                  { label: "Role category", key: "roleCategory" },
+                  { label: "Stipend", key: "stipend" },
+                  { label: "Duration", key: "duration" },
+                  { label: "Education", key: "education" },
+                  { label: "Posted by", key: "postedBy" },
+                  { label: "Industry", key: "industry" },
+                  { label: "Top companies", key: "topCompanies" },
+                ].map((item) => (
+                  <div
+                    key={item.key}
+                    className="border-b-2 border-gray-400 flex justify-between"
+                  >
+                    <p className="mt-3 text-[20px] font-semibold mb-6">
+                      {item.label}
+                    </p>
+                    {toggleState[item.key] ? (
+                      <FontAwesomeIcon
+                        icon={faChevronUp}
+                        className="mt-5 cursor-pointer"
+                        onClick={() => handleToggle(item.key)}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className="mt-5 cursor-pointer"
+                        onClick={() => handleToggle(item.key)}
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* ----------right side box----------- */}
             <div className="h-auto w-auto flex flex-col">
-              <div className="flex flex-row justify-center mb-[10px] gap-12">
-                <p className="font-semibold text-gray-500 text-[13px]">
-                  1 - 20 of 13193 Spring Boot Jobs
-                </p>
-                <a href="" className="font-semibold text-blue-500 text-[13px]">
-                  Send me jobs like these
-                </a>
-                <p className="font-semibold text-gray-500 text-[13px]">
-                  Sort by: Recommended
-                </p>
-              </div>
-
-              <div className="h-auto w-[auto] bg-white shadow-lg rounded-2xl border-2 border-gray-200 p-4 mb-6">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Openings For Freshers(Java with Spring Boot and Microservices,
-                  AWS)
-                </h2>
-                <h3 className="text-md font-semibold text-gray-500">
-                  First Quad Tech Solutions
-                </h3>
-
-                <div className="mt-3 flex gap-2">
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faBriefcase}
-                      className="h-[14px] mr-1"
-                    />
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faIndianRupeeSign}
-                      className="h-[13px] text-gray-600"
-                    />{" "}
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className="h-[14px] mr-1"
-                    />
-                    Pune (Baner)
-                  </p>
-                </div>
-
-                <div className="mt-2">
-                  <h4 className="text-sm font-semibold text-gray-600">
-                    Role & Responsibilities AWS DevOps Engineer (Freshers with
-                    0-3 years experience). Java w...
-                  </h4>
-                </div>
-
-                <div className="mt-3">
-                  <p className="text-sm text-gray-500 font-semibold">
-                    Skills: java, Microservices, AWS DevOps, OOPS, Data
-                    Structures, Fresher, Developer, Spring Boot
-                  </p>
-                </div>
-
-                <div className="mt-4 flex justify-between items-center">
-                  <p className="text-[12px] text-gray-500">5 Days Ago</p>
-                  <button className="text-indigo-500 text-sm font-medium">
-                    Save
-                  </button>
-                </div>
-              </div>
-
-              <div className="h-auto w-[auto] bg-white shadow-lg rounded-2xl border-2 border-gray-200 p-4 mb-6">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Openings For Freshers(Java with Spring Boot and Microservices,
-                  AWS)
-                </h2>
-                <h3 className="text-md font-semibold text-gray-500">
-                  First Quad Tech Solutions
-                </h3>
-
-                <div className="mt-3 flex gap-2">
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faBriefcase}
-                      className="h-[14px] mr-1"
-                    />
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faIndianRupeeSign}
-                      className="h-[13px] text-gray-600"
-                    />{" "}
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className="h-[14px] mr-1"
-                    />
-                    Pune (Baner)
-                  </p>
-                </div>
-
-                <div className="mt-2">
-                  <h4 className="text-sm font-semibold text-gray-600">
-                    Role & Responsibilities AWS DevOps Engineer (Freshers with
-                    0-3 years experience). Java w...
-                  </h4>
-                </div>
-
-                <div className="mt-3">
-                  <p className="text-sm text-gray-500 font-semibold">
-                    Skills: java, Microservices, AWS DevOps, OOPS, Data
-                    Structures, Fresher, Developer, Spring Boot
-                  </p>
-                </div>
-
-                <div className="mt-4 flex justify-between items-center">
-                  <p className="text-[12px] text-gray-500">5 Days Ago</p>
-                  <button className="text-indigo-500 text-sm font-medium">
-                    Save
-                  </button>
-                </div>
-              </div>
-
-              <div className="h-auto w-[auto] bg-white shadow-lg rounded-2xl border-2 border-gray-200 p-4 mb-6">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Openings For Freshers(Java with Spring Boot and Microservices,
-                  AWS)
-                </h2>
-                <h3 className="text-md font-semibold text-gray-500">
-                  First Quad Tech Solutions
-                </h3>
-
-                <div className="mt-3 flex gap-2">
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faBriefcase}
-                      className="h-[14px] mr-1"
-                    />
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faIndianRupeeSign}
-                      className="h-[13px] text-gray-600"
-                    />{" "}
-                    0-4 Yrs |{" "}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className="h-[14px] mr-1"
-                    />
-                    Pune (Baner)
-                  </p>
-                </div>
-
-                <div className="mt-2">
-                  <h4 className="text-sm font-semibold text-gray-600">
-                    Role & Responsibilities AWS DevOps Engineer (Freshers with
-                    0-3 years experience). Java w...
-                  </h4>
-                </div>
-
-                <div className="mt-3">
-                  <p className="text-sm text-gray-500 font-semibold">
-                    Skills: java, Microservices, AWS DevOps, OOPS, Data
-                    Structures, Fresher, Developer, Spring Boot
-                  </p>
-                </div>
-
-                <div className="mt-4 flex justify-between items-center">
-                  <p className="text-[12px] text-gray-500">5 Days Ago</p>
-                  <button className="text-indigo-500 text-sm font-medium">
-                    Save
-                  </button>
-                </div>
-              </div>
+              {/* Your job listings here */}
             </div>
           </div>
         </div>
