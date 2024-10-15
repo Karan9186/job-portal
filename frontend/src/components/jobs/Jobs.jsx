@@ -107,12 +107,12 @@ function Jobs() {
                     </p>
                   </div>
 
-                  <div className="relative left-28 p-2">
+                  <div className="relative left-16 p-2">
                     <button
-                      className="px-4 py-1 font-semibold bg-red-100 border border-red-500 rounded hover:bg-red-200 "
-                     
+                      className=" py-1 font-semibold bg-red-100 border border-red-500 rounded hover:bg-red-200 p-2"
+    
                     >
-                      Login
+                      Show Reasult
                     </button>
                   </div>
                 </div>
