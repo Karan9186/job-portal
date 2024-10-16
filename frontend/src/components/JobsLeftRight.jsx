@@ -7,8 +7,10 @@ import {
   faLocationDot,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function JobsLeftRight() {
+  const navigate = useNavigate();
   const jobsPanel = (
     <>
       <div className="h-auto w-[auto] bg-white shadow-lg rounded-2xl border-1 border-gray-200 p-4 mb-6 shadow-blue-200">
@@ -52,7 +54,10 @@ function JobsLeftRight() {
             <button className="bg-red-500 text-white font-semibold hover:bg-red-600 mt-3 py-2 px-4 rounded">
               Apply Now
             </button>
-            <button className="bg-slate-200 text-black font-semibold hover:bg-slate-300 mt-3 py-2 px-4 rounded">
+            <button
+              className="bg-slate-200 text-black font-semibold hover:bg-slate-300 mt-3 py-2 px-4 rounded"
+              onClick={() => navigate("/jobinfo/1")}
+            >
               See Details
             </button>
           </div>
@@ -65,110 +70,24 @@ function JobsLeftRight() {
   );
   return (
     <>
-      <div className="">
-        <div className="flex justify-center items-center ">
-          <div className="flex gap-10 mt-32 ml-0">
-            {/* ----------left side box all category----------- */}
-            <div className="h-auto w-[300px] bg-[#ffffff] flex flex-col rounded-xl  border-1 border-red-200 shadow-2xl shadow-blue-200 ">
-              <div className=" gap-x-[20px] p-5 ">
-                <div className="border-b-2 border-gray-400 ">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    All Filter
-                  </p>
-                </div>
-                <div className="border-b-2 border-gray-400 flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Work mode
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Experience
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Department
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">Salary</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Company type
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Role category
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">Stipend</p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Duration
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Education
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Posted by
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Industry
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-                <div className="border-b-2 border-gray-400  flex justify-between">
-                  <p className="mt-3 text-[20px] font-semibold mb-6">
-                    Top companies
-                  </p>
-                  <FontAwesomeIcon icon={faChevronDown} className="mt-5" />
-                </div>
-              </div>
-            </div>
-
-            {/* ----------right side box----------- */}
-            <div className="h-auto w-auto flex flex-col">
-              <div className="flex flex-row justify-center mb-[10px] gap-12">
-                <p className="font-semibold text-gray-500 text-[13px]">
-                  1 - 20 of 13193 Spring Boot Jobs
-                </p>
-                <a href="" className="font-semibold text-blue-500 text-[13px]">
-                  Send me jobs like these
-                </a>
-                <p className="font-semibold text-gray-500 text-[13px]">
-                  Sort by: Recommended
-                </p>
-              </div>
-
-              {/* here */}
-              {jobsPanel}
-              {jobsPanel}
-              {jobsPanel}
-              {jobsPanel}
-            </div>
-          </div>
+      <div>
+        <div className="flex flex-row justify-center mb-[10px] gap-12">
+          <p className="font-semibold text-gray-500 text-[13px]">
+            1 - 20 of 13193 Spring Boot Jobs
+          </p>
+          <a href="" className="font-semibold text-blue-500 text-[13px]">
+            Send me jobs like these
+          </a>
+          <p className="font-semibold text-gray-500 text-[13px]">
+            Sort by: Recommended
+          </p>
         </div>
+
+        {/* here */}
+        {jobsPanel}
+        {jobsPanel}
+        {jobsPanel}
+        {jobsPanel}
       </div>
     </>
   );
