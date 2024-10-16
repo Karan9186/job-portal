@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const userSchema = new mongoose.Schema(
+const reqSchema = new mongoose.Schema(
   {
     fullname: {
       type: String,
@@ -24,9 +24,7 @@ const userSchema = new mongoose.Schema(
       require: true,
     },
     profile: {
-      bio: { type: String },
-      skills: [{ type: String }],
-      resume: { type: String }, //URL to resume file
+      company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       profilePhoto: {
         type: String,
         default: "",
@@ -35,4 +33,4 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-export const User = mongoose.model("user", userSchema);
+export const Reqcuiter = mongoose.model("recruiter", reqSchema);
