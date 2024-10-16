@@ -1,7 +1,5 @@
 import React, { useRef } from "react";
-import { useNavigate } from 'react-router-dom'
-
-
+import { useNavigate } from "react-router-dom";
 
 export default function JobseekerRegister() {
   const navigate = useNavigate();
@@ -13,8 +11,6 @@ export default function JobseekerRegister() {
   const role = "Jobseeker";
 
   const handlelogindata = async (e) => {
-
-
     e.preventDefault();
     try {
       const datapost = {
@@ -23,30 +19,28 @@ export default function JobseekerRegister() {
         phoneNumber: number.current.value,
         password: password.current.value,
         role: role,
-      }
+      };
 
-    
-      const response=await fetch("http://localhost:3000/api/v1/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datapost),
-      
-      }); 
+      const response = await fetch(
+        "http://localhost:3000/api/v1/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datapost),
+        }
+      );
       const result = await response.json();
       console.log(result);
- 
-
     } catch (err) {
-      console.log("data not sending:",err);
+      console.log("data not sending:", err);
     }
-  }
+  };
 
-  
-    return (
-      <>
-        <div className="flex items-center justify-center">
+  return (
+    <>
+      <div className="flex items-center justify-center">
         <div className="bg-white rounded-md mt-10">
           <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
@@ -171,7 +165,7 @@ export default function JobseekerRegister() {
                   />
                 </div>
                 <div>
-                    <button
+                  <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
@@ -182,17 +176,14 @@ export default function JobseekerRegister() {
 
               <p className="mt-10 text-center text-sm text-gray-500">
                 Already have recruiter account?{" "}
-                <button
-                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                >
+                <button className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                   login here
                 </button>
               </p>
             </div>
           </div>
-          </div>
-          </div>
-        </>
-   
-  )
+        </div>
+      </div>
+    </>
+  );
 }
