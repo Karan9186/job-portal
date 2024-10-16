@@ -10,7 +10,7 @@ function Applicant() {
           res == false ? "hidden" : ""
         } absolute backdrop-blur-sm w-[100%]  z-10  flex items-center justify-center h-[100%]`}
       >
-        <ul className="bg-white shadow-xl shadow-lg shadow-red-300/50  px-4 py-4 rounded w-[300px]">
+        <ul className="bg-white shadow-xl  shadow-red-300/50  px-4 py-4 rounded w-[300px]">
           <button
             className="bg-red-500 rounded-md p-2 text-white"
             onClick={() => setRes(!res)}
