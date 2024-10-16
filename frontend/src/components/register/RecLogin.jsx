@@ -16,7 +16,7 @@ function RecLogin() {
         password: password.current.value,
         role: role,
       };
-      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+      const response = await fetch("http://localhost:3000/api/v1/recruiter/login", {
         method: "POST",
         credentials: "include",
         headers: {

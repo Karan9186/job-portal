@@ -1,8 +1,35 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { useRef } from "react";
+
 
 function JobLogin() {
   const navigate = useNavigate();
+  const email = useRef("");
+  const password = useRef("");
+  const role = "jobseeker";
+
+  const handlelogin = async (e) => {
+    e.preventdefault();
+    await axios.post("http://localhost:3000/api/v1/user/login", {
+      email: email.current.value,
+      password:password.current.value,
+      role
+    })
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        if (error.response) {
+          console.log('server responding', error.response.data);  
+        } else if (error.request) {
+        console.log('server responding',error.request);      
+        } else {
+          console.log('daa not posting', error.message);
+        }
+      
+    })
+  }
   return (
     <>
       <div className="flex items-center justify-center">
@@ -37,6 +64,7 @@ function JobLogin() {
                       required
                       autoComplete="email"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      ref={email}
                     />
                   </div>
                 </div>
@@ -66,6 +94,7 @@ function JobLogin() {
                       required
                       autoComplete="current-password"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      ref={password}
                     />
                   </div>
                 </div>
@@ -74,6 +103,7 @@ function JobLogin() {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    onClick={handlelogin}
                   >
                     Sign in
                   </button>
