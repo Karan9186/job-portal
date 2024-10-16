@@ -10,26 +10,23 @@ function JobLogin() {
   const password = useRef("");
   const role = "jobseeker";
 
-  const handlelogin = async (e) => {
-    e.preventdefault();
-    await axios.post("http://localhost:3000/api/v1/user/login", {
-      email: email.current.value,
-      password:password.current.value,
-      role
-    })
-      .then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        if (error.response) {
-          console.log('server responding', error.response.data);  
-        } else if (error.request) {
-        console.log('server responding',error.request);      
-        } else {
-          console.log('daa not posting', error.message);
-        }
-      
-    })
+  const handlelogin = async() => { 
+    try {
+       await axios.post('"http://localhost:3000/api/v1/user/login"',{
+        email: email.current.value,
+        password:password.current.value,
+        role
+      },{withCredentials: true} );
+         
+  } catch (err) {
+    console.error('Error occurred data not posting:', err.message);
+    if (err.response) {
+      console.error('Response data:', err.response.data);
+    } else if (err.request) {
+      console.error('Request data:', err.request);
+    }
   }
+}
   return (
     <>
       <div className="flex items-center justify-center">
