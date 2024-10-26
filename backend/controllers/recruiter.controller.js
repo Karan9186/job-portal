@@ -90,7 +90,7 @@ export const login = async (req, res) => {
         message: `welcome back ${user.fullname}`,
         success: true,
         user,
-      });
+      }); 
   } catch (err) {
     console.log(err);
   }

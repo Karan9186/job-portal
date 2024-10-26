@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function JobseekerRegister() {
   const navigate = useNavigate();
@@ -8,36 +9,38 @@ export default function JobseekerRegister() {
   const number = useRef("");
   const password = useRef("");
   const Cpassword = useRef("");
-  const role = "Jobseeker";
+  const role = "jobseeker";
 
   const handlelogindata = async (e) => {
     e.preventDefault();
+    const datapost = {
+      fullname: name.current.value,
+      email: email.current.value,
+      phoneNumber: number.current.value,
+      password: password.current.value,
+      role,
+    };
     try {
-      const datapost = {
-        fullname: name.current.value,
-        email: email.current.value,
-        phoneNumber: number.current.value,
-        password: password.current.value,
-        role: role,
-      };
-
-      const response = await fetch(
+      const response = await axios.post(
         "http://localhost:3000/api/v1/user/register",
+        datapost,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(datapost),
         }
       );
-      const result = await response.json();
-      console.log(result);
+      if (!response) {
+        console.log("respones not get");
+      } else {
+        console.log(response.data);
+        navigate('/jobseeker');
+      }
+
     } catch (err) {
-      console.log("data not sending:", err);
+      console.log("somthing error", err);
     }
   };
-
   return (
     <>
       <div className="flex items-center justify-center">

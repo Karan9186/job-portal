@@ -10,13 +10,25 @@ function JobLogin() {
   const password = useRef("");
   const role = "jobseeker";
 
-  const handlelogin = async() => { 
+  const handlelogin = async () => { 
+    const datapost={
+      email: email.current.value,
+      password:password.current.value,
+      role:role,
+    }
     try {
-       await axios.post('"http://localhost:3000/api/v1/user/login"',{
-        email: email.current.value,
-        password:password.current.value,
-        role
-      },{withCredentials: true} );
+     const response=await axios.post("http://localhost:3000/api/v1/user/login", datapost,
+        {
+          headers: {
+           'Content-Type':'application/json',
+         }
+        });
+      if (!response) {
+        console.log('response not get');
+      } else {
+        console.log('response succesfully');
+        console.log(response.data);
+      }
          
   } catch (err) {
     console.error('Error occurred data not posting:', err.message);
