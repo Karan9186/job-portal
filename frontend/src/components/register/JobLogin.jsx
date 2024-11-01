@@ -1,8 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import { useRef } from "react";
-
 
 function JobLogin() {
   const navigate = useNavigate();
@@ -10,35 +9,38 @@ function JobLogin() {
   const password = useRef("");
   const role = "jobseeker";
 
-  const handlelogin = async () => { 
-    const datapost={
+  const handlelogin = async (e) => {
+    e.preventDefault();
+    const datapost = {
       email: email.current.value,
-      password:password.current.value,
-      role:role,
-    }
+      password: password.current.value,
+      role: role,
+    };
     try {
-     const response=await axios.post("http://localhost:3000/api/v1/user/login", datapost,
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/login",
+        datapost,
         {
           headers: {
-           'Content-Type':'application/json',
-         }
-        });
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response) {
-        console.log('response not get');
+        console.log("response not get");
       } else {
-        console.log('response succesfully');
+        console.log("response succesfully");
         console.log(response.data);
       }
-         
-  } catch (err) {
-    console.error('Error occurred data not posting:', err.message);
-    if (err.response) {
-      console.error('Response data:', err.response.data);
-    } else if (err.request) {
-      console.error('Request data:', err.request);
+    } catch (err) {
+      console.error("Error occurred data not posting:", err.message);
+      if (err.response) {
+        console.error("Response data:", err.response.data);
+      } else if (err.request) {
+        console.error("Request data:", err.request);
+      }
     }
-  }
-}
+  };
   return (
     <>
       <div className="flex items-center justify-center">
@@ -57,7 +59,7 @@ function JobLogin() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              <form className="space-y-6" onSubmit={handlelogin}>
                 <div>
                   <label
                     htmlFor="email"
@@ -112,7 +114,6 @@ function JobLogin() {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={handlelogin}
                   >
                     Sign in
                   </button>
@@ -124,9 +125,9 @@ function JobLogin() {
                 <button
                   href="#"
                   className="font-semibold leading-6 text-black"
-                  onClick={()=>navigate("/jobseeker/register")}
+                  onClick={() => navigate("/jobseeker/register")}
                 >
-                 Regiseter Here
+                  Regiseter Here
                 </button>
               </p>
             </div>
