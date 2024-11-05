@@ -16,14 +16,17 @@ function RecLogin() {
         password: password.current.value,
         role: role,
       };
-      const response = await fetch("http://localhost:3000/api/v1/recruiter/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/v1/recruiter/login",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       const data = await response.json();
       console.log(data);
       if (data.success == false) {
@@ -31,6 +34,7 @@ function RecLogin() {
       } else {
         userInfo[0] = data;
         console.log("the userinfo is " + userInfo[0].message);
+        console.log("the role " + userInfo[0].user.role);
 
         const token = Cookies.get("token");
         console.log("the token is " + token);
