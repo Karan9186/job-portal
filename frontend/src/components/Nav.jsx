@@ -134,10 +134,6 @@ export default function Nav() {
                                     if (item.name == "Sign out") {
                                       console.log("called logout");
                                       Cookies.remove("token");
-                                      console.log(
-                                        "after logout token =" +
-                                          Cookies.get("token")
-                                      );
                                       localStorage.removeItem("userdata");
                                       naviagate("/login");
                                       setLogin(false);
@@ -311,10 +307,7 @@ export default function Nav() {
                                     if (item.name == "Sign out") {
                                       console.log("called logout");
                                       Cookies.remove("token");
-                                      console.log(
-                                        "after logout token =" +
-                                          Cookies.get("token")
-                                      );
+                                      localStorage.removeItem("userdata");
                                       naviagate("/login");
                                       setLogin(false);
                                     } else {

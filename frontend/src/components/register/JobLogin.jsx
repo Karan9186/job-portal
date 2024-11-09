@@ -2,6 +2,7 @@ import React from "react";
 import { useInRouterContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 import { useRef } from "react";
 
 function JobLogin() {
@@ -10,43 +11,39 @@ function JobLogin() {
   const password = useRef("");
   const role = "jobseeker";
 
-  const handlelogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const datapost = {
-      email: email.current.value,
-      password: password.current.value,
-      role: role,
-    };
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
-        datapost,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response) {
-        console.log("response not get");
+      const user = {
+        email: email.current.value,
+        password: password.current.value,
+        role: role,
+      };
+      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (data.success == false) {
+        alert("faied to login");
       } else {
-        console.log("response succesfully");
-        const userObj = response.data;
-        console.log("the user obj=", userObj);
-        const token = Cookies.get("token");
-        console.log("the token =", token);
+        let userObj = data;
         localStorage.setItem("userdata", JSON.stringify(userObj));
-        // navigate("/");
+        const token = Cookies.get("token");
+        console.log(token);
+
+        navigate("/");
       }
-    } catch (err) {
-      console.error("Error occurred data not posting:", err.message);
-      if (err.response) {
-        console.error("Response data:", err.response.data);
-      } else if (err.request) {
-        console.error("Request data:", err.request);
-      }
+    } catch (e) {
+      console.log(e);
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-center">
@@ -65,7 +62,7 @@ function JobLogin() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form className="space-y-6" onSubmit={handlelogin}>
+              <form className="space-y-6" onSubmit={handleLogin}>
                 <div>
                   <label
                     htmlFor="email"
