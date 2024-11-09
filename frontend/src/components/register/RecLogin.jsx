@@ -32,20 +32,11 @@ function RecLogin() {
       if (data.success == false) {
         alert("faied to login");
       } else {
-        userInfo[0] = data;
-        console.log("the userinfo is " + userInfo[0].message);
-        console.log("the role " + userInfo[0].user.role);
-
+        let userObj = data;
+        localStorage.setItem("userdata", JSON.stringify(userObj));
         const token = Cookies.get("token");
-        console.log("the token is " + token);
         navigate("/recruiter/home");
       }
-      // console.log(user);
-      // if (user.email == "karan@gmail.com" && user.password == "123") {
-      //   navigate("/recruiter/home");
-      // } else {
-      //   alert("not login");
-      // }
     } catch (e) {
       console.log(e);
     }

@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import store from "../../store/store";
-import Cookies from "js-cookie";
+
 function Register() {
   const [select, setSelect] = useState("Recuiter");
   // const userInfo = useContext(store);
   // const token = Cookies.get("token");
   const navigate = useNavigate();
-  // useEffect(
-  //   () => {
-  //     if (userInfo[0].success == true && token) {
-  //       navigate("/");
-  //     }
-  //   },
-  //   token,
-  //   userInfo[0]
-  // );
+  const [userObj, setObj] = useState();
+  useEffect(() => {
+    let userData = localStorage.getItem("userdata");
+    setObj(JSON.parse(userData));
+    if (userObj?.success == true) {
+      navigate("/");
+    }
+  }, userObj);
   const nextBtn = () => {
     if (select == "") {
       alert("no any selection");

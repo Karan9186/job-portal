@@ -9,8 +9,11 @@ function Home() {
   const token = Cookies.get("token");
   useEffect(
     () => {
-      console.log("the req user info " + userInfo[0].success);
-      if (!userInfo[0].success && !token) {
+      let userData = localStorage.getItem("userdata");
+      let userObj = JSON.parse(userData);
+      let role=userObj?.user?.role;
+     
+      if (role=="jobseeker" && !token) {
         navigate("/login");
       }
     },

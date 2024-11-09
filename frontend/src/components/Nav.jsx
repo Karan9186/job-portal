@@ -48,17 +48,22 @@ export default function Nav() {
   const [login, setLogin] = useState();
   const userInfo = useContext(store);
   console.log("the useinfo " + userInfo[0]);
-  let role = userInfo[0]?.user?.role;
+  let [role, setRole] = useState("");
 
   const token = Cookies.get("token");
   useEffect(
     () => {
+      let userData = localStorage.getItem("userdata");
+      let userObj = JSON.parse(userData);
+      setRole(userObj?.user?.role);
+      console.log(role);
+
       console.log("the token inside nav bar is " + token);
       setLogin(true);
     },
     token,
-    userInfo[0],
-    login
+    login,
+    role
   );
   const naviagate = useNavigate();
   return (
@@ -133,6 +138,7 @@ export default function Nav() {
                                         "after logout token =" +
                                           Cookies.get("token")
                                       );
+                                      localStorage.removeItem("userdata");
                                       naviagate("/login");
                                       setLogin(false);
                                     } else {

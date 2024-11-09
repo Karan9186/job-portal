@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useInRouterContext, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useRef } from "react";
 
 function JobLogin() {
@@ -30,7 +31,12 @@ function JobLogin() {
         console.log("response not get");
       } else {
         console.log("response succesfully");
-        console.log(response.data);
+        const userObj = response.data;
+        console.log("the user obj=", userObj);
+        const token = Cookies.get("token");
+        console.log("the token =", token);
+        localStorage.setItem("userdata", JSON.stringify(userObj));
+        // navigate("/");
       }
     } catch (err) {
       console.error("Error occurred data not posting:", err.message);
