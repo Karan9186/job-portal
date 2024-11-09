@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -10,7 +10,10 @@ export default function JobseekerRegister() {
   const password = useRef("");
   const Cpassword = useRef("");
   const role = "jobseeker";
-
+  const [file, setFile] = useState();
+  const changeFileHandler = (e) => {
+    setFile(e.target.files?.[0]);
+  };
   const handlelogindata = async (e) => {
     e.preventDefault();
     const datapost = {
@@ -19,26 +22,32 @@ export default function JobseekerRegister() {
       phoneNumber: number.current.value,
       password: password.current.value,
       role,
+      file: file,
     };
+    console.log(datapost);
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/register",
         datapost,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data", // This is important, but `axios` will automatically set boundary
           },
         }
       );
-      if (!response) {
-        console.log("respones not get");
-      } else {
-        console.log(response.data);
-        navigate('/jobseeker');
-      }
 
+      const data = response.data;
+      console.log(data);
+
+      if (data.success) {
+        // Handle successful registration, e.g., navigate to jobseeker page
+        navigate("/jobseeker");
+      } else {
+        console.log("Registration failed:", data.message);
+      }
     } catch (err) {
-      console.log("somthing error", err);
+      console.log("Error during registration:", err);
     }
   };
   return (
@@ -162,8 +171,10 @@ export default function JobseekerRegister() {
                   </label>
                   <input
                     id="photo"
-                    name="photo"
+                    name="file"
+                    accept="image/*"
                     type="file"
+                    onChange={changeFileHandler}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 px-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>

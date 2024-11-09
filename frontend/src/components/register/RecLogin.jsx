@@ -40,7 +40,7 @@ function RecLogin() {
         Alltoast(userObj.message, userObj.success);
         setTimeout(() => {
           navigate("/recruiter/home");
-        }, 1000);
+        }, 500);
       }
     } catch (e) {
       console.log(e);
@@ -51,8 +51,6 @@ function RecLogin() {
       <div>
         <br />
         <br />
-
-        <Toaster richColors position="bottom-center"/>
         <div className="flex items-center justify-center">
           <div className="bg-white rounded-md mt-10">
             <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8">

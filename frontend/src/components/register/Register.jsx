@@ -21,15 +21,11 @@ function Register() {
       // alert("no any selection");
       Alltoast("no any selection", false);
     } else if (select == "Recuiter") {
+      navigate("/recruiter");
       Alltoast("You Select Recuiter", true);
-      setTimeout(() => {
-        navigate("/recruiter");
-      }, 800);
     } else {
       Alltoast("You Select jobseeker", true);
-      setTimeout(() => {
-        navigate("/jobseeker");
-      }, 800);
+      navigate("/jobseeker");
     }
   };
   return (
@@ -39,7 +35,6 @@ function Register() {
       <br />
       <br />
       <br />
-      <Toaster richColors position="bottom-center"/>
       <div className="">
         <div className="flex justify-center px-4">
           <div className="bg-white shadow-xl shadow-blue-200 rounded-md gap-12 p-5 border border-red-100">

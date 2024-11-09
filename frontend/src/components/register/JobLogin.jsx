@@ -23,15 +23,15 @@ function JobLogin() {
       };
       const response = await fetch("http://localhost:3000/api/v1/user/login", {
         method: "POST",
+        body: JSON.stringify(user),
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
       });
       const data = await response.json();
       console.log(data);
-      
+
       let userObj = data;
       if (data.success == false) {
         Alltoast(userObj.message, data.success);
@@ -39,10 +39,8 @@ function JobLogin() {
         localStorage.setItem("userdata", JSON.stringify(userObj));
         const token = Cookies.get("token");
         console.log(token);
+        navigate("/");
         Alltoast(userObj.message, userObj.success);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
       }
     } catch (e) {
       console.log(e);
@@ -51,8 +49,6 @@ function JobLogin() {
 
   return (
     <>
-    
-    <Toaster richColors position="bottom-center"/>
       <div className="flex items-center justify-center">
         <div className="bg-white rounded-md">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
