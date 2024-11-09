@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-
+import { Toaster, toast } from "sonner";
+import Alltoast from "../toast/Alltoast.jsx";
 function Register() {
   const [select, setSelect] = useState("Recuiter");
   // const userInfo = useContext(store);
@@ -17,11 +18,18 @@ function Register() {
   }, userObj);
   const nextBtn = () => {
     if (select == "") {
-      alert("no any selection");
+      // alert("no any selection");
+      Alltoast("no any selection", false);
     } else if (select == "Recuiter") {
-      navigate("/recruiter");
+      Alltoast("You Select Recuiter", true);
+      setTimeout(() => {
+        navigate("/recruiter");
+      }, 800);
     } else {
-      navigate("/jobseeker");
+      Alltoast("You Select jobseeker", true);
+      setTimeout(() => {
+        navigate("/jobseeker");
+      }, 800);
     }
   };
   return (
@@ -31,7 +39,7 @@ function Register() {
       <br />
       <br />
       <br />
-
+      <Toaster richColors />
       <div className="">
         <div className="flex justify-center px-4">
           <div className="bg-white shadow-xl shadow-blue-200 rounded-md gap-12 p-5 border border-red-100">

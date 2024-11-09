@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 
 import { useRef } from "react";
 
+import { Toaster, toast } from "sonner";
+import Alltoast from "../toast/Alltoast";
 function JobLogin() {
   const navigate = useNavigate();
   const email = useRef("");
@@ -29,15 +31,18 @@ function JobLogin() {
       });
       const data = await response.json();
       console.log(data);
+      
+      let userObj = data;
       if (data.success == false) {
-        alert("faied to login");
+        Alltoast(userObj.message, data.success);
       } else {
-        let userObj = data;
         localStorage.setItem("userdata", JSON.stringify(userObj));
         const token = Cookies.get("token");
         console.log(token);
-
-        navigate("/");
+        Alltoast(userObj.message, userObj.success);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       }
     } catch (e) {
       console.log(e);
@@ -46,6 +51,8 @@ function JobLogin() {
 
   return (
     <>
+    
+    <Toaster richColors />
       <div className="flex items-center justify-center">
         <div className="bg-white rounded-md">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
