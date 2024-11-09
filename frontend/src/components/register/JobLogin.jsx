@@ -52,7 +52,7 @@ function JobLogin() {
   return (
     <>
     
-    <Toaster richColors />
+    <Toaster richColors position="bottom-center"/>
       <div className="flex items-center justify-center">
         <div className="bg-white rounded-md">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

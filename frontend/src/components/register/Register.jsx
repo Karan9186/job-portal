@@ -39,7 +39,7 @@ function Register() {
       <br />
       <br />
       <br />
-      <Toaster richColors />
+      <Toaster richColors position="bottom-center"/>
       <div className="">
         <div className="flex justify-center px-4">
           <div className="bg-white shadow-xl shadow-blue-200 rounded-md gap-12 p-5 border border-red-100">
