@@ -73,9 +73,7 @@ export default function JobseekerRegister() {
         setLoading(false);
       }
     }
-    //  finally {
-    //   dispatch(setLoading(false));
-    // }
+ 
   };
 
   return (
