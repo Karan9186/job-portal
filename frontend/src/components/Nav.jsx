@@ -8,6 +8,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import Cookies from "js-cookie";
+import Alltoast from "./toast/Alltoast.jsx";
 import { useNavigate } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 // import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -135,6 +136,7 @@ export default function Nav() {
                                       console.log("called logout");
                                       Cookies.remove("token");
                                       localStorage.removeItem("userdata");
+                                      Alltoast("logout succesfully", true);
                                       naviagate("/login");
                                       setLogin(false);
                                     } else {
@@ -308,6 +310,7 @@ export default function Nav() {
                                       console.log("called logout");
                                       Cookies.remove("token");
                                       localStorage.removeItem("userdata");
+                                      Alltoast("logout succesfully", true);
                                       naviagate("/login");
                                       setLogin(false);
                                     } else {

@@ -2,75 +2,68 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import path from "path";
+import getDataUri from "../utils/datauri.js";
 import { singleUpload } from "../middlewares/multer.js";
 import cloudinary from "../utils/cloudinary.js";
 export const register = async (req, res) => {
   // Apply multer middleware before this function is executed
-  singleUpload(req, res, async (err) => {
-    if (err) {
+
+  try {
+    const { fullname, email, phoneNumber, password, role } = req.body;
+    if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
-        message: "Error uploading file",
+        message: "Something is missing",
         success: false,
       });
     }
 
-    try {
-      const { fullname, email, phoneNumber, password, role } = req.body;
-      if (!fullname || !email || !phoneNumber || !password || !role) {
-        return res.status(400).json({
-          message: "Something is missing",
-          success: false,
-        });
-      }
-
-      // Handle file upload to Cloudinary
-      const file = req.file;
-      if (!file) {
-        return res.status(400).json({
-          message: "No file uploaded",
-          success: false,
-        });
-      }
-
-      const fileUri = getDataUri(file); // Assuming this is a function that converts file to data URI
-      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-
-      // Check if the user already exists
-      const user = await User.findOne({ email });
-      if (user) {
-        return res.status(400).json({
-          message: "User already exists with the same email",
-          success: false,
-        });
-      }
-
-      // Hash the password
-      const hashedPass = await bcrypt.hash(password, 10);
-
-      // Create the new user
-      await User.create({
-        fullname,
-        email,
-        phoneNumber,
-        password: hashedPass,
-        role,
-        profile: {
-          profilePhoto: cloudResponse.secure_url,
-        },
-      });
-
-      return res.status(200).json({
-        message: "Account created successfully",
-        success: true,
-      });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({
-        message: "Internal server error",
+    // Handle file upload to Cloudinary
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({
+        message: "No file uploaded",
         success: false,
       });
     }
-  });
+
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+    // Check if the user already exists
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({
+        message: "User already exists with the same email",
+        success: false,
+      });
+    }
+
+    // Hash the password
+    const hashedPass = await bcrypt.hash(password, 10);
+
+    // Create the new user
+    await User.create({
+      fullname,
+      email,
+      phoneNumber,
+      password: hashedPass,
+      role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
+    });
+
+    return res.status(200).json({
+      message: "Account created successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
+  }
 };
 
 export const login = async (req, res) => {
