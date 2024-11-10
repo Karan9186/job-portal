@@ -66,6 +66,9 @@ export default function Nav() {
     login,
     role
   );
+  const user = localStorage.getItem("userdata");
+  const userData = JSON.parse(user);
+
   const naviagate = useNavigate();
   return (
     <>
@@ -118,7 +121,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={user.imageUrl}
+                                src={userData?.user?.profile?.profilePhoto}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -206,7 +209,7 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={user.imageUrl}
+                      src={userData?.user?.profile?.profilePhoto}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
@@ -292,7 +295,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={user.imageUrl}
+                                src={userData?.user?.profile?.profilePhoto}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -380,16 +383,16 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={user.imageUrl}
+                      src={userData?.user?.profile?.profilePhoto}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
-                      {user.name}
+                      {/* {user.name} */}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
-                      {user.email}
+                      {/* {user.email} */}
                     </div>
                   </div>
                   <button

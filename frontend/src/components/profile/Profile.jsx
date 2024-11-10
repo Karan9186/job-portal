@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { MdOutlineMail } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineLocalPhone } from "react-icons/md";
+import { json } from "react-router-dom";
 function Profile() {
+  const user = localStorage.getItem("userdata");
+  const userData = JSON.parse(user);
+
   const [showContact, setShowContact] = useState(false);
   const model = (
     <>
@@ -42,14 +46,18 @@ function Profile() {
                           <MdOutlineMail size={"26px"} />
                           <p>Email</p>
                         </div>
-                        <p className="mx-9 text-[17px]">karan@gmail.com</p>
+                        <p className="mx-9 text-[17px]">
+                          {userData.user.email}
+                        </p>
                       </div>
                       <div className="">
                         <div className="font-semibold flex items-center gap-2">
                           <MdOutlineLocalPhone size={"26px"} />
-                          <p>Phone</p>
+                          <p>Number</p>
                         </div>
-                        <p className="mx-9 text-[17px]">1234567890</p>
+                        <p className="mx-9 text-[17px]">
+                          {userData.user.phoneNumber}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -71,13 +79,14 @@ function Profile() {
               <div className="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
-                    src="https://randomuser.me/api/portraits/men/94.jpg"
+                    src={userData.user.profile.profilePhoto}
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                   ></img>
-                  <h1 className="text-xl font-semibold">karan parmar</h1>
+                  <h1 className="text-xl font-semibold">
+                    {userData.user.fullname}
+                  </h1>
                   <p className="text-slate-900">Software Developer</p>
                   <div className="flex gap-2 flex-wrap">
-                    <p className="text-gray-600">Dwarka, Gujarat, India</p>
                     <button
                       className="text-blue-900 font-semibold underline"
                       onClick={() => setShowContact(true)}
