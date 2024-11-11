@@ -2,11 +2,76 @@ import React, { useState } from "react";
 import { MdOutlineMail } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineLocalPhone } from "react-icons/md";
-import { json } from "react-router-dom";
+import { json, Navigate, useNavigate } from "react-router-dom";
+import UpdateProfile from "./UpdateProfile";
+import Alltoast from "../toast/Alltoast";
+import axios from "axios";
 function Profile() {
+  const navigate = useNavigate();
   const user = localStorage.getItem("userdata");
   const userData = JSON.parse(user);
+  const [upd, serUpd] = useState(false);
+  // update
+  const [loading, setLoading] = useState(false);
+  // const { user } = useSelector(store => store.auth);
 
+  const [input, setInput] = useState({
+    fullname: userData?.user?.fullname || "",
+    email: userData?.user?.email || "",
+    phoneNumber: userData?.user?.phoneNumber || "",
+    bio: userData?.user?.profile?.bio || "",
+    skills: userData?.user?.profile?.skills?.map((skill) => skill) || "",
+    file: userData?.user?.profile?.resume || "",
+  });
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const fileChangeHandler = (e) => {
+    const file = e.target.files?.[0];
+    setInput({ ...input, file });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("bio", input.bio);
+    formData.append("skills", input.skills);
+    if (input.file) {
+      formData.append("file", input.file);
+    }
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/user/profile/update",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+      if (res.data.success) {
+        // dispatch(setUser(res.data.user));
+        // toast.success(res.data.message);
+        Alltoast(res.data.message, res.data.success);
+        localStorage.setItem("userdata", JSON.stringify(res.data));
+        // console.log(res.data.user);
+      }
+    } catch (error) {
+      console.log(error);
+      Alltoast(error.response.data.message, false);
+    } finally {
+      setLoading(false);
+    }
+    console.log(input);
+  };
+
+  //
   const [showContact, setShowContact] = useState(false);
   const model = (
     <>
@@ -69,6 +134,111 @@ function Profile() {
       </div>
     </>
   );
+  const updateProfile = (
+    <div className="">
+      <div>
+        <div
+          className="sm:max-w-[425px]"
+          onInteractOutside={() => alert("called")}
+        >
+          <div>
+            <h1>Update Profile</h1>
+          </div>
+          <form onSubmit={submitHandler}>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="name" className="text-right">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={input.fullname}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="email" className="text-right">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={input.email}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="number" className="text-right">
+                  Number
+                </label>
+                <input
+                  id="number"
+                  name="number"
+                  value={input.phoneNumber}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="bio" className="text-right">
+                  Bio
+                </label>
+                <input
+                  id="bio"
+                  name="bio"
+                  value={input.bio}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="skills" className="text-right">
+                  Skills
+                </label>
+                <input
+                  id="skills"
+                  name="skills"
+                  value={input.skills}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="file" className="text-right">
+                  Resume
+                </label>
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={fileChangeHandler}
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+            <div>
+              {loading ? (
+                <button className="w-full my-4">
+                  {" "}
+                  <div className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+                </button>
+              ) : (
+                <button type="submit" className="w-full my-4">
+                  Update
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
   return (
     <>
       <br /> <br /> <br />
@@ -95,7 +265,10 @@ function Profile() {
                     </button>
                   </div>
                   <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                      onClick={() => serUpd(true)}
+                    >
                       edit
                     </button>
                     <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">
@@ -288,6 +461,8 @@ function Profile() {
       </div>
       {/* model */}
       {showContact ? model : ""}
+      {/* update model */}
+      {upd ? updateProfile : ""}
     </>
   );
 }
