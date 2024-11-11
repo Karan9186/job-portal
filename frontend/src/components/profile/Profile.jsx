@@ -34,41 +34,56 @@ function Profile() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Create formData and append fields
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
+
     if (input.file) {
-      formData.append("file", input.file);
+      formData.append("file", input.file); // Append file if it exists
     }
+
     try {
       setLoading(true);
-      const res = await axios.post(
-        "http://localhost:3000/api/v1/user/profile/update",
-        formData,
+
+      const res = await fetch(
+        "http://localhost:3000/api/v1/user/profile/update", 
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
+          method: "POST",
+          body: JSON.stringify(input),
+          credentials: "include", // Ensure cookies are sent if needed
         }
       );
-      if (res.data.success) {
-        // dispatch(setUser(res.data.user));
-        // toast.success(res.data.message);
-        Alltoast(res.data.message, res.data.success);
-        localStorage.setItem("userdata", JSON.stringify(res.data));
-        // console.log(res.data.user);
+
+      // Handle server response
+      if (!res.ok) {
+        // If response is not OK (status code is not 200)
+        const errorResult = await res.json();
+        Alltoast(errorResult.message || "Failed to update profile", false);
+        return;
+      }
+
+      const result = await res.json();
+
+      if (result.success) {
+        Alltoast(result.message, result.success);
+        console.log(result);
+
+        // localStorage.setItem("userdata", JSON.stringify(result.user));
+      } else {
+        Alltoast(result.message || "Error updating profile", false);
       }
     } catch (error) {
-      console.log(error);
-      Alltoast(error.response.data.message, false);
+      // Handle fetch errors or other issues
+      Alltoast("An error occurred while updating the profile.", false);
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
-    console.log(input);
   };
 
   //
@@ -137,10 +152,7 @@ function Profile() {
   const updateProfile = (
     <div className="">
       <div>
-        <div
-          className="sm:max-w-[425px]"
-          onInteractOutside={() => alert("called")}
-        >
+        <div className="sm:max-w-[425px]">
           <div>
             <h1>Update Profile</h1>
           </div>
@@ -152,7 +164,7 @@ function Profile() {
                 </label>
                 <input
                   id="name"
-                  name="name"
+                  name="fullname"
                   type="text"
                   value={input.fullname}
                   onChange={changeEventHandler}
@@ -178,7 +190,7 @@ function Profile() {
                 </label>
                 <input
                   id="number"
-                  name="number"
+                  name="phoneNumber"
                   value={input.phoneNumber}
                   onChange={changeEventHandler}
                   className="col-span-3"

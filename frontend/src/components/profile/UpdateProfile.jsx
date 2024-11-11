@@ -36,15 +36,21 @@ function UpdateProfile() {
     }
     try {
       setLoading(true);
-      const res = await axios.post("/profile/update", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/user/profile/update",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         // dispatch(setUser(res.data.user));
         // toast.success(res.data.message);
+        console.log(res.data);
+        localStorage.setItem("userdata",JSON.stringify(res.data))
         Alltoast(res.data.message, res.data.success);
       }
     } catch (error) {

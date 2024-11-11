@@ -5,6 +5,7 @@ import path from "path";
 import getDataUri from "../utils/datauri.js";
 import { singleUpload } from "../middlewares/multer.js";
 import cloudinary from "../utils/cloudinary.js";
+import { log } from "console";
 export const register = async (req, res) => {
   // Apply multer middleware before this function is executed
 
@@ -150,6 +151,7 @@ export const updateProfile = async (req, res) => {
       skillsArray = skills.split(",");
     }
     const userId = req.id; //middleware authentication
+    console.log(req.id);
     let user = await User.findById(userId);
     if (!user) {
       return res.status(400).json({
@@ -161,10 +163,10 @@ export const updateProfile = async (req, res) => {
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
-    if (bio) user.bio = bio;
-    if (skills) user.skills = skillsArray;
-
+    if (bio) user.profile.bio = bio;
+    if (skills) user.profile.skills = skillsArray;
     await user.save();
+    console.log("done");
 
     user = {
       _id: user._id,
@@ -174,6 +176,7 @@ export const updateProfile = async (req, res) => {
       phoneNumber: user.phoneNumber,
       profile: user.profile,
     };
+
     return res.status(200).json({
       message: "profile updated",
       user,
