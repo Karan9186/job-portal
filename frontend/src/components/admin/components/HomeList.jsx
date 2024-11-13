@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import h1 from "../../../../public/h1.jpg";
+import axios from "axios";
 function HomeList() {
   const navigate = useNavigate();
+  const getcompanydata = async () => {
+    try {
+      const companydata = await axios.get('http://localhost:3000/api/v1/get', {
+        headers: {
+          'Content-Type':'application/json',
+        }
+      });
+      if (companydata) {
+        console.log(companydata.data);
+      }
+      else {
+        console.log('data not get from backend');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    getcompanydata();
+  },[])
+  
   return (
     <div>
       <br />
