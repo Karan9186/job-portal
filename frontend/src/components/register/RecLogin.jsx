@@ -2,6 +2,8 @@ import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import store from "../../store/store";
 import Cookies from "js-cookie";
+import { Toaster, toast } from "sonner";
+import Alltoast from "../toast/Alltoast";
 function RecLogin() {
   const navigate = useNavigate();
   const email = useRef("");
@@ -16,32 +18,30 @@ function RecLogin() {
         password: password.current.value,
         role: role,
       };
-      const response = await fetch("http://localhost:3000/api/v1/recruiter/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/v1/recruiter/login",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       const data = await response.json();
       console.log(data);
+      let userObj = data;
       if (data.success == false) {
-        alert("faied to login");
+        Alltoast(userObj.message, userObj.success);
       } else {
-        userInfo[0] = data;
-        console.log("the userinfo is " + userInfo[0].message);
-
+        localStorage.setItem("userdata", JSON.stringify(userObj));
         const token = Cookies.get("token");
-        console.log("the token is " + token);
-        navigate("/recruiter/home");
+        Alltoast(userObj.message, userObj.success);
+        setTimeout(() => {
+          navigate("/recruiter/home");
+        }, 500);
       }
-      // console.log(user);
-      // if (user.email == "karan@gmail.com" && user.password == "123") {
-      //   navigate("/recruiter/home");
-      // } else {
-      //   alert("not login");
-      // }
     } catch (e) {
       console.log(e);
     }
@@ -51,7 +51,6 @@ function RecLogin() {
       <div>
         <br />
         <br />
-
         <div className="flex items-center justify-center">
           <div className="bg-white rounded-md mt-10">
             <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8">

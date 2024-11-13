@@ -1,44 +1,52 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import { useInRouterContext, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 import { useRef } from "react";
 
-
+import { Toaster, toast } from "sonner";
+import Alltoast from "../toast/Alltoast";
 function JobLogin() {
   const navigate = useNavigate();
   const email = useRef("");
   const password = useRef("");
   const role = "jobseeker";
 
-  const handlelogin = async () => { 
-    const datapost={
-      email: email.current.value,
-      password:password.current.value,
-      role:role,
-    }
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-     const response=await axios.post("http://localhost:3000/api/v1/user/login", datapost,
-        {
-          headers: {
-           'Content-Type':'application/json',
-         }
-        });
-      if (!response) {
-        console.log('response not get');
+      const user = {
+        email: email.current.value,
+        password: password.current.value,
+        role: role,
+      };
+      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+        method: "POST",
+        body: JSON.stringify(user),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+
+      let userObj = data;
+      if (data.success == false) {
+        Alltoast(userObj.message, data.success);
       } else {
-        console.log('response succesfully');
-        console.log(response.data);
+        localStorage.setItem("userdata", JSON.stringify(userObj));
+        const token = Cookies.get("token");
+        console.log(token);
+        navigate("/");
+        Alltoast(userObj.message, userObj.success);
       }
-         
-  } catch (err) {
-    console.error('Error occurred data not posting:', err.message);
-    if (err.response) {
-      console.error('Response data:', err.response.data);
-    } else if (err.request) {
-      console.error('Request data:', err.request);
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
+  };
+
   return (
     <>
       <div className="flex items-center justify-center">
@@ -57,7 +65,7 @@ function JobLogin() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              <form className="space-y-6" onSubmit={handleLogin}>
                 <div>
                   <label
                     htmlFor="email"
@@ -112,7 +120,6 @@ function JobLogin() {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={handlelogin}
                   >
                     Sign in
                   </button>
@@ -124,9 +131,9 @@ function JobLogin() {
                 <button
                   href="#"
                   className="font-semibold leading-6 text-black"
-                  onClick={()=>navigate("/jobseeker/register")}
+                  onClick={() => navigate("/jobseeker/register")}
                 >
-                 Regiseter Here
+                  Regiseter Here
                 </button>
               </p>
             </div>

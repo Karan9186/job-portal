@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import store from "../../store/store";
-import Cookies from "js-cookie";
+import { Toaster, toast } from "sonner";
+import Alltoast from "../toast/Alltoast.jsx";
 function Register() {
   const [select, setSelect] = useState("Recuiter");
   // const userInfo = useContext(store);
   // const token = Cookies.get("token");
   const navigate = useNavigate();
-  // useEffect(
-  //   () => {
-  //     if (userInfo[0].success == true && token) {
-  //       navigate("/");
-  //     }
-  //   },
-  //   token,
-  //   userInfo[0]
-  // );
+  const [userObj, setObj] = useState();
+  useEffect(() => {
+    let userData = localStorage.getItem("userdata");
+    setObj(JSON.parse(userData));
+    if (userObj?.success == true) {
+      navigate("/");
+    }
+  }, userObj);
   const nextBtn = () => {
     if (select == "") {
-      alert("no any selection");
+      // alert("no any selection");
+      Alltoast("no any selection", false);
     } else if (select == "Recuiter") {
       navigate("/recruiter");
+      Alltoast("You Select Recuiter", true);
     } else {
+      Alltoast("You Select jobseeker", true);
       navigate("/jobseeker");
     }
   };
@@ -33,7 +35,6 @@ function Register() {
       <br />
       <br />
       <br />
-
       <div className="">
         <div className="flex justify-center px-4">
           <div className="bg-white shadow-xl shadow-blue-200 rounded-md gap-12 p-5 border border-red-100">

@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import Nav from "./components/Nav";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
@@ -22,6 +22,7 @@ import UpdateJob from "./components/admin/components/UpdateJob";
 import UpdateCompnay from "./components/admin/components/UpdateCompnay";
 import JobDetails from "./components/JobDetails";
 import JobseekerRegister from "./components/register/JobseekerRegister";
+import UpdateProfile from "./components/profile/UpdateProfile";
 
 function App() {
   const [login, setLogin] = useState("");
@@ -37,15 +38,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/jobinfo/:id" element={<JobDetails />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<UpdateProfile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/recruiter" element={<Recruiter />} />
           <Route path="/recruiter/register" element={<RecRegi />} />
           <Route path="/jobseeker" element={<Jobseeker />} />
           <Route path="/login" element={<Register />} />
           <Route path="/*" element={<Error />} />
-          <Route path="/jobseeker/register" element={<JobseekerRegister/>} />
-
-
+          <Route path="/jobseeker/register" element={<JobseekerRegister />} />
           {/* recruiter routes */}
           <Route path="/recruiter/home" element={<HomeReq />} />
           <Route path="/recruiter/add/company" element={<AddCompnay />} />
@@ -57,7 +57,6 @@ function App() {
           <Route path="/recruiter/add/job" element={<AddJob />} />
           <Route path="/recruiter/applicant/job" element={<Applicant />} />
           <Route path="/recruiter/job/update/:id" element={<UpdateJob />} />
-
         </Routes>
 
         <br />

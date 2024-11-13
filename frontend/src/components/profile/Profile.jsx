@@ -2,7 +2,91 @@ import React, { useState } from "react";
 import { MdOutlineMail } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineLocalPhone } from "react-icons/md";
+import { json, Navigate, useNavigate } from "react-router-dom";
+import UpdateProfile from "./UpdateProfile";
+import Alltoast from "../toast/Alltoast";
+import axios from "axios";
 function Profile() {
+  const navigate = useNavigate();
+  const user = localStorage.getItem("userdata");
+  const userData = JSON.parse(user);
+  const [upd, serUpd] = useState(false);
+  // update
+  const [loading, setLoading] = useState(false);
+  // const { user } = useSelector(store => store.auth);
+
+  const [input, setInput] = useState({
+    fullname: userData?.user?.fullname || "",
+    email: userData?.user?.email || "",
+    phoneNumber: userData?.user?.phoneNumber || "",
+    bio: userData?.user?.profile?.bio || "",
+    skills: userData?.user?.profile?.skills?.map((skill) => skill) || "",
+    file: userData?.user?.profile?.resume || "",
+  });
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const fileChangeHandler = (e) => {
+    const file = e.target.files?.[0];
+    setInput({ ...input, file });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    // Create formData and append fields
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("bio", input.bio);
+    formData.append("skills", input.skills);
+
+    if (input.file) {
+      formData.append("file", input.file); // Append file if it exists
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        "http://localhost:3000/api/v1/user/profile/update", 
+        {
+          method: "POST",
+          body: JSON.stringify(input),
+          credentials: "include", // Ensure cookies are sent if needed
+        }
+      );
+
+      // Handle server response
+      if (!res.ok) {
+        // If response is not OK (status code is not 200)
+        const errorResult = await res.json();
+        Alltoast(errorResult.message || "Failed to update profile", false);
+        return;
+      }
+
+      const result = await res.json();
+
+      if (result.success) {
+        Alltoast(result.message, result.success);
+        console.log(result);
+
+        // localStorage.setItem("userdata", JSON.stringify(result.user));
+      } else {
+        Alltoast(result.message || "Error updating profile", false);
+      }
+    } catch (error) {
+      // Handle fetch errors or other issues
+      Alltoast("An error occurred while updating the profile.", false);
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //
   const [showContact, setShowContact] = useState(false);
   const model = (
     <>
@@ -42,14 +126,18 @@ function Profile() {
                           <MdOutlineMail size={"26px"} />
                           <p>Email</p>
                         </div>
-                        <p className="mx-9 text-[17px]">karan@gmail.com</p>
+                        <p className="mx-9 text-[17px]">
+                          {userData.user.email}
+                        </p>
                       </div>
                       <div className="">
                         <div className="font-semibold flex items-center gap-2">
                           <MdOutlineLocalPhone size={"26px"} />
-                          <p>Phone</p>
+                          <p>Number</p>
                         </div>
-                        <p className="mx-9 text-[17px]">1234567890</p>
+                        <p className="mx-9 text-[17px]">
+                          {userData.user.phoneNumber}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -61,6 +149,108 @@ function Profile() {
       </div>
     </>
   );
+  const updateProfile = (
+    <div className="">
+      <div>
+        <div className="sm:max-w-[425px]">
+          <div>
+            <h1>Update Profile</h1>
+          </div>
+          <form onSubmit={submitHandler}>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="name" className="text-right">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="fullname"
+                  type="text"
+                  value={input.fullname}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="email" className="text-right">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={input.email}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="number" className="text-right">
+                  Number
+                </label>
+                <input
+                  id="number"
+                  name="phoneNumber"
+                  value={input.phoneNumber}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="bio" className="text-right">
+                  Bio
+                </label>
+                <input
+                  id="bio"
+                  name="bio"
+                  value={input.bio}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="skills" className="text-right">
+                  Skills
+                </label>
+                <input
+                  id="skills"
+                  name="skills"
+                  value={input.skills}
+                  onChange={changeEventHandler}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="file" className="text-right">
+                  Resume
+                </label>
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={fileChangeHandler}
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+            <div>
+              {loading ? (
+                <button className="w-full my-4">
+                  {" "}
+                  <div className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+                </button>
+              ) : (
+                <button type="submit" className="w-full my-4">
+                  Update
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
   return (
     <>
       <br /> <br /> <br />
@@ -71,13 +261,14 @@ function Profile() {
               <div className="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
-                    src="https://randomuser.me/api/portraits/men/94.jpg"
+                    src={userData.user.profile.profilePhoto}
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                   ></img>
-                  <h1 className="text-xl font-semibold">karan parmar</h1>
+                  <h1 className="text-xl font-semibold">
+                    {userData.user.fullname}
+                  </h1>
                   <p className="text-slate-900">Software Developer</p>
                   <div className="flex gap-2 flex-wrap">
-                    <p className="text-gray-600">Dwarka, Gujarat, India</p>
                     <button
                       className="text-blue-900 font-semibold underline"
                       onClick={() => setShowContact(true)}
@@ -86,7 +277,10 @@ function Profile() {
                     </button>
                   </div>
                   <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                      onClick={() => serUpd(true)}
+                    >
                       edit
                     </button>
                     <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">
@@ -279,6 +473,8 @@ function Profile() {
       </div>
       {/* model */}
       {showContact ? model : ""}
+      {/* update model */}
+      {upd ? updateProfile : ""}
     </>
   );
 }

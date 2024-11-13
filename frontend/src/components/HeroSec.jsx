@@ -6,6 +6,7 @@ import img4 from "/h4.jpg";
 import img5 from "/h5.jpg";
 import img6 from "/h6.jpg";
 import img7 from "/h7.jpg";
+
 function HeroSec() {
   return (
     <>
@@ -104,12 +105,9 @@ function HeroSec() {
                   </div>
                 </div>
 
-                <a
-                  href="#"
-                  className="inline-block rounded-md border border-transparent bg-red-500 px-8 py-3 text-center font-medium text-white hover:bg-red-700 w-[200px]"
-                >
+                <button className="inline-block rounded-md border border-transparent bg-red-500 px-8 py-3 text-center font-medium text-white hover:bg-red-700 w-[200px]">
                   Get Your First Job
-                </a>
+                </button>
               </div>
             </div>
           </div>
