@@ -34,18 +34,18 @@ function HomeList() {
         <tr className="bg-white border-b ">
           <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
             <img
-              src={h1}
+              src={v.file}
               alt="company"
               className="h-[50px] w-[50px] rounded-md"
             />
           </th>
-          <td className="px-6 py-4">google</td>
-          <td className="px-6 py-4">hiring</td>
-          <td className="px-6 py-4">gujarat</td>
+          <td className="px-6 py-4">{v.companyName}</td>
+          <td className="px-6 py-4">{v.description}</td>
+          <td className="px-6 py-4">{v.location}</td>
           <td className="flex items-center justify-around mt-5">
             <button
               className="bg-blue-700 px-5 py-2 rounded text-white font-semibold"
-              onClick={() => navigate("/recruiter/company/update/:id")}
+              onClick={() => navigate(`/recruiter/company/update/${v._id}`)}
             >
               Update
             </button>
