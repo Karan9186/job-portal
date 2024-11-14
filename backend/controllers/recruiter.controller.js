@@ -1,38 +1,64 @@
 import { Reqcuiter } from "../models/recruiter.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/datauri.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
-        message: "something is missing",
+        message: "Something is missing",
         success: false,
       });
     }
+
+    // Handle file upload to Cloudinary
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({
+        message: "No file uploaded",
+        success: false,
+      });
+    }
+
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+    // Check if the user already exists
     const user = await Reqcuiter.findOne({ email });
     if (user) {
       return res.status(400).json({
-        message: "Reqcuiter already exists with same email",
+        message: "User already exists with the same email",
         success: false,
       });
     }
+
+    // Hash the password
     const hashedPass = await bcrypt.hash(password, 10);
+
+    // Create the new user
     await Reqcuiter.create({
       fullname,
       email,
       phoneNumber,
       password: hashedPass,
       role,
-      profile: {},
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
+
     return res.status(200).json({
-      message: "account created successfully",
+      message: "Account created successfully",
       success: true,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 
@@ -90,7 +116,7 @@ export const login = async (req, res) => {
         message: `welcome back ${user.fullname}`,
         success: true,
         user,
-      }); 
+      });
   } catch (err) {
     console.log(err);
   }

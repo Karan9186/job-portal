@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddCompnay() {
   const comname = useRef("");
@@ -9,32 +9,36 @@ function AddCompnay() {
   const Logo = useRef("");
   const navigate = useNavigate();
 
-  const handlesubmit =async(e) => {
+  const handlesubmit = async (e) => {
     e.preventDefault();
     const datapost = {
-      companyName:comname.current.value,
-      description:Description.current.value,
-      location:Location.current.value,
+      companyName: comname.current.value,
+      description: Description.current.value,
+      location: Location.current.value,
       // logo:Logo.current.value,
-    }
+    };
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/company/registercompany',datapost,
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/company/registercompany",
+        datapost,
         {
           headers: {
-            'Content-Type': 'application/json',
-          }
-        });
+            "Content-Type": "application/json",
+          },
+
+          withCredentials: true,
+        }
+      );
       if (!response) {
-        console.log('response not get');
-      }
-      else {
+        console.log("response not get");
+      } else {
         console.log(response.data);
-        navigate('/recruiter/home');
+        navigate("/recruiter/home");
       }
     } catch (err) {
-      console.log('somthing error',err);
+      console.log("somthing error", err);
     }
-  }
+  };
 
   return (
     <>
@@ -48,7 +52,11 @@ function AddCompnay() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Add Company
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#" onSubmit={handlesubmit}>
+              <form
+                className="space-y-4 md:space-y-6"
+                action="#"
+                onSubmit={handlesubmit}
+              >
                 <div>
                   <label
                     for="name"
@@ -81,7 +89,6 @@ function AddCompnay() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     required=""
                     ref={Description}
-
                   />
                 </div>
                 <div>
@@ -99,7 +106,6 @@ function AddCompnay() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     required=""
                     ref={Location}
-
                   />
                 </div>
                 <div>
@@ -130,8 +136,7 @@ function AddCompnay() {
           </div>
         </div>
       </section>
-    </> 
-
+    </>
   );
 }
 

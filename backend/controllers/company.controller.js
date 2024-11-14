@@ -1,7 +1,7 @@
 import { company } from "../models/company.model.js";
 export const registerCompany = async (req, res) => {
   try {
-    const { companyName } = req.body;
+    const { companyName, description, location } = req.body;
     console.log(req.body);
     if (!companyName) {
       return res.status(400).json({
@@ -19,9 +19,13 @@ export const registerCompany = async (req, res) => {
     console.log(req.id);
 
     Company = await company.create({
-      name: companyName,
+      companyName: companyName,
+      description: description,
+      location: location,
       userId: req.id,
     });
+    console.log("the copnay is=", Company);
+
     return res.status(201).json({
       message: "compay created",
       Company,
