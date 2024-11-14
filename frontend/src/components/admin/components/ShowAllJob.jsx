@@ -12,7 +12,10 @@ function ShowAllJob() {
       <br />
       <br />
       <div className="relative  p-4  min-h-screen">
-        <button className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold">
+        <button
+          className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold"
+          onClick={() => navigate("/recruiter/add/job")}
+        >
           Add Job
         </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">

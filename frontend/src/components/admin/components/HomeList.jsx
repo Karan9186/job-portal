@@ -8,11 +8,12 @@ function HomeList() {
   const getcompanydata = async () => {
     try {
       const companydata = await axios.get(
-        "http://localhost:3000/api/v1/company/get/all",
+        "http://localhost:3000/api/v1/company/get",
         {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
       if (companydata) {
@@ -31,7 +32,7 @@ function HomeList() {
   const allCompanyDetails = data.map((v, i) => {
     return (
       <>
-        <tr className="bg-white border-b ">
+        <tr className="bg-white border-b" key={i}>
           <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
             <img
               src={v.file}
@@ -93,7 +94,7 @@ function HomeList() {
               </th>
             </tr>
           </thead>
-          <tbody>{allCompanyDetails}</tbody>
+          <tbody>{data.length == 0 ? "not compnay" : allCompanyDetails}</tbody>
         </table>
       </div>
     </div>

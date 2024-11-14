@@ -29,6 +29,7 @@ const navigation = [
 ];
 const reqNavigationLink = [
   { name: "Home", link: "/recruiter/home", current: true },
+  { name: "job", link: "/recruiter/show/job", current: true },
   { name: "Contact", link: "/contact", current: false },
 ];
 
@@ -36,10 +37,7 @@ const userNavigation = [
   { name: "Your Profile", link: "profile" },
   { name: "Sign out", link: "logOut" },
 ];
-const reqNavigation = [
-  { name: "Your Profile", link: "profile" },
-  { name: "Sign out", link: "logOut" },
-];
+const reqNavigation = [{ name: "Sign out", link: "logOut" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -130,7 +128,7 @@ export default function Nav() {
                             transition
                             className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                           >
-                            {userNavigation.map((item) => (
+                            {reqNavigation.map((item) => (
                               <MenuItem key={item.name}>
                                 <button
                                   className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
@@ -231,7 +229,7 @@ export default function Nav() {
                   </button>
                 </div>
                 <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
+                  {reqNavigation.map((item) => (
                     <DisclosureButton
                       key={item.name}
                       as="a"
