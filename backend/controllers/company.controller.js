@@ -1,4 +1,7 @@
 import { company } from "../models/company.model.js";
+
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/datauri.js";
 export const registerCompany = async (req, res) => {
   try {
     const { companyName, description, location } = req.body;
@@ -9,6 +12,19 @@ export const registerCompany = async (req, res) => {
         success: false,
       });
     }
+
+    // Handle file upload to Cloudinary
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({
+        message: "No file uploaded",
+        success: false,
+      });
+    }
+
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    // done file
     let Company = await company.findOne({ name: companyName });
     if (Company) {
       return res.status(400).json({
@@ -22,6 +38,7 @@ export const registerCompany = async (req, res) => {
       companyName: companyName,
       description: description,
       location: location,
+      file: cloudResponse.secure_url,
       userId: req.id,
     });
     console.log("the copnay is=", Company);
@@ -55,7 +72,24 @@ export const getCompany = async (req, res) => {
     console.log(error);
   }
 };
-
+export const getAllCompany = async (req, res) => {
+  try {
+    const companise = await company.find();
+    if (!companise) {
+      return res.status(400).json({
+        message: "company not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      companise,
+      message: "compmay found",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getCompanyById = async (req, res) => {
   try {
     const companyId = req.params.id;

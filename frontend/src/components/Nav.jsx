@@ -215,10 +215,10 @@ export default function Nav() {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
-                      {user.name}
+                      {user?.name}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
-                      {user.email}
+                      {user?.email}
                     </div>
                   </div>
                   <button
