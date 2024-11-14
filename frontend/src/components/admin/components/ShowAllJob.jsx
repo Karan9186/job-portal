@@ -1,8 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import h1 from "../../../../public/h1.jpg";
 import { useNavigate } from "react-router-dom";
 function ShowAllJob() {
   const navigate = useNavigate();
+  const [Jobs, setJobs] = useState([]);
+  const [loading, setLoad] = useState(false);
+  function formatDate(date) {
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false, // For 24-hour format
+    };
+
+    const formattedDate = new Date(date).toLocaleString("en-GB", options);
+    return formattedDate.replace(",", ""); // Remove comma
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoad(true);
+        const response = await fetch(
+          "http://localhost:3000/api/v1/job/adminjob",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // for cookies
+          }
+        );
+        const result = await response.json();
+        setJobs(result.jobs);
+        console.log(result.jobs);
+
+        setLoad(false); // Ensure companies is always an array
+      } catch (error) {
+        console.error("Error fetching company data:", error);
+        setCompany([]); // In case of an error, set companies to an empty array
+      }
+    };
+    fetchData(); // Fetch company data on component mount
+  }, []);
+
+  const allJobs = Jobs.map((v, i) => {
+    return (
+      <>
+        <tr className="bg-white border-b " key={i}>
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+          >
+            <img
+              src={v.company.file}
+              alt="company"
+              className="h-[50px] w-[50px] rounded-md"
+            />
+          </th>
+          <td className="px-6 py-4">{v.company.companyName}</td>
+          <td className="px-6 py-4">{v.title}</td>
+          <td className="px-6 py-4">{formatDate(v.createdAt)}</td>
+          <div className="flex items-center gap-4 w-[100px]">
+            <button
+              className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
+              onClick={() => navigate(`/recruiter/job/update/${v._id}`)}
+            >
+              edit
+            </button>
+            <button
+              className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold"
+              onClick={() => navigate(`/recruiter/applicant/job/${v._id}`)}
+            >
+              applicant
+            </button>
+          </div>
+        </tr>
+      </>
+    );
+  });
   return (
     <>
       <br />
@@ -39,84 +117,12 @@ function ShowAllJob() {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <img
-                  src={h1}
-                  alt="company"
-                  className="h-[50px] w-[50px] rounded-md"
-                />
-              </th>
-              <td className="px-6 py-4">google</td>
-              <td className="px-6 py-4">hiring</td>
-              <td className="px-6 py-4">gujarat</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => navigate("/recruiter/job/update/1")}
-                >
-                  edit
-                </button>
-                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
-                  applicant
-                </button>
-              </div>
-            </tr>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <img
-                  src={h1}
-                  alt="company"
-                  className="h-[50px] w-[50px] rounded-md"
-                />
-              </th>
-              <td className="px-6 py-4">google</td>
-              <td className="px-6 py-4">hiring</td>
-              <td className="px-6 py-4">gujarat</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => navigate("/recruiter/job/update/1")}
-                >
-                  edit
-                </button>
-                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
-                  applicant
-                </button>
-              </div>
-            </tr>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <img
-                  src={h1}
-                  alt="company"
-                  className="h-[50px] w-[50px] rounded-md"
-                />
-              </th>
-              <td className="px-6 py-4">google</td>
-              <td className="px-6 py-4">hiring</td>
-              <td className="px-6 py-4">gujarat</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => navigate("/recruiter/job/update/1")}
-                >
-                  edit
-                </button>
-                <button className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold">
-                  applicant
-                </button>
-              </div>
-            </tr>
+            {loading
+              ? "loading"
+              : allJobs.length >= 0
+              ? allJobs
+              : "no job posted by you"}
+            {}
           </tbody>
         </table>
       </div>

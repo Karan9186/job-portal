@@ -55,7 +55,7 @@ function App() {
             element={<UpdateCompnay />}
           />
           <Route path="/recruiter/add/job" element={<AddJob />} />
-          <Route path="/recruiter/applicant/job" element={<Applicant />} />
+          <Route path="/recruiter/applicant/job/:id" element={<Applicant />} />
           <Route path="/recruiter/job/update/:id" element={<UpdateJob />} />
         </Routes>
 

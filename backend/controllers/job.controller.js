@@ -12,7 +12,7 @@ export const postJob = async (req, res) => {
       jobType,
       experience,
       position,
-      companyId,
+      company,
     } = req.body;
     const user = req.id;
     if (
@@ -23,9 +23,8 @@ export const postJob = async (req, res) => {
       !experienceLevel ||
       !location ||
       !jobType ||
-      !experience ||
       !position ||
-      !companyId
+      !company
     ) {
       return res
         .status(400)
@@ -40,7 +39,7 @@ export const postJob = async (req, res) => {
       location: location,
       jobType: jobType,
       position: position,
-      company: companyId,
+      company: company,
       createdBy: req.id,
     });
     job
@@ -120,7 +119,9 @@ export const getJobById = async (req, res) => {
 export const getAdminJob = async (req, res) => {
   try {
     const adminId = req.id;
-    const jobs = await Job.find({createdBy:adminId});
+    const jobs = await Job.find({ createdBy: adminId })
+      .populate("company")
+      .exec();
     if (!jobs) {
       return res.status(404).json({
         message: "no any jobs posted by you",
