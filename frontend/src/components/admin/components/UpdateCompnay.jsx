@@ -1,76 +1,127 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
 
 function UpdateCompnay() {
+  const [compnayData, setCompnayData] = useState({
+    companyName: "",
+    description: "",
+    location: "",
+    file: "", // Assuming file will be a string URL
+  });
   const { id } = useParams();
- 
-  const name = useRef("");
-  const Description = useRef("");
-  const Location = useRef("");
-   const Logo = useRef("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [file, setFile] = useState(null); // This will store the selected file (for update)
 
+  const Logo = useRef(""); // Ref for file input
+
+  // Handle form submission for updating company
   const handleupdate = async (e) => {
     e.preventDefault();
-    const fetchdata = {
-      companyName: name.current.value,
-      description: Description.current.value,
-      location: Location.current.value,
-      logo: Logo.current.files[0],  
+
+    const newData = {
+      companyName: compnayData.companyName,
+      description: compnayData.description,
+      location: compnayData.location,
     };
+
     try {
-      const response = await axios.post(`http://localhost:3000/api/v1/company/update/${id}`
-        , fetchdata,
+      const response = await fetch(
+        `http://localhost:3000/api/v1/company/update/${id}`,
         {
+          method: "POST",
+          body: JSON.stringify(newData),
           headers: {
-            'Content-Type':'Application/json'
-          }
+            "Content-Type": "multipart/form-data", // For file upload
+          },
+          credentials: "include",
         }
       );
-      if (response) {
-        console.log(response.data);
-        console.log(response);
-      } else {
-        console.log("response not get");
-      }
+      const result = await response.json();
+      console.log(result);
     } catch (err) {
-      console.log(err);
+      console.log("Error updating company:", err);
     }
+  };
+
+  // Fetch company data from API when the component mounts
+  useEffect(() => {
+    const fetchCompnayData = async () => {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/company/get/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      const result = await response.json();
+      setCompnayData(result.compnay);
+      setImagePreview(result.compnay.file); // Set the file URL for preview
+    };
+    fetchCompnayData();
+  }, [id]); // Ensure to fetch on component mount and when `id` changes
+
+  // Handle file selection and preview
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile.name);
+
+      // Generate image preview using FileReader (for images)
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Set the image preview URL
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCompnayData({
+      ...compnayData,
+      [name]: value, // Dynamically update the specific field
+    });
   };
 
   return (
     <>
       <br />
       <br />
-      <section className="flex">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <section className="flex mt-10">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-[64vw]">
           <div className="w-full bg-white rounded-lg shadow ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Update Company
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleupdate}>
+              <form className="space-y-4 md:space-y-6" onSubmit={handleupdate}>
                 <div>
                   <label
-                    for="name"
+                    htmlFor="name"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Name
                   </label>
                   <input
                     type="text"
-                    name="name"
+                    name="companyName"
                     id="name"
+                    value={compnayData.companyName || ""}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="name@company.com"
-                    required=""
-                    ref={name}
+                    placeholder="Company Name"
+                    required
+                    onChange={handleInputChange} // Handle change for controlled input
                   />
                 </div>
                 <div>
                   <label
-                    for="description"
+                    htmlFor="description"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Description
@@ -79,33 +130,35 @@ function UpdateCompnay() {
                     type="text"
                     name="description"
                     id="description"
-                    placeholder="description of the compnay"
+                    value={compnayData.description || ""}
+                    placeholder="Description of the company"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required=""
-                    ref={Description}
+                    required
+                    onChange={handleInputChange} // Handle change for controlled input
                   />
                 </div>
                 <div>
                   <label
-                    for="location"
+                    htmlFor="location"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Location
                   </label>
                   <input
-                    type="location"
+                    type="text"
                     name="location"
                     id="location"
-                    placeholder="location"
+                    value={compnayData.location || ""}
+                    placeholder="Location"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    required=""
-                    ref={Location}
+                    required
+                    onChange={handleInputChange} // Handle change for controlled input
                   />
                 </div>
                 <div>
                   <label
-                    for="logo"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    htmlFor="logo"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     Logo
                   </label>
@@ -113,17 +166,32 @@ function UpdateCompnay() {
                     type="file"
                     name="logo"
                     id="logo"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    required=""
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    onChange={handleFileChange} // Handle file change
                     ref={Logo}
                   />
+
+                  {/* Display the file name if selected */}
+                  {file && (
+                    <div className="mt-2 text-sm text-gray-600">
+                      <strong>File Name:</strong> {file}
+                    </div>
+                  )}
+
+                  {/* Display image preview if available */}
+                  {imagePreview && (
+                    <div className="mt-4">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="w-[100px] h-[100px] rounded-lg"
+                      />
+                    </div>
+                  )}
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full  text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                >
-                  Update Compnay
+                <button className="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                  Update Company
                 </button>
               </form>
             </div>

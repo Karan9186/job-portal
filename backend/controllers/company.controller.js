@@ -111,12 +111,13 @@ export const getCompanyById = async (req, res) => {
 
 export const updateCompany = async (req, res) => {
   try {
-    const { name, description, website, location } = req.body;
+    const { companyName, description, website, location } = req.body;
     const file = req.file;
     // cloudary here
 
     // end
-    const updateData = { name, description, website, location };
+    const updateData = { companyName, description, website, location };
+
     const Company = await company.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
@@ -128,6 +129,7 @@ export const updateCompany = async (req, res) => {
     }
     return res.status(200).json({
       message: "company information updated",
+      Company,
       success: true,
     });
   } catch (error) {
