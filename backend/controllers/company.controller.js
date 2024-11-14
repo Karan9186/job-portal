@@ -114,13 +114,28 @@ export const updateCompany = async (req, res) => {
     const { companyName, description, website, location } = req.body;
     const file = req.file;
     // cloudary here
+    if (!file) {
+      return res.status(400).json({
+        message: "No file uploaded",
+        success: false,
+      });
+    }
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     // end
-    const updateData = { companyName, description, website, location };
+    const updateData = {
+      companyName,
+      description,
+      website,
+      location,
+      file: cloudResponse.secure_url,
+    };
 
     const Company = await company.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
+
     if (!Company) {
       return res.status(404).json({
         message: "compnay not found",

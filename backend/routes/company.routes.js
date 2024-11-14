@@ -17,6 +17,6 @@ router
 router.route("/get").get(iAuthentication, getCompany);
 router.route("/get/all").get(getAllCompany);
 router.route("/get/:id").get(iAuthentication, getCompanyById);
-router.route("/update/:id").post(iAuthentication, updateCompany);
+router.route("/update/:id").post(singleUpload, iAuthentication, updateCompany);
 
 export default router;
