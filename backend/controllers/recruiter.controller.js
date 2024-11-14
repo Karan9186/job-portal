@@ -13,17 +13,17 @@ export const register = async (req, res) => {
       });
     }
 
-    // Handle file upload to Cloudinary
-    const file = req.file;
-    if (!file) {
-      return res.status(400).json({
-        message: "No file uploaded",
-        success: false,
-      });
-    }
+      // Handle file upload to Cloudinary
+      const file = req.file;
+      if (!file) {
+        return res.status(400).json({
+          message: "No file uploaded",
+          success: false,
+        });
+      }
 
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     // Check if the user already exists
     const user = await Reqcuiter.findOne({ email });

@@ -4,12 +4,18 @@ import {
   getCompany,
   getCompanyById,
   registerCompany,
+  getAllCompany,
   updateCompany,
 } from "../controllers/company.controller.js";
+
+import { singleUpload } from "../middlewares/multer.js";
 const router = express.Router();
 
-router.route("/registercompany").post(iAuthentication, registerCompany);
-router.route("/get").get(getCompany);
+router
+  .route("/registercompany")
+  .post(singleUpload, iAuthentication, registerCompany);
+router.route("/get").get(iAuthentication, getCompany);
+router.route("/get/all").get(getAllCompany);
 router.route("/get/:id").get(iAuthentication, getCompanyById);
 router.route("/update/:id").post(iAuthentication, updateCompany);
 

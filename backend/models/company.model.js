@@ -5,7 +5,7 @@ const companySchema = new mongoose.Schema(
     description: { type: String },
     website: { type: String },
     location: { type: String },
-    logo: { type: String }, //URL of logo
+    file: { type: String }, //URL of logo
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
