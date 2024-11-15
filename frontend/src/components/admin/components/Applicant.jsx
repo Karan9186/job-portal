@@ -1,8 +1,120 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
+import { useParams } from "react-router-dom";
+import Alltoast from "../../toast/Alltoast";
 function Applicant() {
+  const [appId, setAppId] = useState();
+  const [loading, setloading] = useState(false);
   const [res, setRes] = useState(false);
+  const { id } = useParams();
+  const [jobTitle, setJobTitle] = useState();
+  const [appResponse, setAppRespo] = useState();
+  const [jobApplicant, setJobApplicant] = useState([]);
+  function formatDate(date) {
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false, // For 24-hour format
+    };
+
+    const formattedDate = new Date(date).toLocaleString("en-GB", options);
+    return formattedDate.replace(",", ""); // Remove comma
+  }
+  const responseSelection = async (e) => {
+    const response = e.target.value;
+    setAppRespo(response);
+    try {
+      const re = await fetch(
+        `http://localhost:3000/api/v1/application/status/${appId}/update`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: response }), // It's important to send the data as JSON
+          credentials: "include",
+        }
+      );
+      const result = await re.json();
+      console.log(result);
+      Alltoast(result.message, result.success);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    setloading(true);
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/application/${id}/applicants`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "Application/json",
+          },
+          credentials: "include",
+        }
+      );
+      const result = await response.json();
+      console.log(result.job);
+      setAppId(result.job.application[0]._id);
+      setJobTitle(result.job.title);
+      setJobApplicant(result.job.application);
+
+      setloading(false);
+    };
+    fetchData();
+  }, [appResponse]);
+
+  const ApplicantData = jobApplicant.map((v, i) => {
+    return (
+      <>
+        <tr className="bg-white border-b " key={i}>
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+          >
+            <h1>{jobTitle}</h1>
+          </th>
+          <td className="px-6 py-4">{v.applicant.fullname}</td>
+          <td className="px-6 py-4">{v.status}</td>
+          <td className="px-6 py-4">{formatDate(v.applicant.updatedAt)}</td>
+          <td className="px-6 py-4">
+            <a
+              href={v.applicant.profile.profilePhoto}
+              target="_blank"
+              className="text-blue-900 font-bold"
+            >
+              {v.applicant.fullname} 's resume
+            </a>
+          </td>
+          <div className="flex items-center gap-4 w-[100px]">
+            <button
+              className={`${
+                v.status == "accepted"
+                  ? "bg-green-600 text-white"
+                  : v.status == "rejected"
+                  ? "bg-red-500 text-white"
+                  : "bg-yellow-400 text-black"
+              } px-7 mb-2 rounded py-2 mt-4  font-semibold `}
+              onClick={() => setRes(!res)}
+            >
+              <div className="flex  items-center gap-2">
+                <BsThreeDots />
+                {v.status}
+              </div>
+            </button>
+          </div>
+        </tr>
+      </>
+    );
+  });
   return (
     <>
       <div
@@ -25,9 +137,9 @@ function Applicant() {
           <select
             name="response"
             id="res"
+            onChange={responseSelection}
             className="bg-red-200 w-full p-2 rounded "
           >
-            <option value="null">No selection</option>
             <option value="pending">pending</option>
             <option value="rejected">rejected</option>
             <option value="accepted">accepted</option>
@@ -42,9 +154,6 @@ function Applicant() {
       <br />
 
       <div className="relative  p-4  min-h-screen">
-        <button className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold">
-          Add Job
-        </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -61,68 +170,19 @@ function Applicant() {
                 Date
               </th>{" "}
               <th scope="col" className="px-6 py-3">
+                resume
+              </th>
+              <th scope="col" className="px-6 py-3">
                 action
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <h1>Software engineering</h1>
-              </th>
-              <td className="px-6 py-4">karan</td>
-              <td className="px-6 py-4">panding</td>
-              <td className="px-6 py-4">01-2-2024</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => setRes(!res)}
-                >
-                  <BsThreeDots />
-                </button>
-              </div>
-            </tr>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <h1>Software engineering</h1>
-              </th>
-              <td className="px-6 py-4">google</td>
-              <td className="px-6 py-4">hiring</td>
-              <td className="px-6 py-4">gujarat</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => setRes(!res)}
-                >
-                  <BsThreeDots />
-                </button>
-              </div>
-            </tr>
-            <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <h1>Software engineering</h1>
-              </th>
-              <td className="px-6 py-4">google</td>
-              <td className="px-6 py-4">hiring</td>
-              <td className="px-6 py-4">gujarat</td>
-              <div className="flex items-center gap-4 w-[100px]">
-                <button
-                  className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
-                  onClick={() => setRes(!res)}
-                >
-                  <BsThreeDots />
-                </button>
-              </div>
-            </tr>
+            {loading
+              ? "loading"
+              : ApplicantData.length > 0
+              ? ApplicantData
+              : "no response by user"}
           </tbody>
         </table>
       </div>

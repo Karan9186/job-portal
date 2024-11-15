@@ -136,3 +136,49 @@ export const getAdminJob = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updateJobById = async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      requirements,
+      salary,
+      experienceLevel,
+      location,
+      jobType,
+      experience,
+      position,
+      company,
+    } = req.body;
+
+    const updateData = {
+      title,
+      description,
+      requirements,
+      salary,
+      experienceLevel,
+      location,
+      jobType,
+      experience,
+      position,
+      company,
+    };
+    const jobUpd = await Job.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+    if (!jobUpd) {
+      return res.status(404).json({
+        message: "Job not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      message: "job information updated",
+      jobUpd,
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
