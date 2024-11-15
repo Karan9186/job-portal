@@ -144,11 +144,23 @@ export const updateProfile = async (req, res) => {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
 
     // cloundynary here
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({
+        message: "No file uploaded",
+        success: false,
+      });
+    }
+    console.log("the file =", file);
+    console.log("the file =" + file);
+
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     // end cloundary
     let skillsArray;
     if (skills) {
-      skillsArray = skills.split(",");
+      skillsArray = skills.split(",") || skills;
     }
     const userId = req.id; //middleware authentication
     console.log(req.id);
@@ -165,8 +177,8 @@ export const updateProfile = async (req, res) => {
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
+    if (file) user.profile.resume = cloudResponse.secure_url;
     await user.save();
-    console.log("done");
 
     user = {
       _id: user._id,

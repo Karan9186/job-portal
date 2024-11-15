@@ -73,6 +73,10 @@ function Applicant() {
   }, [appResponse]);
 
   const ApplicantData = jobApplicant.map((v, i) => {
+    const resumeUser = v.applicant.profile.resume || "not resume";
+    console.log(resumeUser);
+    console.log(v.applicant.profile.resume);
+
     return (
       <>
         <tr className="bg-white border-b " key={i}>
@@ -86,13 +90,17 @@ function Applicant() {
           <td className="px-6 py-4">{v.status}</td>
           <td className="px-6 py-4">{formatDate(v.applicant.updatedAt)}</td>
           <td className="px-6 py-4">
-            <a
-              href={v.applicant.profile.profilePhoto}
-              target="_blank"
-              className="text-blue-900 font-bold"
-            >
-              {v.applicant.fullname} 's resume
-            </a>
+            {resumeUser ? (
+              <a
+                href={resumeUser}
+                target="_blank"
+                className="text-blue-900 font-bold"
+              >
+                {v.applicant.fullname} 's resume
+              </a>
+            ) : (
+              "no resume"
+            )}
           </td>
           <div className="flex items-center gap-4 w-[100px]">
             <button
