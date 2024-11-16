@@ -145,17 +145,17 @@ export const updateProfile = async (req, res) => {
 
     // cloundynary here
     const file = req.file;
-    if (!file) {
-      return res.status(400).json({
-        message: "No file uploaded",
-        success: false,
-      });
+    // if (!file) {
+    //   return res.status(400).json({
+    //     message: "No file uploaded",
+    //     success: false,
+    //   });
+    // }
+    const cloudResponse = "";
+    if (file) {
+      const fileUri = getDataUri(file);
+      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     }
-    console.log("the file =", file);
-    console.log("the file =" + file);
-
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     // end cloundary
     let skillsArray;

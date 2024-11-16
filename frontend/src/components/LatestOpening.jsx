@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Alltoast from "./toast/Alltoast";
 
 function LatestOpening() {
+  const [allReadyApp, setALlReady] = useState();
   const applyJobByUser = async (id) => {
     try {
       const response = await fetch(
@@ -18,12 +19,10 @@ function LatestOpening() {
       const result = await response.json();
       console.log(result);
       if (!result.success) {
-        Alltoast(
-          result.message + ", please login or signup account",
-          result.success
-        );
+        Alltoast(result.message, result.success);
+      } else {
+        Alltoast(result.message, result.success);
       }
-      Alltoast(result.message, result.success);
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +40,8 @@ function LatestOpening() {
         }
       );
       const result = await response.json();
-
+      console.log(result.jobs[0].application);
+      setALlReady(result.jobs[0].application);
       setJobData(result.jobs);
     };
     fetchData();

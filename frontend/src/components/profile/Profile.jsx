@@ -50,9 +50,10 @@ function Profile() {
       formData.append("file", input.file); // Append file if it exists
     }
 
+    console.log(input.file);
+
     try {
       setLoading(true);
-
       const res = await fetch(
         "http://localhost:3000/api/v1/user/profile/update",
         {
@@ -61,10 +62,8 @@ function Profile() {
           credentials: "include", // Ensure cookies are sent if needed
         }
       );
-
       const result = await res.json();
       console.log(result);
-
       setLoading(false);
       // Assuming you want to store the updated user data in local storage
       localStorage.setItem("userdata", JSON.stringify(result));
@@ -119,7 +118,7 @@ function Profile() {
                           <p>Email</p>
                         </div>
                         <p className="mx-9 text-[17px]">
-                          {userData.user.email}
+                          {userData?.user?.email}
                         </p>
                       </div>
                       <div className="">
@@ -164,9 +163,15 @@ function Profile() {
   }, []);
   const updateProfile = (
     <div className="">
-      <div>
-        <div className="sm:max-w-[425px]">
-          <div>
+      <div className="fixed top-[10px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
+        <div className="relative bg-white shadow-md shadow-red-100  p-5 rounded sm:max-w-[425px]">
+          <button
+            className="bg-red-600 text-white p-1 absolute top-0 left-0 rounded"
+            onClick={() => serUpd(false)}
+          >
+            cros
+          </button>
+          <div className="mt-5 text-center bg-slate-200 rounded text-black font-semibold p-1">
             <h1>Update Profile</h1>
           </div>
           <form onSubmit={submitHandler}>
@@ -181,7 +186,7 @@ function Profile() {
                   type="text"
                   value={input.fullname}
                   onChange={changeEventHandler}
-                  className="col-span-3"
+                  className="col-span-3 outline-none border-b-2 border-b-black"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -192,9 +197,10 @@ function Profile() {
                   id="email"
                   name="email"
                   type="email"
-                  value={input.email}
+                  readOnly
+                  value={input?.email}
                   onChange={changeEventHandler}
-                  className="col-span-3"
+                  className="col-span-3 bg-red-50 p-1 rounded outline-none border-b-2 border-b-black"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -206,7 +212,7 @@ function Profile() {
                   name="phoneNumber"
                   value={input.phoneNumber}
                   onChange={changeEventHandler}
-                  className="col-span-3"
+                  className="col-span-3 outline-none border-b-2 border-b-black"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -218,7 +224,7 @@ function Profile() {
                   name="bio"
                   value={input.bio}
                   onChange={changeEventHandler}
-                  className="col-span-3"
+                  className="col-span-3 outline-none border-b-2 border-b-black"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -230,7 +236,7 @@ function Profile() {
                   name="skills"
                   value={input.skills}
                   onChange={changeEventHandler}
-                  className="col-span-3"
+                  className="col-span-3 outline-none border-b-2 border-b-black"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -253,7 +259,10 @@ function Profile() {
                   <div className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
                 </button>
               ) : (
-                <button type="submit" className="w-full my-4">
+                <button
+                  type="submit"
+                  className="w-full my-4 bg-red-500 p-1 rounded text-white hover:bg-red-600"
+                >
                   Update
                 </button>
               )}
@@ -327,7 +336,7 @@ function Profile() {
   return (
     <>
       <br /> <br /> <br />
-      <div className="">
+      <div className="relative">
         <div className="container mx-auto py-8">
           <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
@@ -430,7 +439,7 @@ function Profile() {
       {/* model */}
       {showContact ? model : ""}
       {/* update model */}
-      {upd ? updateProfile : ""}
+      {upd ? updateProfile : ""};
     </>
   );
 }

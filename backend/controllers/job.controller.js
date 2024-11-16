@@ -73,6 +73,9 @@ export const getAllJobs = async (req, res) => {
         path: "company",
       })
       .populate({
+        path: "application",
+      })
+      .populate({
         path: "createdBy",
       })
       .sort({ createdAt: -1 });
