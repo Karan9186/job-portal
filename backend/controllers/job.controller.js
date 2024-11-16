@@ -103,6 +103,9 @@ export const getJobById = async (req, res) => {
       })
       .populate({
         path: "createdBy",
+      })
+      .populate({
+        path: "application",
       });
     if (!job) {
       return res.status(404).json({

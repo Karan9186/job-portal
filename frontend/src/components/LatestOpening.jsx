@@ -4,6 +4,7 @@ import Alltoast from "./toast/Alltoast";
 
 function LatestOpening() {
   const [allReadyApp, setALlReady] = useState();
+
   const applyJobByUser = async (id) => {
     try {
       const response = await fetch(
@@ -40,8 +41,7 @@ function LatestOpening() {
         }
       );
       const result = await response.json();
-      console.log(result.jobs[0].application);
-      setALlReady(result.jobs[0].application);
+      console.log(result.jobs);
       setJobData(result.jobs);
     };
     fetchData();
@@ -74,12 +74,12 @@ function LatestOpening() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <button
+            {/* <button
               className="bg-red-500 text-white font-semibold hover:bg-red-600 mt-3 py-2 px-4 rounded"
               onClick={() => applyJobByUser(v._id)}
             >
               Apply Now
-            </button>
+            </button> */}
             <button
               className="bg-slate-300 text-black font-semibold hover:bg-slate-400 mt-3 py-2 px-4 rounded"
               onClick={() => navigate(`/jobinfo/${v._id}`)}

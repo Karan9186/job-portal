@@ -46,12 +46,13 @@ function Search() {
       <div className="mt-8 flex items-center justify-center">
         <div className="px-22 w-[800px]">
           <h1 className="text-center font-semibold text-slate-500">
-            Lorem ipsum dolor sit amet cdfdsf onsectezcsdfsdtur adipisicing elit. Quia optio
-            iusto fuga sunt molestiae exercitationem ut similique 
+            Lorem ipsum dolor sit amet cdfdsf onsectezcsdfsdtur adipisicing
+            elit. Quia optio iusto fuga sunt molestiae exercitationem ut
+            similique
           </h1>
         </div>
       </div>
-      <div className="flex items-center justify-center mt-8">
+      {/* <div className="flex items-center justify-center mt-8">
         <div className="flex gap-4 items-center justify-center flex-wrap px-20">
           <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
             <h1>frontend developer</h1>
@@ -93,7 +94,7 @@ function Search() {
             <h1>frontend developer</h1>
           </div>
         </div>
-      </div>
+      </div> */}
       <br />
       <br />
       <br />
