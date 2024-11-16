@@ -7,6 +7,8 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import { IoLogOut } from "react-icons/io5";
+import { FaRegCircleUser } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import Alltoast from "./toast/Alltoast.jsx";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +18,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import store from "../store/store";
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+
 const navigation = [
   { name: "Home", link: "/", current: true },
   { name: "Jobs", link: "/jobs", current: false },
@@ -102,14 +99,14 @@ export default function Nav() {
                   {login == true && token ? (
                     <>
                       <div className="ml-4 flex items-center md:ml-6">
-                        <button
+                        {/* <button
                           type="button"
                           className="relative rounded-full p-1 bg-slate-200"
                         >
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">View notifications</span>
                           <IoNotificationsOutline size={"24px"} />
-                        </button>
+                        </button> */}
 
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
@@ -145,7 +142,10 @@ export default function Nav() {
                                     }
                                   }}
                                 >
-                                  {item.name}
+                                  <h1 className="flex items-center gap-2">
+                                    <IoLogOut size={"30px"} />
+                                    <h1>{item.name}</h1>
+                                  </h1>
                                 </button>
                               </MenuItem>
                             ))}
@@ -219,14 +219,14 @@ export default function Nav() {
                       {user?.email}
                     </div>
                   </div>
-                  <button
+                  {/* <button
                     type="button"
                     className="relative ml-auto flex-shrink-0 rounded-full p-1 bg-slate-200"
                   >
                     <span className="absolute -inset-1.5" />
                     <IoNotificationsOutline size={"22px"} />
                     <span className="sr-only">View notifications</span>
-                  </button>
+                  </button> */}
                 </div>
                 <div className="mt-3 space-y-1 px-2">
                   {reqNavigation.map((item) => (
@@ -276,14 +276,14 @@ export default function Nav() {
                   {login == true && token ? (
                     <>
                       <div className="ml-4 flex items-center md:ml-6">
-                        <button
+                        {/* <button
                           type="button"
                           className="relative rounded-full p-1 bg-slate-200"
                         >
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">View notifications</span>
                           <IoNotificationsOutline size={"24px"} />
-                        </button>
+                        </button> */}
 
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
@@ -308,7 +308,6 @@ export default function Nav() {
                                   className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                                   onClick={() => {
                                     if (item.name == "Sign out") {
-                                      console.log("called logout");
                                       Cookies.remove("token");
                                       localStorage.removeItem("userdata");
                                       Alltoast("logout succesfully", true);
@@ -319,7 +318,28 @@ export default function Nav() {
                                     }
                                   }}
                                 >
-                                  {item.name}
+                                  {item.name == "Your Profile" ? (
+                                    <h1 className="flex items-center gap-2">
+                                      <img
+                                        alt=""
+                                        src={
+                                          userData?.user?.profile?.profilePhoto
+                                        }
+                                        className="h-8 w-8 rounded-full"
+                                      />
+                                      <h1 className="font-semibold">
+                                        {userData?.user?.fullname}
+                                      </h1>
+                                    </h1>
+                                  ) : (
+                                    <h1 className="flex items-center gap-2">
+                                      <IoLogOut size={"30px"} />
+                                      <h1 className="font-semibold">
+                                        {" "}
+                                        {item.name}
+                                      </h1>
+                                    </h1>
+                                  )}
                                 </button>
                               </MenuItem>
                             ))}
@@ -393,14 +413,14 @@ export default function Nav() {
                       {/* {user.email} */}
                     </div>
                   </div>
-                  <button
+                  {/* <button
                     type="button"
                     className="relative ml-auto flex-shrink-0 rounded-full p-1 bg-slate-200"
                   >
                     <span className="absolute -inset-1.5" />
                     <IoNotificationsOutline size={"22px"} />
                     <span className="sr-only">View notifications</span>
-                  </button>
+                  </button> */}
                 </div>
                 <div className="mt-3 space-y-1 px-2">
                   {userNavigation.map((item) => (

@@ -151,9 +151,9 @@ export const updateProfile = async (req, res) => {
     //     success: false,
     //   });
     // }
-    const cloudResponse = "";
+    let cloudResponse = "";
     if (file) {
-      const fileUri = getDataUri(file);
+      let fileUri = getDataUri(file);
       cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     }
 
