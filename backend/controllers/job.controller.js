@@ -1,3 +1,4 @@
+import { json } from "express";
 import { Job } from "../models/jobs.model.js";
 
 export const postJob = async (req, res) => {
@@ -64,10 +65,50 @@ export const postJob = async (req, res) => {
 export const getAllJobs = async (req, res) => {
   try {
     const keyword = req.query.keyword || "";
-    const query = {
-      $or: [{ title: { $regex: keyword, $options: "i" } }],
-      $or: [{ description: { $regex: keyword, $options: "i" } }],
-    };
+
+    let word = {};
+    try {
+      // Only attempt to parse if `keyword` is a non-empty string
+      if (keyword) {
+        word = JSON.parse(keyword);
+        console.log("the word=", word);
+      }
+    } catch (parseError) {
+      // Handle the case when JSON parsing fails
+      console.error("Error parsing keyword:", parseError);
+      return res.status(400).json({
+        message: "Invalid JSON format for keyword parameter",
+        success: false,
+      });
+    }
+
+    let query = {};
+
+    // Ensure `word` has valid properties before using them
+    if (word.key && word.value) {
+      if (word.key === "experienceLevel") {
+        query = {
+          $or: [{ experienceLevel: { $lt: Number(word.value) } }],
+        };
+      }
+      if (word.key === "jobType") {
+        query = {
+          $or: [{ jobType: { $regex: String(word.value), $options: "i" } }],
+        };
+      }
+      if (word.key === "salary") {
+        query = {
+          $or: [{ salary: { $lt: Number(word.value) } }],
+        };
+      }
+      if (word.key === "title") {
+        query = {
+          $or: [{ title: { $regex: String(word.value) } }],
+        };
+      }
+    }
+
+    // Find jobs based on the query
     const jobs = await Job.find(query)
       .populate({
         path: "company",
@@ -79,18 +120,24 @@ export const getAllJobs = async (req, res) => {
         path: "createdBy",
       })
       .sort({ createdAt: -1 });
-    if (!jobs) {
+
+    if (!jobs || jobs.length === 0) {
       return res.status(404).json({
-        message: "job not found",
+        message: "Jobs not found",
         success: false,
       });
     }
+
     return res.status(200).json({
       jobs,
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching jobs:", error);
+    return res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
   }
 };
 

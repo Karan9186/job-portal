@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alltoast from "./toast/Alltoast";
+import Loading from "./Loading";
 
 function LatestOpening() {
-  const [allReadyApp, setALlReady] = useState();
+  // Function to truncate text to 20 words
+  const truncateDescription = (description,length) => {
+    const words = description.split(" ");
+    if (words.length > length) {
+      return words.slice(0, length).join(" ") + "......";
+    }
+    return description;
+  };
 
+  const [allReadyApp, setALlReady] = useState();
+  const [load, setLoad] = useState(false);
   const applyJobByUser = async (id) => {
     try {
       const response = await fetch(
@@ -30,6 +40,7 @@ function LatestOpening() {
   };
   const [jobData, setJobData] = useState([]);
   useEffect(() => {
+    setLoad(true);
     const fetchData = async () => {
       const response = await fetch(
         "http://localhost:3000/api/v1/job/getalljobs",
@@ -43,6 +54,8 @@ function LatestOpening() {
       const result = await response.json();
       console.log(result.jobs);
       setJobData(result.jobs);
+      setLoad(false);
+      console.log(jobData);
     };
     fetchData();
   }, []);
@@ -57,7 +70,9 @@ function LatestOpening() {
           <h3 className="text-lg font-semibold">{v.company.companyName}</h3>
           <p className="text-zinc-600">{v.location}</p>
           <h4 className="text-md font-medium">{v.title}</h4>
-          <p className="text-sm text-zinc-500">{v.description}</p>
+          <p className="text-sm text-zinc-500">
+            {truncateDescription(v.description,8)}
+          </p>
           <div className="mt-3 flex items-center justify-between">
             <div className="flex items-center gap-3 ">
               <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
@@ -100,7 +115,8 @@ function LatestOpening() {
           </h1>
           <div className=" mt-6 py-5 px-5 " style={{ scrollbarWidth: "none" }}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
-              {showAllJob}
+              {/* {showAllJob} */}
+              {load ? <Loading /> : showAllJob}
             </div>
           </div>
         </div>

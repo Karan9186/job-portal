@@ -148,7 +148,7 @@ function JobDetails() {
         </div>
         <div className="w-[23%] shadow-xl rounded-md shadow-blue-100 h-fit px-4 py-4 rounded border-slate-300 bg-white">
           <div className="flex flex-col items-center">
-            <img src={logo} alt="" className="h-[100px] w-[100px]" />
+            <img src={jobData?.company?.file} alt="" className="h-[100px] w-[100px]" />
             <h1 className="mt-3 font-semibold text-[23px]">
               {jobData?.company?.companyName}
             </h1>
@@ -166,7 +166,7 @@ function JobDetails() {
             </div>
             <div className="flex items-center gap-4">
               <FaRupeeSign size={"22px"} className="text-slate-600" />
-              <p>Rs.{jobData?.salary}</p>
+              <p>{jobData?.salary} LPA</p>
             </div>
           </div>
           {checkApp ? (

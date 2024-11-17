@@ -6,3 +6,21 @@ body {
   background: rgb(255, 255, 255);
   background: linear-gradient(90deg, rgba(255, 255, 255, 1) 2%, rgba(165, 180, 255, 0.11817226890756305) 17%, rgba(255, 106, 132, 0.08735994397759106) 42%, rgba(255, 151, 152, 0.13497899159663862) 60%, rgba(255, 140, 140, 0.14058123249299714) 72%, rgba(142, 177, 235, 0.1966036414565826) 100%);
 }
+html,body{
+  overflow-x: hidden;
+}
+
+@layer utilities {
+
+  /* Chrome, Safari and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+  }
+}

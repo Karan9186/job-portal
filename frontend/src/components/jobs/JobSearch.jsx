@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import JobsLeftRight from "../JobsLeftRight";
 import Alltoast from "../toast/Alltoast";
 import Loading from "../Loading";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Jobs() {
+function JobSearch() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
 
   const [jobData, setJobData] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState({
@@ -17,8 +20,14 @@ function Jobs() {
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
+      const query = {
+        key: "title",
+        value: id,
+      };
       const response = await fetch(
-        `http://localhost:3000/api/v1/job/getalljobs`,
+        `http://localhost:3000/api/v1/job/getalljobs?keyword=${JSON.stringify(
+          query
+        )}`,
         {
           method: "GET",
           headers: {
@@ -30,6 +39,7 @@ function Jobs() {
       console.log("the re=", result);
       if (!result.success) {
         Alltoast(result.message, result.success);
+        setLoading(false);
       } else {
         setJobData(result.jobs);
         console.log(result.jobs);
@@ -107,7 +117,7 @@ function Jobs() {
   return (
     <>
       <div className="flex justify-center items-start mb-6">
-        <div className="flex gap-10 mt-32 ml-0 flex-wrap">
+        <div className="flex gap-10 mt-32 ml-0">
           {/* ----------Left Side: All Categories Filter----------- */}
           <div className="h-[100%] w-[300px] bg-[#ffffff] flex flex-col rounded-xl border-1 border-red-200 shadow-2xl shadow-blue-200 sticky top-[100px] max-h-screen overflow-auto scrollbar-hidden">
             <div className="p-5">
@@ -191,7 +201,38 @@ function Jobs() {
                 </ul>
               </div>
             </div>
-            {loading ? <Loading /> : jobPanels}
+            {loading ? (
+              <Loading />
+            ) : jobPanels.length > 0 ? (
+              jobPanels
+            ) : (
+              <div class="text-center w-[40vw]">
+                <h1 class="mb-4 text-6xl font-semibold text-red-500">404</h1>
+                <p class="mb-4 text-lg text-gray-600">Not Found Any Jobs</p>
+                <div class="animate-bounce">
+                  <svg
+                    class="mx-auto h-16 w-16 text-red-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="mt-4 text-gray-600">
+                  Let's get you back{" "}
+                  <button class="text-blue-500" onClick={() => navigate("/")}>
+                    home
+                  </button>
+                  .
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -199,4 +240,4 @@ function Jobs() {
   );
 }
 
-export default Jobs;
+export default JobSearch;

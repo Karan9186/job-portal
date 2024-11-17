@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function Search() {
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search input
+  const navigate = useNavigate(); // Hook to navigate programmatically
+
+  // Handle form submission
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent page refresh on form submission
+    if (searchQuery) {
+      navigate(`/jobs/${searchQuery}`);
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-center mt-24">
@@ -9,7 +21,7 @@ function Search() {
           <br /> Quasi, magni?
         </h1>
       </div>
-      <form className="max-w-md mx-auto mt-10">
+      <form className="max-w-md mx-auto mt-10" onSubmit={handleSearch}>
         <div className="flex">
           <div className="relative w-full">
             <input
@@ -18,6 +30,8 @@ function Search() {
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-red-50 border-s-2 border border-gray-300 focus:ring-red-500 focus:border-red-500 rounded-lg outline-none"
               placeholder="Search for city or address"
               required
+              value={searchQuery} // Bind input value to state
+              onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
             />
             <button
               type="submit"
@@ -43,6 +57,7 @@ function Search() {
           </div>
         </div>
       </form>
+
       <div className="mt-8 flex items-center justify-center">
         <div className="px-22 w-[800px]">
           <h1 className="text-center font-semibold text-slate-500">
@@ -52,49 +67,6 @@ function Search() {
           </h1>
         </div>
       </div>
-      {/* <div className="flex items-center justify-center mt-8">
-        <div className="flex gap-4 items-center justify-center flex-wrap px-20">
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-          <div className="border border-slate-400 bg-slate-100 rounded-3xl py-[2px] px-2">
-            <h1>frontend developer</h1>
-          </div>
-        </div>
-      </div> */}
       <br />
       <br />
       <br />

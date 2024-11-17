@@ -23,6 +23,7 @@ import UpdateCompnay from "./components/admin/components/UpdateCompnay";
 import JobDetails from "./components/JobDetails";
 import JobseekerRegister from "./components/register/JobseekerRegister";
 import UpdateProfile from "./components/profile/UpdateProfile";
+import JobSearch from "./components/jobs/JobSearch";
 
 function App() {
   const [login, setLogin] = useState("");
@@ -34,7 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
-          <Route path="/jobs/:id" element={<Jobs />} /> //for job query
+          <Route path="/jobs/:id" element={<JobSearch />} /> //for job query
           <Route path="/contact" element={<Contact />} />
           <Route path="/jobinfo/:id" element={<JobDetails />} />
           <Route path="/profile" element={<Profile />} />
