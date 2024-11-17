@@ -90,12 +90,12 @@ function JobDetails() {
         }
       );
       const result = await response.json();
-      // console.log("the resjfsd=", result);
-      Alltoast(result.message, result.succsess);
-      // if (!result.succsess) {
-      // } else {
-      //   Alltoast(result.message, result.succsess);
-      // }
+      console.log("the resjfsd=", result);
+      if (!result.succsess) {
+        Alltoast(result.message, false);
+      } else {
+        Alltoast(result.message, true);
+      }
 
       // checking the applicant matchat the id
     } catch (err) {
