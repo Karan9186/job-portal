@@ -161,9 +161,16 @@ function Profile() {
     };
     fetchData();
   }, []);
+  const resumeAlert = () => {
+    if (!userData?.user?.profile?.resume)
+      Alltoast("please upload resume", false);
+    else {
+      window.open(userData?.user?.profile?.resume, "_blank");
+    }
+  };
   const updateProfile = (
     <div className="">
-      <div className="fixed top-[0px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
+      <div className="fixed top-[1px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
         <div className="relative bg-white shadow-md shadow-red-100  p-5 rounded sm:max-w-[425px]">
           <button
             className="bg-red-600 text-white p-1 absolute top-0 left-0 rounded"
@@ -365,13 +372,13 @@ function Profile() {
                     >
                       edit
                     </button>
-                    <a
-                      href={userData?.user?.profile?.resume}
+                    <button
+                      onClick={resumeAlert}
                       target="_blank"
                       className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
                     >
                       Resume
-                    </a>
+                    </button>
                   </div>
                 </div>
                 <hr className="my-6 border-t border-gray-300" />

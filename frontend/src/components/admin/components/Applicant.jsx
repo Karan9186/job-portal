@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Alltoast from "../../toast/Alltoast";
 function Applicant() {
+  const navigate = useNavigate();
   const [appId, setAppId] = useState();
   const [loading, setloading] = useState(false);
   const [res, setRes] = useState(false);
@@ -160,8 +161,13 @@ function Applicant() {
       <br />
       <br />
       <br />
-
       <div className="relative  p-4  min-h-screen">
+        <button
+          class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 bottom-3 right-1 ring-1 ring-inset ring-pink-700/10 "
+          onClick={() => navigate("/recruiter/show/job")}
+        >
+          Go Back
+        </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>

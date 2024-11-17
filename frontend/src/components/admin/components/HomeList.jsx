@@ -2,11 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import h1 from "../../../../public/h1.jpg";
 import axios from "axios";
+import Loading from "../../Loading";
+import AdminLoading from "./AdminLoading";
 function HomeList() {
+  const [loading, setLoad] = useState(false);
+  const truncateDescription = (description, limit) => {
+    if (description.length > limit) {
+      return description.slice(0, limit) + "......"; // Truncate and add "......"
+    }
+    return description;
+  };
+
+  const user = localStorage.getItem("userdata");
+  const userParse = JSON.parse(user);
+
   const navigate = useNavigate();
   let [data, setData] = useState([]);
   const getcompanydata = async () => {
     try {
+      setLoad(true);
       const companydata = await axios.get(
         "http://localhost:3000/api/v1/company/get",
         {
@@ -19,6 +33,7 @@ function HomeList() {
       if (companydata) {
         console.log("the data=", companydata.data.companise);
         setData(companydata.data.companise);
+        setLoad(false);
       } else {
         console.log("data not get from backend");
       }
@@ -41,7 +56,9 @@ function HomeList() {
             />
           </th>
           <td className="px-6 py-4">{v.companyName}</td>
-          <td className="px-6 py-4">{v.description}</td>
+          <td className="px-6 py-4">
+            {truncateDescription(v.description, 20)}
+          </td>
           <td className="px-6 py-4">{v.location}</td>
           <td className="flex items-center justify-around mt-5">
             <button
@@ -64,16 +81,19 @@ function HomeList() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
       <div className="relative  p-4  ">
-        <button
-          className="bg-red-500 px-5 py-2 rounded-xl absolute right-5 mt-[-55px]  text-white font-semibold"
-          onClick={() => navigate("/recruiter/add/company")}
-        >
-          Add Compnay
-        </button>
+        <div className="flex items-center justify-between mb-3">
+          <h1 className="font-bold text-[2.2rem]">
+            <span className="text-red-800">Welcome</span>{" "}
+            {userParse?.user?.fullname}
+          </h1>
+          <button
+            className="bg-red-500 px-5 py-2 rounded-xl  text-white font-semibold"
+            onClick={() => navigate("/recruiter/add/company")}
+          >
+            Add Compnay
+          </button>
+        </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -94,8 +114,15 @@ function HomeList() {
               </th>
             </tr>
           </thead>
-          <tbody>{data.length == 0 ? "not compnay" : allCompanyDetails}</tbody>
+          <tbody>
+            {loading
+              ? ""
+              : allCompanyDetails.length >= 0
+              ? allCompanyDetails
+              : "no job posted by you"}
+          </tbody>
         </table>
+        {loading ? <AdminLoading /> : "No Job posted by You"}
       </div>
     </div>
   );

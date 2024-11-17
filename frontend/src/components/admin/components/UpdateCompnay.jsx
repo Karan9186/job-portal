@@ -115,6 +115,12 @@ function UpdateCompnay() {
       <section className="flex mt-10">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-[64vw]">
           <div className="w-full bg-white rounded-lg shadow ">
+            <button
+              class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 relative bottom-3 right-1 ring-1 ring-inset ring-pink-700/10 "
+              onClick={() => navigate("/recruiter/home")}
+            >
+              Go Back
+            </button>
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Update Company

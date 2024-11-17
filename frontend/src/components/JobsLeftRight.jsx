@@ -10,10 +10,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function JobsLeftRight({ v }) {
-  const truncateDescription = (description,length) => {
-    const words = description.split(" ");
-    if (words.length > length) {
-      return words.slice(0, length).join(" ") + "......";
+  const truncateDescription = (description, limit) => {
+    if (description.length > limit) {
+      return description.slice(0, limit) + "......"; // Truncate and add "......"
     }
     return description;
   };
@@ -36,7 +35,6 @@ function JobsLeftRight({ v }) {
   return (
     <>
       <div>
-       
         {/* here */}
 
         <div className="h-auto w-[40vw] bg-white shadow-lg rounded-2xl border-1 border-gray-200 p-4 mb-6 shadow-blue-200">
@@ -65,7 +63,7 @@ function JobsLeftRight({ v }) {
 
           <div className="mt-2">
             <h4 className="text-sm font-semibold text-gray-600">
-              {truncateDescription(v?.description,10)}
+              {truncateDescription(v?.description, 90)}
             </h4>
           </div>
 

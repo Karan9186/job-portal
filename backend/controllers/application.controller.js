@@ -1,6 +1,6 @@
 import { Application } from "../models/application.model.js";
 import { Job } from "../models/jobs.model.js";
-
+import { User } from "../models/user.model.js";
 export const applyJob = async (req, res) => {
   try {
     const userId = req.id;
@@ -11,6 +11,8 @@ export const applyJob = async (req, res) => {
         success: false,
       });
     }
+    console.log(userId);
+
     // user hash already aply checking here
     const existingApply = await Application.findOne({
       job: jobId,
@@ -24,17 +26,35 @@ export const applyJob = async (req, res) => {
     }
     // if not
     const job = await Job.findById(jobId);
+    // user resume is not upload
+    const user = await User.findById(userId);
+    console.log(user);
+    if (!user.profile) {
+      return res.status(404).json({
+        message: "please update profile",
+        success: false,
+      });
+    }
+    if (!user.profile.resume) {
+      return res.status(404).json({
+        message: "please upload resume",
+        success: false,
+      });
+    }
     if (!job) {
+      // end
       return res.status(404).json({
         message: "job not found",
         success: false,
       });
     }
+
     // create a new application
     const newapplication = await Application.create({
       job: jobId,
       applicant: userId,
     });
+
     job.application.push(newapplication._id);
     await job.save();
     return res.status(200).json({

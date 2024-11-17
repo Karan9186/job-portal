@@ -5,10 +5,9 @@ import Loading from "./Loading";
 
 function LatestOpening() {
   // Function to truncate text to 20 words
-  const truncateDescription = (description,length) => {
-    const words = description.split(" ");
-    if (words.length > length) {
-      return words.slice(0, length).join(" ") + "......";
+  const truncateDescription = (description, limit) => {
+    if (description.length > limit) {
+      return description.slice(0, limit) + "......"; // Truncate and add "......"
     }
     return description;
   };
@@ -71,7 +70,7 @@ function LatestOpening() {
           <p className="text-zinc-600">{v.location}</p>
           <h4 className="text-md font-medium">{v.title}</h4>
           <p className="text-sm text-zinc-500">
-            {truncateDescription(v.description,8)}
+            {truncateDescription(v.description, 67)}
           </p>
           <div className="mt-3 flex items-center justify-between">
             <div className="flex items-center gap-3 ">

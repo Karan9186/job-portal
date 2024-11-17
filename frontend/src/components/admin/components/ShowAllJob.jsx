@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import h1 from "../../../../public/h1.jpg";
 import { useNavigate } from "react-router-dom";
+import AdminLoading from "./AdminLoading";
 function ShowAllJob() {
   const navigate = useNavigate();
   const [Jobs, setJobs] = useState([]);
@@ -63,15 +64,15 @@ function ShowAllJob() {
           <td className="px-6 py-4">{v.company.companyName}</td>
           <td className="px-6 py-4">{v.title}</td>
           <td className="px-6 py-4">{formatDate(v.createdAt)}</td>
-          <div className="flex items-center gap-4 w-[100px]">
+          <div className=" items-center gap-4 mb-4 w-[100px]">
             <button
-              className="bg-yellow-400 px-7 rounded py-2 mt-4 text-black font-semibold"
+              className="bg-yellow-400 w-[100px] px-7 rounded py-2 mt-4 text-black font-semibold"
               onClick={() => navigate(`/recruiter/job/update/${v._id}`)}
             >
               edit
             </button>
             <button
-              className="bg-blue-400 px-7 rounded py-2 mt-4 text-white font-semibold"
+              className="bg-blue-400 px-7 w-[100px] rounded py-2 mt-4 text-white font-semibold"
               onClick={() => navigate(`/recruiter/applicant/job/${v._id}`)}
             >
               applicant
@@ -118,13 +119,13 @@ function ShowAllJob() {
           </thead>
           <tbody>
             {loading
-              ? "loading"
+              ? ""
               : allJobs.length >= 0
               ? allJobs
               : "no job posted by you"}
-            {}
           </tbody>
         </table>
+        {loading ? <AdminLoading /> : "No Job posted by You"}
       </div>
     </>
   );
