@@ -193,7 +193,7 @@ function Applicant() {
           </thead>
           <tbody>
             {loading
-              ? "loading"
+              ? "no response by user"
               : ApplicantData.length > 0
               ? ApplicantData
               : "no response by user"}
