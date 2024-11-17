@@ -31,10 +31,27 @@ export const postJob = async (req, res) => {
         .status(400)
         .json({ message: "Please fill in all fields", success: false });
     }
+
+    let requirementsArray = [];
+
+    // Check if 'requirements' is an array
+    if (Array.isArray(requirements)) {
+      // If 'requirements' is an array of strings, split each string by commas
+      requirementsArray = requirements.flatMap(
+        (item) => item.split(",") // Split each string inside the array by commas
+      );
+    } else if (requirements && typeof requirements === "string") {
+      // If 'requirements' is a string, split it by commas
+      requirementsArray = requirements.split(",");
+    } else if (requirements === null || requirements === undefined) {
+      // If 'requirements' is null or undefined, treat it as an empty array
+      requirementsArray = [];
+    }
+
     const job = new Job({
       title: title,
       description: description,
-      requirements: requirements,
+      requirements: requirementsArray,
       salary: Number(salary),
       experienceLevel: experienceLevel,
       location: location,
@@ -205,10 +222,26 @@ export const updateJobById = async (req, res) => {
       company,
     } = req.body;
 
+    let requirementsArray = [];
+
+    // Check if 'requirements' is an array
+    if (Array.isArray(requirements)) {
+      // If 'requirements' is an array of strings, split each string by commas
+      requirementsArray = requirements.flatMap(
+        (item) => item.split(",") // Split each string inside the array by commas
+      );
+    } else if (requirements && typeof requirements === "string") {
+      // If 'requirements' is a string, split it by commas
+      requirementsArray = requirements.split(",");
+    } else if (requirements === null || requirements === undefined) {
+      // If 'requirements' is null or undefined, treat it as an empty array
+      requirementsArray = [];
+    }
+
     const updateData = {
       title,
       description,
-      requirements,
+      requirements: requirementsArray,
       salary,
       experienceLevel,
       location,
@@ -217,21 +250,28 @@ export const updateJobById = async (req, res) => {
       position,
       company,
     };
+
     const jobUpd = await Job.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
+
     if (!jobUpd) {
       return res.status(404).json({
         message: "Job not found",
         success: false,
       });
     }
+
     return res.status(200).json({
-      message: "job information updated",
+      message: "Job information updated",
       jobUpd,
       success: true,
     });
   } catch (err) {
-    console.log(err);
+    console.error("Error during job update:", err); // Log the error to the console for debugging
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };

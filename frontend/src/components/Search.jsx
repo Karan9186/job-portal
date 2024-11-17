@@ -17,8 +17,9 @@ function Search() {
     <>
       <div className="flex items-center justify-center mt-24">
         <h1 className="font-bold text-[35px] text-center text-slate-700">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          <br /> Quasi, magni?
+          <span className="text-red-800">Find your ideal job faster.</span>{" "}
+          Search, apply, and unlock
+          <br></br> new career opportunities today!
         </h1>
       </div>
       <form className="max-w-md mx-auto mt-10" onSubmit={handleSearch}>
@@ -61,9 +62,8 @@ function Search() {
       <div className="mt-8 flex items-center justify-center">
         <div className="px-22 w-[800px]">
           <h1 className="text-center font-semibold text-slate-500">
-            Lorem ipsum dolor sit amet cdfdsf onsectezcsdfsdtur adipisicing
-            elit. Quia optio iusto fuga sunt molestiae exercitationem ut
-            similique
+            Discover endless career opportunities, connect with top employers,
+            and take the next step towards your dream job today!
           </h1>
         </div>
       </div>

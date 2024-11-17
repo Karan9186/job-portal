@@ -118,14 +118,16 @@ function ShowAllJob() {
             </tr>
           </thead>
           <tbody>
-            {loading
-              ? ""
-              : allJobs.length >= 0
-              ? allJobs
-              : "no job posted by you"}
+            {loading ? (
+              <AdminLoading />
+            ) : allJobs.length > 0 ? (
+              allJobs
+            ) : (
+              "no job posted by you"
+            )}
           </tbody>
         </table>
-        {loading ? <AdminLoading /> : "No Job posted by You"}
+        {/* {loading ? <AdminLoading /> : "No Job posted by You"} */}
       </div>
     </>
   );

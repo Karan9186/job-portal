@@ -115,14 +115,16 @@ function HomeList() {
             </tr>
           </thead>
           <tbody>
-            {loading
-              ? ""
-              : allCompanyDetails.length >= 0
-              ? allCompanyDetails
-              : "no job posted by you"}
+            {loading ? (
+              <AdminLoading />
+            ) : allCompanyDetails.length > 0 ? (
+              allCompanyDetails
+            ) : (
+              "no job posted by you"
+            )}
           </tbody>
         </table>
-        {loading ? <AdminLoading /> : "No Job posted by You"}
+        {/* {loading ? <AdminLoading /> : "No Job posted by You"} */}
       </div>
     </div>
   );

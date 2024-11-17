@@ -34,8 +34,7 @@ function HeroSec() {
                 <span className="text-red-500">Dream Jobs</span>
               </h1>
               <p className="mt-4 text-xl text-gray-500">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam,
-                possimus.
+                Your dream job is just a search away. Start today!
               </p>
             </div>
             <div>

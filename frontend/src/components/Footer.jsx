@@ -42,11 +42,11 @@ function Footer() {
           <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
           <span className="block text-sm text-gray-500 sm:text-center ">
             © 2024{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <button onClick={() => navigate("/")} className="hover:underline">
               <h1 className="text-black text-[15px] font-bold">
                 <span className="text-red-800 font-bold">Hire</span>Link
               </h1>
-            </a>
+            </button>
             . All Rights Reserved.
           </span>
         </div>

@@ -5,7 +5,7 @@ function AdminLoading() {
     <>
       <div
         role="status"
-        class="w-[100%] p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse "
+        class="w-[100%] absolute p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse "
       >
         <div class="flex items-center justify-between">
           <div>
