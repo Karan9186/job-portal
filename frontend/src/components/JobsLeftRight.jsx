@@ -53,7 +53,7 @@ function JobsLeftRight({ v }) {
                 icon={faIndianRupeeSign}
                 className="h-[13px] text-gray-600"
               />{" "}
-              {v?.salary} |{" LPA "}
+              {v?.salary} {" LPA "}
             </p>
             <p className="text-md text-gray-700">
               <FontAwesomeIcon icon={faLocationDot} className="h-[14px] mr-1" />

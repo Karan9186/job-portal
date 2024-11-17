@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import h1 from "../../../../public/h1.jpg";
 import axios from "axios";
 import Loading from "../../Loading";
 import AdminLoading from "./AdminLoading";

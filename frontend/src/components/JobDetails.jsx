@@ -8,7 +8,7 @@ import Alltoast from "./toast/Alltoast";
 
 function JobDetails() {
   const [jobData, setJobData] = useState();
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [checkApp, setCheckApp] = useState(false);
   const currentUserId = id;
 
@@ -26,7 +26,6 @@ function JobDetails() {
         );
         const result = await response.json();
         console.log(result.job.application);
-
         setJobData(result.job);
 
         const fetchData = async () => {
@@ -39,7 +38,9 @@ function JobDetails() {
               }
             );
             const result = await reponse.json();
-            console.log("the applicantion=", result.application);
+            if (!result.succsess) {
+              Alltoast(result.message, result.succsess);
+            }
             const applyJob = result.application;
             applyJob.forEach((v) => {
               if (v.job._id === currentUserId) {
@@ -89,9 +90,12 @@ function JobDetails() {
         }
       );
       const result = await response.json();
-      console.log(result);
-
-      Alltoast(result.message, result.success);
+      // console.log("the resjfsd=", result);
+      Alltoast(result.message, result.succsess);
+      // if (!result.succsess) {
+      // } else {
+      //   Alltoast(result.message, result.succsess);
+      // }
 
       // checking the applicant matchat the id
     } catch (err) {
@@ -148,7 +152,11 @@ function JobDetails() {
         </div>
         <div className="w-[23%] shadow-xl rounded-md shadow-blue-100 h-fit px-4 py-4 rounded border-slate-300 bg-white">
           <div className="flex flex-col items-center">
-            <img src={jobData?.company?.file} alt="" className="h-[100px] w-[100px]" />
+            <img
+              src={jobData?.company?.file}
+              alt=""
+              className="h-[100px] w-[100px]"
+            />
             <h1 className="mt-3 font-semibold text-[23px]">
               {jobData?.company?.companyName}
             </h1>

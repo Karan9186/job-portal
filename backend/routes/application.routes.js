@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 router.route("/apply/:id").get(iAuthentication, applyJob);
-router.route("/get").get(iAuthentication, getAppliedJobs);
+router.route("/get").get(getAppliedJobs);
 router.route("/:id/applicants").get(iAuthentication, getApplicants);
 router.route("/status/:id/update").post(iAuthentication, updateStatus);
 

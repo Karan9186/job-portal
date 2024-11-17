@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import h1 from "../../../../public/h1.jpg";
 import { useNavigate } from "react-router-dom";
 import AdminLoading from "./AdminLoading";
 function ShowAllJob() {

@@ -1,11 +1,11 @@
 import React from "react";
-import img1 from "/h8.jpg";
-import img3 from "/h3.jpg";
-import img2 from "/h1.jpg";
-import img4 from "/h4.jpg";
-import img5 from "/h5.jpg";
-import img6 from "/h6.jpg";
-import img7 from "/h7.jpg";
+import img1 from "/h08.jpg";
+import img3 from "/h03.jpg";
+import img2 from "/h01.jpg";
+import img4 from "/h04.jpg";
+import img5 from "/h05.jpg";
+import img6 from "/h06.jpg";
+import img7 from "/h07.jpg";
 
 function HeroSec() {
   return (
