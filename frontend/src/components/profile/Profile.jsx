@@ -172,7 +172,7 @@ function Profile() {
   };
   const updateProfile = (
     <div className="">
-      <div className="fixed top-[1px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
+      <div className="fixed top-[-10px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
         <div className="relative bg-white shadow-md shadow-red-100  p-5 rounded sm:max-w-[425px]">
           <button
             className="bg-red-600 text-white p-1 absolute top-0 left-0 rounded"

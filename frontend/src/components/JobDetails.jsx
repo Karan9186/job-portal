@@ -41,7 +41,7 @@ function JobDetails() {
             // if (!result.succsess) {
             //   Alltoast(result.message, result.succsess);
             // }
-            // const applyJob = result.application;
+            const applyJob = result.application;
             applyJob.forEach((v) => {
               if (v.job._id === currentUserId) {
                 setCheckApp(true);
@@ -91,10 +91,11 @@ function JobDetails() {
       );
       const result = await response.json();
       console.log("the resjfsd=", result);
-      if (!result.succsess) {
+      if (!result.success) {
         Alltoast(result.message, false);
       } else {
         Alltoast(result.message, true);
+        setCheckApp(true);
       }
 
       // checking the applicant matchat the id
