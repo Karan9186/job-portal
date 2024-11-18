@@ -38,10 +38,10 @@ function JobDetails() {
               }
             );
             const result = await reponse.json();
-            if (!result.succsess) {
-              Alltoast(result.message, result.succsess);
-            }
-            const applyJob = result.application;
+            // if (!result.succsess) {
+            //   Alltoast(result.message, result.succsess);
+            // }
+            // const applyJob = result.application;
             applyJob.forEach((v) => {
               if (v.job._id === currentUserId) {
                 setCheckApp(true);

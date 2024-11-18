@@ -154,6 +154,8 @@ function Profile() {
         const result = await reponse.json();
         setAppData(result.application);
         setLoad(false);
+        console.log(result);
+        
         console.log(result.application);
       } catch (err) {
         console.log(err);
