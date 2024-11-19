@@ -3,7 +3,7 @@ import logo from "../../public/vite.svg";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Alltoast from "./toast/Alltoast";
 
 function JobDetails() {
@@ -11,8 +11,10 @@ function JobDetails() {
   const { id } = useParams();
   const [checkApp, setCheckApp] = useState(false);
   const currentUserId = id;
+  const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -58,7 +60,7 @@ function JobDetails() {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, location]);
 
   // Function to format the date
   function formatDate(date) {

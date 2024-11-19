@@ -1,5 +1,5 @@
 import React from "react";
-import { useInRouterContext, useNavigate } from "react-router-dom";
+import { Link, useInRouterContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -60,7 +60,7 @@ function JobLogin() {
                 Go back
               </button>
               <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                Sign Up As A Jobseeker
+                Login As A Jobseeker
               </h2>
             </div>
 
@@ -95,12 +95,12 @@ function JobLogin() {
                       Password
                     </label>
                     <div className="text-sm">
-                      <a
-                        href="#"
+                      <Link
+                        to="/jobseeker/forgotPass"
                         className="font-semibold text-indigo-600 hover:text-indigo-500"
                       >
                         Forgot password?
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="mt-2">

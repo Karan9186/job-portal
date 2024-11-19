@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import JobsLeftRight from "../JobsLeftRight";
 import Alltoast from "../toast/Alltoast";
 import Loading from "../Loading";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 function Jobs() {
-
   const [jobData, setJobData] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState({
     jobType: "",
@@ -14,7 +13,10 @@ function Jobs() {
     roleCategory: "",
   });
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     setLoading(true);
     const fetchData = async () => {
       const response = await fetch(
@@ -37,7 +39,7 @@ function Jobs() {
       }
     };
     fetchData();
-  }, []);
+  }, [location]);
   const handleFilterChange = (category, value) => {
     setSelectedFilters((prevFilters) => ({
       [category]: value,

@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import store from "../../store/store";
 import Cookies from "js-cookie";
 import { Toaster, toast } from "sonner";
@@ -96,6 +96,14 @@ function RecLogin() {
                       >
                         Password
                       </label>
+                      <div className="text-sm">
+                        <Link
+                          to="/recruiter/forgotPass"
+                          className="font-semibold text-indigo-600 hover:text-indigo-500"
+                        >
+                          Forgot password?
+                        </Link>
+                      </div>
                     </div>
                     <div className="mt-2">
                       <input

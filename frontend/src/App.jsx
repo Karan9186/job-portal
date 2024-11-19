@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/home/Home";
 import Jobs from "./components/jobs/Jobs";
 import Error from "./components/Error";
@@ -24,10 +24,15 @@ import JobDetails from "./components/JobDetails";
 import JobseekerRegister from "./components/register/JobseekerRegister";
 import UpdateProfile from "./components/profile/UpdateProfile";
 import JobSearch from "./components/jobs/JobSearch";
+import ForgetPassUser from "./components/admin/components/ForgetPassUser";
+import ForgetPassReq from "./components/admin/components/ForgetPassReq";
 
 function App() {
   const [login, setLogin] = useState("");
-
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <>
       <store.Provider value={[login, setLogin]}>
@@ -51,6 +56,8 @@ function App() {
           <Route path="/recruiter/home" element={<HomeReq />} />
           <Route path="/recruiter/add/company" element={<AddCompnay />} />
           <Route path="/recruiter/show/job" element={<ShowAllJob />} />
+          <Route path="/jobseeker/forgotPass" element={<ForgetPassUser />} />
+          <Route path="/recruiter/forgotPass" element={<ForgetPassReq />} />
           <Route
             path="/recruiter/company/update/:id"
             element={<UpdateCompnay />}
