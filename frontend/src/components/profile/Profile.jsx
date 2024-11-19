@@ -155,7 +155,7 @@ function Profile() {
         setAppData(result.application);
         setLoad(false);
         console.log(result);
-        
+
         console.log(result.application);
       } catch (err) {
         console.log(err);
@@ -167,7 +167,8 @@ function Profile() {
     if (!userData?.user?.profile?.resume)
       Alltoast("please upload resume", false);
     else {
-      window.open(userData?.user?.profile?.resume, "_blank");
+    
+      window.open("file" + userData?.user?.profile?.resume, "_blank");
     }
   };
   const updateProfile = (

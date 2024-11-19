@@ -1,11 +1,13 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 import path from "path";
 import getDataUri from "../utils/datauri.js";
-import { singleUpload } from "../middlewares/multer.js";
 import cloudinary from "../utils/cloudinary.js";
 import nodemailer from "nodemailer";
+import { URL } from "url"; // Import URL to handle the conversion
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 function generateSecurityCode(length) {
   const characters =
@@ -265,44 +267,41 @@ export const logOUt = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
+    const file = req.file; // The uploaded file will be available here if 'file' field is used
 
-    // cloundynary here
-    const file = req.file;
-    // if (!file) {
-    //   return res.status(400).json({
-    //     message: "No file uploaded",
-    //     success: false,
-    //   });
-    // }
-    let cloudResponse = "";
-    if (file) {
-      let fileUri = getDataUri(file);
-      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    }
-
-    // end cloundary
     let skillsArray;
     if (skills) {
       skillsArray = skills.split(",") || skills;
     }
-    const userId = req.id; //middleware authentication
-    console.log(req.id);
+
+    const userId = req.id; // This should be populated by your authentication middleware
+
+    // Find the user by their ID
     let user = await User.findById(userId);
     if (!user) {
       return res.status(400).json({
-        message: "user not found",
+        message: "User not found",
         success: false,
       });
     }
-    // updatin data
+
+    // Update user data
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
-    if (file) user.profile.resume = cloudResponse.secure_url;
+
+    // If a file is uploaded, save the file path to the user's profile
+    if (file) {
+      const uploadPath = path.join(__dirname, "..", "uploads", file.filename); // Use __dirname to get the full path
+      user.profile.resume = uploadPath; // Store the file path in the user's profile (or adjust based on your schema)
+    }
+
+    // Save the updated user document
     await user.save();
 
+    // Create a sanitized user object to return
     user = {
       _id: user._id,
       email: user.email,
@@ -313,12 +312,16 @@ export const updateProfile = async (req, res) => {
     };
 
     return res.status(200).json({
-      message: "profile updated",
+      message: "Profile updated successfully",
       user,
       success: true,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return res.status(500).json({
+      message: "Something went wrong",
+      success: false,
+    });
   }
 };
 
