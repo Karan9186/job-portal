@@ -13,6 +13,7 @@ import recruiterRoute from "./routes/recruiter.routes.js";
 dotenv.config();
 
 const app = express();
+app.use("/uploads", express.static(path.join("uploads")));
 
 // Middlewares
 app.use(express.json());
@@ -24,12 +25,6 @@ app.use(
     credentials: true, // Enable credentials (cookies, headers)
   })
 );
-
-// Calculate __dirname for ES Modules (for file system operations)
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-// Serve static files from the 'uploads' directory
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Define Routes
 app.use("/api/v1/user", userRoute);

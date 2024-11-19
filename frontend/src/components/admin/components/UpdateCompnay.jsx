@@ -79,7 +79,7 @@ function UpdateCompnay() {
       );
       const result = await response.json();
       setCompnayData(result.compnay);
-      setImagePreview(result.compnay.file); // Set the file URL for preview
+      setImagePreview(`http://localhost:3000/uploads/${result.compnay.file}`); // Set the file URL for preview
     };
     fetchCompnayData();
   }, [id]); // Ensure to fetch on component mount and when `id` changes

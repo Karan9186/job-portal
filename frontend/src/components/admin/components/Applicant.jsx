@@ -74,7 +74,9 @@ function Applicant() {
   }, [appResponse]);
 
   const ApplicantData = jobApplicant.map((v, i) => {
-    const resumeUser = v.applicant.profile.resume || "not resume";
+    const resumeUser =
+      `http://localhost:3000/uploads/${v.applicant.profile.resume}` ||
+      "not resume";
     console.log(resumeUser);
     console.log(v.applicant.profile.resume);
 

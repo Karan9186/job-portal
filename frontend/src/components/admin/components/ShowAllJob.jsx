@@ -55,7 +55,8 @@ function ShowAllJob() {
             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
           >
             <img
-              src={v.company.file}
+              // src={v.company.file}
+              src={`http://localhost:3000/uploads/${v.company.file}`}
               alt="company"
               className="h-[50px] w-[50px] rounded-md"
             />

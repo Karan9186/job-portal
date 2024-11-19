@@ -116,7 +116,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={userData?.user?.profile?.profilePhoto}
+                                src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -207,7 +207,7 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={userData?.user?.profile?.profilePhoto}
+                      src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
@@ -293,7 +293,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={userData?.user?.profile?.profilePhoto}
+                                src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -322,9 +322,7 @@ export default function Nav() {
                                     <h1 className="flex items-center gap-2">
                                       <img
                                         alt=""
-                                        src={
-                                          userData?.user?.profile?.profilePhoto
-                                        }
+                                        src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                                         className="h-8 w-8 rounded-full"
                                       />
                                       <h1 className="font-semibold">
@@ -401,7 +399,7 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={userData?.user?.profile?.profilePhoto}
+                      src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>

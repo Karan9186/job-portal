@@ -49,7 +49,8 @@ function HomeList() {
         <tr className="bg-white border-b" key={i}>
           <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
             <img
-              src={v.file}
+              src={`http://localhost:3000/uploads/${v.file}`}
+
               alt="company"
               className="h-[50px] w-[50px] rounded-md"
             />

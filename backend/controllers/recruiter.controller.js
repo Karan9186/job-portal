@@ -23,9 +23,6 @@ export const register = async (req, res) => {
       });
     }
 
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-
     // Check if the user already exists
     const user = await Reqcuiter.findOne({ email });
     if (user) {
@@ -46,7 +43,7 @@ export const register = async (req, res) => {
       password: hashedPass,
       role,
       profile: {
-        profilePhoto: cloudResponse.secure_url,
+        profilePhoto: file.filename,
       },
     });
     // mail send

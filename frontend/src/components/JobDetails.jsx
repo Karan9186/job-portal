@@ -156,7 +156,7 @@ function JobDetails() {
         <div className="w-[23%] shadow-xl rounded-md shadow-blue-100 h-fit px-4 py-4 rounded border-slate-300 bg-white">
           <div className="flex flex-col items-center">
             <img
-              src={jobData?.company?.file}
+              src={`http://localhost:3000/uploads/${jobData?.company?.file}`}
               alt=""
               className="h-[100px] w-[100px]"
             />

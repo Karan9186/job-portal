@@ -22,8 +22,6 @@ export const registerCompany = async (req, res) => {
       });
     }
 
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     // done file
     let Company = await company.findOne({ name: companyName });
     if (Company) {
@@ -38,7 +36,7 @@ export const registerCompany = async (req, res) => {
       companyName: companyName,
       description: description,
       location: location,
-      file: cloudResponse.secure_url,
+      file: file.filename,
       userId: req.id,
     });
     console.log("the copnay is=", Company);
@@ -122,10 +120,6 @@ export const updateCompany = async (req, res) => {
     // }
     let cloudResponse;
     let updateData = {};
-    if (file) {
-      const fileUri = getDataUri(file);
-      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    }
 
     // end
     if (file) {
@@ -134,7 +128,7 @@ export const updateCompany = async (req, res) => {
         description,
         website,
         location,
-        file: cloudResponse.secure_url,
+        file: file.filename,
       };
     } else {
       updateData = {

@@ -42,8 +42,7 @@ export const register = async (req, res) => {
       });
     }
 
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    // If a file is uploaded, store only the filename in the user's profile
 
     // Check if the user already exists
     const user = await User.findOne({ email });
@@ -64,7 +63,7 @@ export const register = async (req, res) => {
       password: hashedPass,
       role,
       profile: {
-        profilePhoto: cloudResponse.secure_url,
+        profilePhoto: file.filename,
       },
     });
 
@@ -263,11 +262,10 @@ export const logOUt = async (req, res) => {
     console.log(err);
   }
 };
-
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
-    const file = req.file; // The uploaded file will be available here if 'file' field is used
+    const file = req.file; // The uploaded file will be available here
 
     let skillsArray;
     if (skills) {
@@ -285,17 +283,16 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    // Update user data
+    // Update the user's data
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
 
-    // If a file is uploaded, save the file path to the user's profile
+    // If a file is uploaded, store only the filename in the user's profile
     if (file) {
-      const uploadPath = path.join(__dirname, "..", "uploads", file.filename); // Use __dirname to get the full path
-      user.profile.resume = uploadPath; // Store the file path in the user's profile (or adjust based on your schema)
+      user.profile.resume = file.filename; // Store only the filename (e.g., '1731991357447.pdf')
     }
 
     // Save the updated user document
@@ -319,12 +316,11 @@ export const updateProfile = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({
-      message: "Something went wrong",
+      message: "Something went wrong while updating the profile",
       success: false,
     });
   }
 };
-
 export const forgotPassUser = async (req, res) => {
   try {
     const { email } = req.body;

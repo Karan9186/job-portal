@@ -167,8 +167,8 @@ function Profile() {
     if (!userData?.user?.profile?.resume)
       Alltoast("please upload resume", false);
     else {
-    
-      window.open("file" + userData?.user?.profile?.resume, "_blank");
+      const fileUrl = `http://localhost:3000/uploads/${userData?.user?.profile?.resume}`;
+      window.open(fileUrl, "_blank");
     }
   };
   const updateProfile = (
@@ -302,7 +302,7 @@ function Profile() {
         <tr key={i}>
           <th scope="col" className="px-6 py-3">
             <img
-              src={v.job.company.file}
+              src={`http://localhost:3000/uploads/${v.job.company.file}`}
               alt=""
               className="h-[30px] w-[30px]"
             />
@@ -353,7 +353,7 @@ function Profile() {
               <div className="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
-                    src={userData.user.profile.profilePhoto}
+                    src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                   ></img>
                   <h1 className="text-xl font-semibold">
@@ -375,9 +375,17 @@ function Profile() {
                     >
                       edit
                     </button>
-                    <button
+                    {/* <button
                       onClick={resumeAlert}
                       target="_blank"
+                      className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
+                    >
+                      Resume
+                    </button> */}
+                    <button
+                      href={`http://localhost:3000/uploads/${userData?.user?.profile?.resume}`} // Use the filename stored in the database
+                      target="_blank"
+                      onClick={resumeAlert}
                       className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
                     >
                       Resume
