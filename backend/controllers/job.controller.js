@@ -115,12 +115,12 @@ export const getAllJobs = async (req, res) => {
       }
       if (word.key === "salary") {
         query = {
-          $or: [{ salary: { $lt: Number(word.value) } }],
+          $or: [{ salary: { $lt: Number(word.value), $options: "i" } }],
         };
       }
       if (word.key === "title") {
         query = {
-          $or: [{ title: { $regex: String(word.value) } }],
+          $or: [{ title: { $regex: String(word.value), $options: "i" } }],
         };
       }
     }
