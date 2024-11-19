@@ -6,6 +6,7 @@ import { json, Navigate, useNavigate } from "react-router-dom";
 import UpdateProfile from "./UpdateProfile";
 import Alltoast from "../toast/Alltoast";
 import axios from "axios";
+import { FaWindowClose } from "react-icons/fa";
 function Profile() {
   const navigate = useNavigate();
   const user = localStorage.getItem("userdata");
@@ -172,14 +173,14 @@ function Profile() {
     }
   };
   const updateProfile = (
-    <div className="">
-      <div className="fixed top-[-10px] flex items-center justify-center h-[100%] w-[100%] top-[20vh]  backdrop-blur-sm">
+    <div className="fixed top-0 backdrop-blur-sm flex items-center justify-center h-[100%] w-[100%]">
+      <div className="   top-[20vh]  ">
         <div className="relative bg-white shadow-md shadow-red-100  p-5 rounded sm:max-w-[425px]">
           <button
             className="bg-red-600 text-white p-1 absolute top-0 left-0 rounded"
             onClick={() => serUpd(false)}
           >
-            cros
+            <FaWindowClose />
           </button>
           <div className="mt-5 text-center bg-slate-200 rounded text-black font-semibold p-1">
             <h1>Update Profile</h1>
@@ -249,19 +250,40 @@ function Profile() {
                   className="col-span-3 outline-none border-b-2 border-b-black"
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
+              <div className=" grid grid-cols-4 items-center gap-4">
                 <label htmlFor="file" className="text-right">
                   Resume
                 </label>
+                {!userData?.user?.profile?.resume ? (
+                  <button
+                    type="button"
+                    onClick={resumeAlert}
+                    className="font-bold text-blue-900"
+                  >
+                    <p className="w-[220px] ">no resume uploaded</p>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={resumeAlert}
+                    className="font-bold text-blue-900"
+                  >
+                    <p className="w-[220px] ">
+                      {userData?.user?.fullname}'s resume
+                    </p>
+                  </button>
+                )}
+
                 <input
                   id="file"
                   name="resume"
                   type="file"
                   onChange={fileChangeHandler}
-                  className="col-span-3"
+                  className="col-span-3 border-2 w-[100px]"
                 />
               </div>
             </div>
+
             <div>
               {loading ? (
                 <button className="w-full my-4">
@@ -300,11 +322,11 @@ function Profile() {
     return (
       <>
         <tr key={i}>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-6 py-3 ">
             <img
               src={`http://localhost:3000/uploads/${v.job.company.file}`}
               alt=""
-              className="h-[30px] w-[30px]"
+              className="h-[30px] w-[30px] "
             />
           </th>
           <th scope="col" className="px-6 py-3">

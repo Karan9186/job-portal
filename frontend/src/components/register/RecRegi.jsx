@@ -38,6 +38,7 @@ function RecRegi() {
     if (input.file) {
       formData.append("file", input.file);
     }
+    console.log(input);
 
     try {
       setLoading(true);
@@ -59,7 +60,7 @@ function RecRegi() {
         // Handle successful registration
         setLoading(false);
         Alltoast(data.message, true);
-        navigate("/jobseeker");
+        navigate("/recruiter");
       } else {
         Alltoast(data.message, false);
       }

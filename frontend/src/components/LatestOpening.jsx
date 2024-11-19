@@ -59,7 +59,7 @@ function LatestOpening() {
     fetchData();
   }, []);
   const navigate = useNavigate();
-  const showAllJob = jobData.map((v, i) => {
+  const showAllJob = jobData?.map((v, i) => {
     return (
       <>
         <div
