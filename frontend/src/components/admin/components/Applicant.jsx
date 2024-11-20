@@ -67,6 +67,7 @@ function Applicant() {
       setAppId(result.job.application[0]._id);
       setJobTitle(result.job.title);
       setJobApplicant(result.job.application);
+      console.log(result);
 
       setloading(false);
     };
@@ -91,7 +92,7 @@ function Applicant() {
           </th>
           <td className="px-6 py-4">{v.applicant.fullname}</td>
           <td className="px-6 py-4">{v.status}</td>
-          <td className="px-6 py-4">{formatDate(v.applicant.updatedAt)}</td>
+          <td className="px-6 py-4">{formatDate(v.createdAt)}</td>
           <td className="px-6 py-4">
             {resumeUser ? (
               <a
