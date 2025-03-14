@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alltoast from "../toast/Alltoast";
+import { BACKEND_URL } from "../../utils/constant";
 
 function RecRegi() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function RecRegi() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/recruiter/register",
+        `${BACKEND_URL}/api/v1/recruiter/register`,
         formData,
         {
           headers: {

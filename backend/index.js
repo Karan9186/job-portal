@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // React app's URL
+    origin: ["http://localhost:5173", "http://localhost:5174"], // React app's URL
     credentials: true, // Enable credentials (cookies, headers)
   })
 );

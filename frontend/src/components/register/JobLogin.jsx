@@ -7,6 +7,7 @@ import { useRef } from "react";
 
 import { Toaster, toast } from "sonner";
 import Alltoast from "../toast/Alltoast";
+import { BACKEND_URL } from "../../utils/constant";
 function JobLogin() {
   const navigate = useNavigate();
   const email = useRef("");
@@ -21,7 +22,7 @@ function JobLogin() {
         password: password.current.value,
         role: role,
       };
-      const response = await fetch("http://localhost:3000/api/v1/user/login", {
+      const response = await fetch(`${BACKEND_URL}/api/v1/user/login`, {
         method: "POST",
         body: JSON.stringify(user),
         credentials: "include",

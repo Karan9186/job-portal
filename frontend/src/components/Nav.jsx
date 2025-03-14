@@ -18,6 +18,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import store from "../store/store";
+import { BACKEND_URL } from "../utils/constant.js";
 
 const navigation = [
   { name: "Home", link: "/", current: true },
@@ -116,7 +117,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                                src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -185,11 +186,11 @@ export default function Nav() {
 
             <DisclosurePanel className="md:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {navigation.map((item) => (
+              {navigation.map((item) => (
                   <DisclosureButton
                     key={item.name}
                     as="a"
-                    href={item.href}
+                    onClick={() => naviagate(`${item.link}`)}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
                       item.current
@@ -207,7 +208,7 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                      src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
@@ -293,7 +294,7 @@ export default function Nav() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 alt=""
-                                src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                                src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                                 className="h-8 w-8 rounded-full"
                               />
                             </MenuButton>
@@ -322,7 +323,7 @@ export default function Nav() {
                                     <h1 className="flex items-center gap-2">
                                       <img
                                         alt=""
-                                        src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                                        src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                                         className="h-8 w-8 rounded-full"
                                       />
                                       <h1 className="font-semibold">
@@ -381,7 +382,7 @@ export default function Nav() {
                   <DisclosureButton
                     key={item.name}
                     as="a"
-                    href={item.href}
+                    onClick={() => naviagate(`${item.link}`)}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
                       item.current
@@ -399,7 +400,7 @@ export default function Nav() {
                   <div className="flex-shrink-0">
                     <img
                       alt=""
-                      src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                      src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
@@ -425,7 +426,7 @@ export default function Nav() {
                     <DisclosureButton
                       key={item.name}
                       as="a"
-                      href={item.href}
+                      onClick={()=>naviagate("/profile")}
                       className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                     >
                       {item.name}

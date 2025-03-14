@@ -6,6 +6,7 @@ import img4 from "/h04.jpg";
 import img5 from "/h05.jpg";
 import img6 from "/h06.jpg";
 import img7 from "/h07.jpg";
+import { Link } from "react-router-dom";
 
 function HeroSec() {
   return (
@@ -104,9 +105,9 @@ function HeroSec() {
                   </div>
                 </div>
 
-                <button className="inline-block rounded-md border border-transparent bg-red-500 px-8 py-3 text-center font-medium text-white hover:bg-red-700 w-[200px]">
+                <Link to={"/jobs"} className="inline-block rounded-md border border-transparent bg-red-500 px-8 py-3 text-center font-medium text-white hover:bg-red-700 w-[200px]">
                   Get Your First Job
-                </button>
+                </Link>
               </div>
             </div>
           </div>

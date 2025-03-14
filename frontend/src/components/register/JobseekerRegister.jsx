@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alltoast from "../toast/Alltoast";
+import { BACKEND_URL } from "../../utils/constant";
 
 export default function JobseekerRegister() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function JobseekerRegister() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/register",
+        `${BACKEND_URL}/api/v1/user/register`,
         formData,
         {
           headers: {

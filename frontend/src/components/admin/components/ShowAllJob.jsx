@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLoading from "./AdminLoading";
+import { BACKEND_URL } from "../../../utils/constant";
 function ShowAllJob() {
   const navigate = useNavigate();
   const [Jobs, setJobs] = useState([]);
@@ -24,7 +25,7 @@ function ShowAllJob() {
       try {
         setLoad(true);
         const response = await fetch(
-          "http://localhost:3000/api/v1/job/adminjob",
+          `${BACKEND_URL}/api/v1/job/adminjob`,
           {
             method: "GET",
             headers: {
@@ -56,7 +57,7 @@ function ShowAllJob() {
           >
             <img
               // src={v.company.file}
-              src={`http://localhost:3000/uploads/${v.company.file}`}
+              src={`${BACKEND_URL}/uploads/${v.company.file}`}
               alt="company"
               className="h-[50px] w-[50px] rounded-md"
             />

@@ -37,7 +37,7 @@ function JobsLeftRight({ v }) {
       <div>
         {/* here */}
 
-        <div className="h-auto w-[40vw] bg-white shadow-lg rounded-2xl border-1 border-gray-200 p-4 mb-6 shadow-blue-200">
+        <div className="h-auto md:w-[40vw] xl:w-[40vw] sm:w-[100%] bg-white shadow-lg rounded-2xl border-1 border-gray-200 p-4 mb-6 shadow-blue-200">
           <h2 className="text-lg font-semibold text-gray-800">{v?.title}</h2>
           <h3 className="text-md font-semibold text-gray-500">
             {v?.company?.companyName}

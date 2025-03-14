@@ -5,6 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
 import { useLocation, useParams } from "react-router-dom";
 import Alltoast from "./toast/Alltoast";
+import { BACKEND_URL } from "../utils/constant";
 
 function JobDetails() {
   const [jobData, setJobData] = useState();
@@ -18,7 +19,7 @@ function JobDetails() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/v1/job/get/${id}`,
+          `${BACKEND_URL}/api/v1/job/get/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -33,7 +34,7 @@ function JobDetails() {
         const fetchData = async () => {
           try {
             const reponse = await fetch(
-              "http://localhost:3000/api/v1/application/get",
+              `${BACKEND_URL}/api/v1/application/get`,
               {
                 headers: { "Content-Type": "Application/json" },
                 credentials: "include",
@@ -82,7 +83,7 @@ function JobDetails() {
   const applyJobByUser = async (jobId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/application/apply/${jobId}`,
+        `${BACKEND_URL}/api/v1/application/apply/${jobId}`,
         {
           method: "get",
           headers: {
@@ -113,8 +114,8 @@ function JobDetails() {
       <br />
       <br />
       <br />
-      <div className="flex justify-center gap-4">
-        <div className="w-[60%] py-3 px-3 rounded bg-white rounded-md shadow-xl shadow-blue-100">
+      <div className="flex justify-center flex-wrap gap-4">
+        <div className="w-[80%] lg:w-[60%] md:w-[50%] py-3 px-3 rounded bg-white rounded-md shadow-xl shadow-blue-100">
           <h1 className="font-semibold text-[30px] pb-3">{jobData?.title}</h1>
           <hr />
           <p className="mt-3">{jobData?.description}</p>
@@ -153,10 +154,10 @@ function JobDetails() {
           </div>
           <br />
         </div>
-        <div className="w-[23%] shadow-xl rounded-md shadow-blue-100 h-fit px-4 py-4 rounded border-slate-300 bg-white">
+        <div className="w-[80%] lg:w-[23%] md:w-[30%] shadow-xl rounded-md shadow-blue-100 h-fit px-4 py-4 rounded border-slate-300 bg-white">
           <div className="flex flex-col items-center">
             <img
-              src={`http://localhost:3000/uploads/${jobData?.company?.file}`}
+              src={`${BACKEND_URL}/uploads/${jobData?.company?.file}`}
               alt=""
               className="h-[100px] w-[100px]"
             />

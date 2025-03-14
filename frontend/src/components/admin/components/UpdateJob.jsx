@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Alltoast from "../../toast/Alltoast";
 import { useNavigate, useParams } from "react-router-dom";
+import { BACKEND_URL } from "../../../utils/constant";
 
 function UpdateJob() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ function UpdateJob() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/v1/company/get",
+          `${BACKEND_URL}/api/v1/company/get`,
           {
             method: "get",
             headers: {
@@ -50,7 +51,7 @@ function UpdateJob() {
     // fetch job data
     const fetchJobData = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/v1/job/get/${id}`,
+        `${BACKEND_URL}/api/v1/job/get/${id}`,
         {
           method: "GET",
           headers: {
@@ -97,7 +98,7 @@ function UpdateJob() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/job/update/${id}`, // Replace with your API endpoint
+        `${BACKEND_URL}/api/v1/job/update/${id}`, // Replace with your API endpoint
         jobData,
         {
           headers: {

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
 import AllToast from "../../toast/Alltoast.jsx";
+import { BACKEND_URL } from "../../../utils/constant.js";
 function UpdateCompnay() {
   const [login, setLoading] = useState(false);
   const [compnayData, setCompnayData] = useState({
@@ -41,7 +42,7 @@ function UpdateCompnay() {
 
       console.log(file);
       const response = await fetch(
-        `http://localhost:3000/api/v1/company/update/${id}`,
+        `${BACKEND_URL}/api/v1/company/update/${id}`,
         {
           method: "POST",
           body: formData,
@@ -68,7 +69,7 @@ function UpdateCompnay() {
   useEffect(() => {
     const fetchCompnayData = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/v1/company/get/${id}`,
+        `${BACKEND_URL}/api/v1/company/get/${id}`,
         {
           method: "GET",
           headers: {
@@ -79,7 +80,7 @@ function UpdateCompnay() {
       );
       const result = await response.json();
       setCompnayData(result.compnay);
-      setImagePreview(`http://localhost:3000/uploads/${result.compnay.file}`); // Set the file URL for preview
+      setImagePreview(`${BACKEND_URL}/uploads/${result.compnay.file}`); // Set the file URL for preview
     };
     fetchCompnayData();
   }, [id]); // Ensure to fetch on component mount and when `id` changes

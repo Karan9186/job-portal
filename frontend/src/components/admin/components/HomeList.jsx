@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../../Loading";
 import AdminLoading from "./AdminLoading";
+import { BACKEND_URL } from "../../../utils/constant";
 function HomeList() {
   const [loading, setLoad] = useState(false);
   const truncateDescription = (description, limit) => {
@@ -21,7 +22,7 @@ function HomeList() {
     try {
       setLoad(true);
       const companydata = await axios.get(
-        "http://localhost:3000/api/v1/company/get",
+        `${BACKEND_URL}/api/v1/company/get`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +50,7 @@ function HomeList() {
         <tr className="bg-white border-b" key={i}>
           <th scope="row" className="px-6 py-4 font-medium text-gray-900  ">
             <img
-              src={`http://localhost:3000/uploads/${v.file}`}
+              src={`${BACKEND_URL}/uploads/${v.file}`}
 
               alt="company"
               className="h-[50px] w-[50px] rounded-md"

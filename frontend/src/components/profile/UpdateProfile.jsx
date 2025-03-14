@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Alltoast from "../toast/Alltoast";
+import { BACKEND_URL } from "../../utils/constant";
 
 function UpdateProfile() {
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ function UpdateProfile() {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/profile/update",
+        `${BACKEND_URL}/api/v1/user/profile/update`,
         formData,
         {
           headers: {

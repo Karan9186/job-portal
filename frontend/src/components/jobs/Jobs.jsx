@@ -3,6 +3,7 @@ import JobsLeftRight from "../JobsLeftRight";
 import Alltoast from "../toast/Alltoast";
 import Loading from "../Loading";
 import { useLocation, useParams } from "react-router-dom";
+import { BACKEND_URL } from "../../utils/constant";
 
 function Jobs() {
   const [jobData, setJobData] = useState([]);
@@ -20,7 +21,7 @@ function Jobs() {
     setLoading(true);
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/v1/job/getalljobs`,
+        `${BACKEND_URL}/api/v1/job/getalljobs`,
         {
           method: "GET",
           headers: {
@@ -66,7 +67,7 @@ function Jobs() {
       console.log("query=", JSON.stringify(queryParams));
       const stringQuery = JSON.stringify(queryParams);
       const response = await fetch(
-        `http://localhost:3000/api/v1/job/getalljobs?keyword=${stringQuery}`,
+        `${BACKEND_URL}/api/v1/job/getalljobs?keyword=${stringQuery}`,
         {
           method: "GET",
           headers: {
@@ -109,7 +110,7 @@ function Jobs() {
   return (
     <>
       <div className="flex justify-center items-start mb-6">
-        <div className="flex gap-10 mt-32 ml-0 flex-wrap">
+        <div className="flex gap-10 mt-32 ml-0 flex-wrap justify-center">
           {/* ----------Left Side: All Categories Filter----------- */}
           <div className="h-[100%] w-[300px] bg-[#ffffff] flex flex-col rounded-xl border-1 border-red-200 shadow-2xl shadow-blue-200 sticky top-[100px] max-h-screen overflow-auto scrollbar-hidden">
             <div className="p-5">

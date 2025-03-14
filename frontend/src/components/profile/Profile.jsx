@@ -7,6 +7,7 @@ import UpdateProfile from "./UpdateProfile";
 import Alltoast from "../toast/Alltoast";
 import axios from "axios";
 import { FaWindowClose } from "react-icons/fa";
+import { BACKEND_URL } from "../../utils/constant";
 function Profile() {
   const navigate = useNavigate();
   const user = localStorage.getItem("userdata");
@@ -55,14 +56,11 @@ function Profile() {
 
     try {
       setLoading(true);
-      const res = await fetch(
-        "http://localhost:3000/api/v1/user/profile/update",
-        {
-          method: "POST",
-          body: formData, // No need to set Content-Type header, FormData will handle it
-          credentials: "include", // Ensure cookies are sent if needed
-        }
-      );
+      const res = await fetch(`${BACKEND_URL}/api/v1/user/profile/update`, {
+        method: "POST",
+        body: formData, // No need to set Content-Type header, FormData will handle it
+        credentials: "include", // Ensure cookies are sent if needed
+      });
       const result = await res.json();
       console.log(result);
       setLoading(false);
@@ -145,13 +143,10 @@ function Profile() {
     setLoad(true);
     const fetchData = async () => {
       try {
-        const reponse = await fetch(
-          "http://localhost:3000/api/v1/application/get",
-          {
-            headers: { "Content-Type": "Application/json" },
-            credentials: "include",
-          }
-        );
+        const reponse = await fetch(`${BACKEND_URL}/api/v1/application/get`, {
+          headers: { "Content-Type": "Application/json" },
+          credentials: "include",
+        });
         const result = await reponse.json();
         setAppData(result.application);
         setLoad(false);
@@ -168,7 +163,7 @@ function Profile() {
     if (!userData?.user?.profile?.resume)
       Alltoast("please upload resume", false);
     else {
-      const fileUrl = `http://localhost:3000/uploads/${userData?.user?.profile?.resume}`;
+      const fileUrl = `${BACKEND_URL}/uploads/${userData?.user?.profile?.resume}`;
       window.open(fileUrl, "_blank");
     }
   };
@@ -324,7 +319,7 @@ function Profile() {
         <tr key={i}>
           <th scope="col" className="px-6 py-3 ">
             <img
-              src={`http://localhost:3000/uploads/${v.job.company.file}`}
+              src={`${BACKEND_URL}/uploads/${v.job.company.file}`}
               alt=""
               className="h-[30px] w-[30px] "
             />
@@ -375,7 +370,7 @@ function Profile() {
               <div className="bg-[rgb(255,255,255)] bg-[linear-gradient(90deg,_rgba(255,255,255,1)_2%,_rgba(165,255,207,0.08175770308123254)_17%,_rgba(106,255,206,0.07335434173669464)_42%,_rgba(179,255,151,0.10696778711484589)_60%,_rgba(210,255,140,0.09576330532212884)_72%,_rgba(170,142,235,0.14618347338935578)_100%)] rounded shadow-xl border border-slate-200 shadow-blue-200 rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
-                    src={`http://localhost:3000/uploads/${userData?.user?.profile?.profilePhoto}`}
+                    src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                   ></img>
                   <h1 className="text-xl font-semibold">
@@ -405,7 +400,7 @@ function Profile() {
                       Resume
                     </button> */}
                     <button
-                      href={`http://localhost:3000/uploads/${userData?.user?.profile?.resume}`} // Use the filename stored in the database
+                      href={`${BACKEND_URL}/uploads/${userData?.user?.profile?.resume}`} // Use the filename stored in the database
                       target="_blank"
                       onClick={resumeAlert}
                       className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
@@ -437,40 +432,50 @@ function Profile() {
             <div className="bg-white rounded-xl col-span-4 sm:col-span-9">
               <div className="shadow rounded-lg p-6">
                 <h2 className="text-xl font-bold mb-4">Your Applications</h2>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
-                    <th scope="col" className="px-6 py-3">
-                      logo
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      compnay name
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Role
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Date
-                    </th>{" "}
-                    <th scope="col" className="px-6 py-3">
-                      action
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      status
-                    </th>
-                  </thead>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-sm text-left text-gray-500">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                      <tr>
+                        <th scope="col" className="px-6 py-3">
+                          Logo
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Company Name
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Role
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Action
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    {loadData ? (
-                      "loading"
-                    ) : datasForApplicant?.length > 0 ? (
-                      datasForApplicant
-                    ) : (
-                      <div className="">
-                        <p>you did't apply any job</p>
-                      </div>
-                    )}
-                  </tbody>
-                </table>
+                    <tbody>
+                      {loadData ? (
+                        <tr>
+                          <td colSpan="6" className="px-6 py-4 text-center">
+                            Loading...
+                          </td>
+                        </tr>
+                      ) : datasForApplicant?.length > 0 ? (
+                        datasForApplicant
+                      ) : (
+                        <tr>
+                          <td colSpan="6" className="px-6 py-4 text-center">
+                            You didn't apply for any job
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

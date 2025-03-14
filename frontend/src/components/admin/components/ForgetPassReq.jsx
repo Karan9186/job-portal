@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import forgotPassImg from "../../../../public/forgotPassImg.png";
 import Alltoast from "../../toast/Alltoast";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../../../utils/constant";
 function ForgetPassReq() {
   const email = useRef("");
   const pass = useRef("");
@@ -19,7 +20,7 @@ function ForgetPassReq() {
         email: email2,
       };
       const response = await fetch(
-        "http://localhost:3000/api/v1/user/forgotpass",
+        `${BACKEND_URL}/api/v1/user/forgotpass`,
         {
           method: "POST",
           headers: {
@@ -53,7 +54,7 @@ function ForgetPassReq() {
       };
       console.log(newUser);
       const response = await fetch(
-        "http://localhost:3000/api/v1/user/forgotpassfinal",
+        `${BACKEND_URL}/api/v1/user/forgotpassfinal`,
         {
           method: "POST",
           headers: { "Content-Type": "Application/json" },

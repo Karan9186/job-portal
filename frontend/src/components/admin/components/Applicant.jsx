@@ -3,6 +3,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
 import { useNavigate, useParams } from "react-router-dom";
 import Alltoast from "../../toast/Alltoast";
+import { BACKEND_URL } from "../../../utils/constant";
 function Applicant() {
   const navigate = useNavigate();
   const [appId, setAppId] = useState();
@@ -31,7 +32,7 @@ function Applicant() {
     setAppRespo(response);
     try {
       const re = await fetch(
-        `http://localhost:3000/api/v1/application/status/${appId}/update`,
+        `${BACKEND_URL}/api/v1/application/status/${appId}/update`,
         {
           method: "POST",
           headers: {
@@ -53,7 +54,7 @@ function Applicant() {
     setloading(true);
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/v1/application/${id}/applicants`,
+        `${BACKEND_URL}/api/v1/application/${id}/applicants`,
         {
           method: "GET",
           headers: {
@@ -76,7 +77,7 @@ function Applicant() {
 
   const ApplicantData = jobApplicant.map((v, i) => {
     const resumeUser =
-      `http://localhost:3000/uploads/${v.applicant.profile.resume}` ||
+      `${BACKEND_URL}/uploads/${v.applicant.profile.resume}` ||
       "not resume";
     console.log(resumeUser);
     console.log(v.applicant.profile.resume);

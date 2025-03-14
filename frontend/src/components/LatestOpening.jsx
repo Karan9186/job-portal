@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alltoast from "./toast/Alltoast";
 import Loading from "./Loading";
+import { BACKEND_URL } from "../utils/constant";
 
 function LatestOpening() {
   // Function to truncate text to 20 words
@@ -17,7 +18,7 @@ function LatestOpening() {
   const applyJobByUser = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/application/apply/${id}`,
+        `${BACKEND_URL}/api/v1/application/apply/${id}`,
         {
           method: "get",
           headers: {
@@ -42,7 +43,7 @@ function LatestOpening() {
     setLoad(true);
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/v1/job/getalljobs",
+        `${BACKEND_URL}/api/v1/job/getalljobs`,
         {
           method: "GET",
           headers: {
