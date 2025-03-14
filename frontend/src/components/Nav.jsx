@@ -426,7 +426,18 @@ export default function Nav() {
                     <DisclosureButton
                       key={item.name}
                       as="a"
-                      onClick={()=>naviagate("/profile")}
+                      onClick={() => {
+                        if (item.name == "Sign out") {
+                          console.log("called logout");
+                          Cookies.remove("token");
+                          localStorage.removeItem("userdata");
+                          Alltoast("logout succesfully", true);
+                          naviagate("/login");
+                          setLogin(false);
+                        } else {
+                          naviagate(`${item.link}`);
+                        }
+                      }}
                       className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                     >
                       {item.name}
