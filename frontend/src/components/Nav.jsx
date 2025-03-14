@@ -47,7 +47,8 @@ export default function Nav() {
   console.log("the useinfo " + userInfo[0]);
   let [role, setRole] = useState("");
 
-  const token = Cookies.get("token");
+  // const token = Cookies.get("token");
+  const token = true
   useEffect(
     () => {
       let userData = localStorage.getItem("userdata");
@@ -58,9 +59,9 @@ export default function Nav() {
       console.log("the token inside nav bar is " + token);
       setLogin(true);
     },
-    token,
+    [token,
     login,
-    role
+    role]
   );
   const user = localStorage.getItem("userdata");
   const userData = JSON.parse(user);
