@@ -26,9 +26,9 @@ app.use(
   })
 );
 
-app.get("/",(req,res)=>{
-  res.send("working")
-})
+app.get("/", (req, res) => {
+  res.send("working");
+});
 // Define Routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);

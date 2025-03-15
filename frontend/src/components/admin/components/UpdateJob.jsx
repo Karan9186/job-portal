@@ -33,6 +33,8 @@ function UpdateJob() {
             method: "get",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("token")}`,
+
             },
             credentials: "include", // for cookies
           }
@@ -56,6 +58,8 @@ function UpdateJob() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+
           },
           credentials: "include",
         }
@@ -103,6 +107,8 @@ function UpdateJob() {
         {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+
           },
           withCredentials: true, // If needed for authentication
         }

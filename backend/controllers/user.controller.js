@@ -220,6 +220,13 @@ export const login = async (req, res) => {
         success: false,
       });
     }
+    const tokendata = {
+      userId: user._id,
+    };
+    const token = await jwt.sign(tokendata, process.env.SECRET_KEY, {
+      expiresIn: "1d",
+    });
+
     user = {
       _id: user._id,
       email: user.email,
@@ -228,12 +235,6 @@ export const login = async (req, res) => {
       phoneNumber: user.phoneNumber,
       profile: user.profile,
     };
-    const tokendata = {
-      userId: user._id,
-    };
-    const token = await jwt.sign(tokendata, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
     return res
       .status(200)
       .cookie("token", token, {
@@ -245,6 +246,7 @@ export const login = async (req, res) => {
         message: `welcome back ${user.fullname}`,
         success: true,
         user,
+        token
       });
   } catch (err) {
     console.log(err);

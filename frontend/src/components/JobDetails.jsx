@@ -13,20 +13,19 @@ function JobDetails() {
   const [checkApp, setCheckApp] = useState(false);
   const currentUserId = id;
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${BACKEND_URL}/api/v1/job/get/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${BACKEND_URL}/api/v1/job/get/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
         const result = await response.json();
         console.log(result.job.application);
         setJobData(result.job);
@@ -36,7 +35,10 @@ function JobDetails() {
             const reponse = await fetch(
               `${BACKEND_URL}/api/v1/application/get`,
               {
-                headers: { "Content-Type": "Application/json" },
+                headers: {
+                  "Content-Type": "Application/json",
+                  Authorization: `Bearer ${token}`,
+                },
                 credentials: "include",
               }
             );
@@ -82,12 +84,14 @@ function JobDetails() {
   // Function to apply for the job
   const applyJobByUser = async (jobId) => {
     try {
+      console.log("tokensd", token);
       const response = await fetch(
         `${BACKEND_URL}/api/v1/application/apply/${jobId}`,
         {
           method: "get",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           credentials: "include",
         }

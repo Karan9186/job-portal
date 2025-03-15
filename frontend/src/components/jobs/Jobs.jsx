@@ -26,6 +26,7 @@ function Jobs() {
           method: "GET",
           headers: {
             "Content-Type": "Application/json",
+              "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -72,6 +73,8 @@ function Jobs() {
           method: "GET",
           headers: {
             "Content-Type": "Application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+
           },
         }
       );

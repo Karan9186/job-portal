@@ -48,7 +48,7 @@ export default function Nav() {
   let [role, setRole] = useState("");
 
   // const token = Cookies.get("token");
-  const token = true
+  const token = localStorage.getItem("token")
   useEffect(
     () => {
       let userData = localStorage.getItem("userdata");
@@ -136,6 +136,7 @@ export default function Nav() {
                                       console.log("called logout");
                                       Cookies.remove("token");
                                       localStorage.removeItem("userdata");
+                                      localStorage.removeItem("token");
                                       Alltoast("logout succesfully", true);
                                       naviagate("/login");
                                       setLogin(false);
@@ -312,6 +313,7 @@ export default function Nav() {
                                     if (item.name == "Sign out") {
                                       Cookies.remove("token");
                                       localStorage.removeItem("userdata");
+                                      localStorage.removeItem("token");
                                       Alltoast("logout succesfully", true);
                                       naviagate("/login");
                                       setLogin(false);
@@ -432,6 +434,7 @@ export default function Nav() {
                           console.log("called logout");
                           Cookies.remove("token");
                           localStorage.removeItem("userdata");
+                          localStorage.removeItem("token");
                           Alltoast("logout succesfully", true);
                           naviagate("/login");
                           setLogin(false);

@@ -9,6 +9,7 @@ import axios from "axios";
 import { FaWindowClose } from "react-icons/fa";
 import { BACKEND_URL } from "../../utils/constant";
 function Profile() {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const user = localStorage.getItem("userdata");
   const userData = JSON.parse(user);
@@ -144,7 +145,10 @@ function Profile() {
     const fetchData = async () => {
       try {
         const reponse = await fetch(`${BACKEND_URL}/api/v1/application/get`, {
-          headers: { "Content-Type": "Application/json" },
+          headers: {
+            "Content-Type": "Application/json",
+            "Authorization": `Bearer ${token}`,
+          },
           credentials: "include",
         });
         const result = await reponse.json();

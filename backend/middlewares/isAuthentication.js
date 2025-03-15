@@ -2,28 +2,38 @@ import jwt from "jsonwebtoken";
 
 const iAuthentication = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    // Get token from Authorization header
+    const authHeader = req.headers.authorization;
+    let token = null;
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1]; // Extract token from "Bearer <token>"
+    }
 
     if (!token) {
       return res.status(401).json({
-        message: "user not authenticated",
-        succsess: false,
+        message: "User not authenticated",
+        success: false,
       });
     }
-    const decode = await jwt.verify(token, process.env.SECRET_KEY);
-    if (!decode) {
+
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decoded) {
       return res.status(401).json({
-        message: "invalid token",
-        succsess: false,
+        message: "Invalid token",
+        success: false,
       });
     }
-    req.id = decode.userId;
 
-    console.log("the id is" + req.id);
+    // Attach user ID to request object
+    req.id = decoded.userId;
+    console.log("User ID:", req.id);
 
-    next();
+    next(); // Proceed to the next middleware
   } catch (err) {
-    console.log(err);
+    console.error("Authentication error:", err);
+    return res.status(500).json({ message: "Server error", success: false });
   }
 };
 

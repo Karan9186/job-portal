@@ -39,7 +39,8 @@ function JobLogin() {
       } else {
         localStorage.setItem("userdata", JSON.stringify(userObj));
         const token = Cookies.get("token");
-        console.log(token);
+        localStorage.setItem("token",data.token)
+        console.log("token??",data.token);
         navigate("/");
         Alltoast(userObj.message, userObj.success);
       }

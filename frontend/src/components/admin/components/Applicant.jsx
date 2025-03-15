@@ -13,6 +13,7 @@ function Applicant() {
   const [jobTitle, setJobTitle] = useState();
   const [appResponse, setAppRespo] = useState();
   const [jobApplicant, setJobApplicant] = useState([]);
+  const token=localStorage.getItem("token")
   function formatDate(date) {
     const options = {
       year: "numeric",
@@ -37,6 +38,8 @@ function Applicant() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+
           },
           body: JSON.stringify({ status: response }), // It's important to send the data as JSON
           credentials: "include",
@@ -59,6 +62,8 @@ function Applicant() {
           method: "GET",
           headers: {
             "Content-Type": "Application/json",
+            "Authorization": `Bearer ${token}`
+
           },
           credentials: "include",
         }

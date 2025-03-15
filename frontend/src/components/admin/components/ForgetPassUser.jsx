@@ -11,6 +11,8 @@ function ForgetPassUser() {
   const [pinEmail, setPinEmail] = useState();
   let [securityCode, setsecurityCode] = useState();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   const handleFordata = async (e) => {
     e.preventDefault();
     try {
@@ -19,16 +21,14 @@ function ForgetPassUser() {
       const user = {
         email: email2,
       };
-      const response = await fetch(
-        `${BACKEND_URL}/api/v1/user/forgotpass`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "Application/json",
-          },
-          body: JSON.stringify(user),
-        }
-      );
+      const response = await fetch(`${BACKEND_URL}/api/v1/user/forgotpass`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(user),
+      });
       const result = await response.json();
       console.log(result);
       if (result.success) {
@@ -57,7 +57,10 @@ function ForgetPassUser() {
         `${BACKEND_URL}/api/v1/user/forgotpassfinal`,
         {
           method: "POST",
-          headers: { "Content-Type": "Application/json" },
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(newUser),
         }
       );

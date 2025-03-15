@@ -7,7 +7,7 @@ import { BACKEND_URL } from "../../../utils/constant";
 function AddJob() {
   const navigate = useNavigate();
   const [companies, setCompany] = useState([]); // Fixed typo from "companise" to "companies"
-
+  const token=localStorage.getItem("token")
   const [login, setLoading] = useState(false);
   const [companyError, setCompanyError] = useState(false); // State to manage error
   // State for each input field
@@ -32,6 +32,7 @@ function AddJob() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
             },
             credentials: "include", // for cookies
           }
@@ -84,6 +85,8 @@ function AddJob() {
         {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+
           },
           withCredentials: true, // If needed for authentication
         }

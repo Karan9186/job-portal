@@ -6,6 +6,8 @@ import AdminLoading from "./AdminLoading";
 import { BACKEND_URL } from "../../../utils/constant";
 function HomeList() {
   const [loading, setLoad] = useState(false);
+  const token=localStorage.getItem("token")
+
   const truncateDescription = (description, limit) => {
     if (description.length > limit) {
       return description.slice(0, limit) + "......"; // Truncate and add "......"
@@ -26,6 +28,8 @@ function HomeList() {
         {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+
           },
           withCredentials: true,
         }

@@ -11,7 +11,7 @@ function AddCompany() {
   const Location = useRef("");
   const Logo = useRef(null); // Change ref type to null for file input
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
   const handlesubmit = async (e) => {
     e.preventDefault();
 
@@ -34,6 +34,7 @@ function AddCompany() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }

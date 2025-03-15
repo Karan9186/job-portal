@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import { BACKEND_URL } from "../utils/constant";
 
 function LatestOpening() {
+  const token=localStorage.getItem("token")
   // Function to truncate text to 20 words
   const truncateDescription = (description, limit) => {
     if (description.length > limit) {
@@ -23,6 +24,8 @@ function LatestOpening() {
           method: "get",
           headers: {
             "Content-Type": "Application/json",
+            "Authorization": `Bearer ${token}`
+
           },
           credentials: "include",
         }
@@ -48,6 +51,7 @@ function LatestOpening() {
           method: "GET",
           headers: {
             "Content-Type": "Application/json",
+            "Authorization": `Bearer ${token}`
           },
         }
       );
