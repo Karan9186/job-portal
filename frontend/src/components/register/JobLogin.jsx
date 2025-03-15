@@ -25,7 +25,7 @@ function JobLogin() {
       const response = await fetch(`${BACKEND_URL}/api/v1/user/login`, {
         method: "POST",
         body: JSON.stringify(user),
-        credentials: "include",
+        // credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

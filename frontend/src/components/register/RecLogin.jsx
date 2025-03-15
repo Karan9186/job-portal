@@ -23,7 +23,7 @@ function RecLogin() {
         `${BACKEND_URL}/api/v1/recruiter/login`,
         {
           method: "POST",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
