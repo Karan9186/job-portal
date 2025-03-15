@@ -48,21 +48,16 @@ export default function Nav() {
   let [role, setRole] = useState("");
 
   // const token = Cookies.get("token");
-  const token = localStorage.getItem("token")
-  useEffect(
-    () => {
-      let userData = localStorage.getItem("userdata");
-      let userObj = JSON.parse(userData);
-      setRole(userObj?.user?.role);
-      console.log(role);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    let userData = localStorage.getItem("userdata");
+    let userObj = JSON.parse(userData);
+    setRole(userObj?.user?.role);
+    console.log(role);
 
-      console.log("the token inside nav bar is " + token);
-      setLogin(true);
-    },
-    [token,
-    login,
-    role]
-  );
+    console.log("the token inside nav bar is " + token);
+    setLogin(true);
+  }, [token, login, role]);
   const user = localStorage.getItem("userdata");
   const userData = JSON.parse(user);
 
@@ -188,7 +183,7 @@ export default function Nav() {
 
             <DisclosurePanel className="md:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navigation.map((item) => (
+                {navigation.map((item) => (
                   <DisclosureButton
                     key={item.name}
                     as="a"
@@ -398,57 +393,68 @@ export default function Nav() {
                   </DisclosureButton>
                 ))}
               </div>
-              <div className="border-t border-gray-700 pb-3 pt-4">
-                <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <img
-                      alt=""
-                      src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
-                      className="h-10 w-10 rounded-full"
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
-                      {/* {user.name} */}
+              {login == true && token ? (
+                <div className="border-t border-gray-700 pb-3 pt-4">
+                  <div className="flex items-center px-5">
+                    <div className="flex-shrink-0">
+                      <img
+                        alt=""
+                        src={`${BACKEND_URL}/uploads/${userData?.user?.profile?.profilePhoto}`}
+                        className="h-10 w-10 rounded-full"
+                      />
                     </div>
-                    <div className="text-sm font-medium leading-none text-gray-400">
-                      {/* {user.email} */}
+                    <div className="ml-3">
+                      <div className="text-base font-medium leading-none text-white">
+                        {/* {user.name} */}
+                      </div>
+                      <div className="text-sm font-medium leading-none text-gray-400">
+                        {/* {user.email} */}
+                      </div>
                     </div>
                   </div>
-                  {/* <button
-                    type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full p-1 bg-slate-200"
+                  <div className="mt-3 space-y-1 px-2">
+                    {userNavigation.map((item) => (
+                      <DisclosureButton
+                        key={item.name}
+                        as="a"
+                        onClick={() => {
+                          if (item.name == "Sign out") {
+                            console.log("called logout");
+                            Cookies.remove("token");
+                            localStorage.removeItem("userdata");
+                            localStorage.removeItem("token");
+                            Alltoast("logout succesfully", true);
+                            naviagate("/login");
+                            setLogin(false);
+                          } else {
+                            naviagate(`${item.link}`);
+                          }
+                        }}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {item.name}
+                      </DisclosureButton>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <DisclosureButton
+                    className="block rounded-md px-3 w-full bg-slate-500 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
+                    onClick={() => {
+                      naviagate("/login");
+                    }}
                   >
-                    <span className="absolute -inset-1.5" />
-                    <IoNotificationsOutline size={"22px"} />
-                    <span className="sr-only">View notifications</span>
-                  </button> */}
+                    Login
+                  </DisclosureButton>
+                  <DisclosureButton className="block mt-3 mb-3 rounded-md px-3 w-full bg-red-600 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white" 
+                  onClick={() => {
+                    naviagate("/register");
+                  }}>
+                    Register
+                  </DisclosureButton>
                 </div>
-                <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
-                    <DisclosureButton
-                      key={item.name}
-                      as="a"
-                      onClick={() => {
-                        if (item.name == "Sign out") {
-                          console.log("called logout");
-                          Cookies.remove("token");
-                          localStorage.removeItem("userdata");
-                          localStorage.removeItem("token");
-                          Alltoast("logout succesfully", true);
-                          naviagate("/login");
-                          setLogin(false);
-                        } else {
-                          naviagate(`${item.link}`);
-                        }
-                      }}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                    >
-                      {item.name}
-                    </DisclosureButton>
-                  ))}
-                </div>
-              </div>
+              )}
             </DisclosurePanel>
           </Disclosure>
         </div>

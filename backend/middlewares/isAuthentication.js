@@ -29,6 +29,7 @@ const iAuthentication = async (req, res, next) => {
     // Attach user ID to request object
     req.id = decoded.userId;
     console.log("User ID:", req.id);
+    console.log("called application")
 
     next(); // Proceed to the next middleware
   } catch (err) {

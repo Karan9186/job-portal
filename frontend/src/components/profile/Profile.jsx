@@ -149,7 +149,7 @@ function Profile() {
             "Content-Type": "Application/json",
             "Authorization": `Bearer ${token}`,
           },
-          credentials: "include",
+          // credentials: "include",
         });
         const result = await reponse.json();
         setAppData(result.application);

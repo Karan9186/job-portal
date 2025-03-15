@@ -11,7 +11,7 @@ export const applyJob = async (req, res) => {
         success: false,
       });
     }
-    console.log(userId);
+    console.log("userId",userId);
 
     // user hash already aply checking here
     const existingApply = await Application.findOne({

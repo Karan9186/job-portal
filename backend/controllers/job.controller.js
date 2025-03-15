@@ -161,6 +161,7 @@ export const getAllJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
+    console.log("called")
     const job = await Job.findById(jobId)
       .populate({
         path: "company",
